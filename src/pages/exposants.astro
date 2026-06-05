@@ -31,18 +31,17 @@ const poles = [
     <a href="/" class="nav-links" style="font-family:var(--f-body);font-size:12px;font-weight:600;color:var(--truffe);opacity:.7;text-decoration:none;white-space:nowrap">← Accueil</a>
     <div class="nav-links" style="display:flex;align-items:center;gap:12px;margin:0 4px;flex-wrap:nowrap">
       {[
-        ['#concept','CONCEPT'],
-        ['#edition-2','ÉDITION 2'],
-        ['#pourquoi-exposer','POURQUOI EXPOSER'],
-        ['#logistique','LOGISTIQUE'],
-        ['#com-solidaire','COM & SOLIDAIRE'],
-        ['#faq','FAQ']
+        ['/#pourquoi','LE WOOF DAY'],
+        ['/#zones','PROGRAMME'],
+        ['/#exposants','LE VILLAGE'],
+        ['/#infos','INFOS PRATIQUES'],
+        ['/#faq','FAQ']
       ].map(([h,l]) => (
         <a href={h} style="font-family:var(--f-body);font-size:10px;font-weight:700;color:var(--truffe);text-decoration:none;opacity:.6;letter-spacing:0.05em;white-space:nowrap" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity='.6'">{l}</a>
       ))}
     </div>
     <a href="/sponsor" class="nav-links" style="font-family:var(--f-body);font-size:12px;font-weight:700;color:var(--vert);text-decoration:none;background:rgba(38,66,43,.1);border:1.5px solid rgba(38,66,43,.3);border-radius:var(--r-pill);padding:6px 12px;white-space:nowrap">Devenir sponsor 🤝</a>
-    <a href="#form-exposant" class="btn btn-terre" style="font-size:13px;padding:8px 18px;white-space:nowrap">Devenir exposant 🏪</a>
+    <a href="#form-exposant" class="btn btn-terre" style="font-size:13px;padding:8px 18px;white-space:nowrap">Je suis intéressé 🐾</a>
   </div>
 </nav>
 

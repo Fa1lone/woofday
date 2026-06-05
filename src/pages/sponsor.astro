@@ -93,17 +93,17 @@ const goodies = [
     <a href="/" class="nav-links" style="font-family:var(--f-body);font-size:12px;font-weight:600;color:var(--truffe);opacity:.7;text-decoration:none;white-space:nowrap">← Accueil</a>
     <div class="nav-links" style="display:flex;align-items:center;gap:12px;margin:0 4px;flex-wrap:nowrap">
       {[
-        ['#esprit','L\'ESPRIT WOOF DAY'],
-        ['#budget','BUDGET'],
-        ['#marketing','MARKETING'],
-        ['#packs','PACKS PARTENAIRES'],
-        ['#form-sponsor','CONTACT']
+        ['/#pourquoi','LE WOOF DAY'],
+        ['/#zones','PROGRAMME'],
+        ['/#exposants','LE VILLAGE'],
+        ['/#infos','INFOS PRATIQUES'],
+        ['/#faq','FAQ']
       ].map(([h,l]) => (
         <a href={h} style="font-family:var(--f-body);font-size:10px;font-weight:700;color:var(--truffe);text-decoration:none;opacity:.6;letter-spacing:0.05em;white-space:nowrap" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity='.6'">{l}</a>
       ))}
     </div>
     <a href="/exposants" class="nav-links" style="font-family:var(--f-body);font-size:12px;font-weight:700;color:var(--terre);text-decoration:none;background:rgba(222,108,73,.1);border:1.5px solid rgba(222,108,73,.35);border-radius:var(--r-pill);padding:6px 12px;white-space:nowrap">Devenir exposant 🏪</a>
-    <a href="#form-sponsor" class="btn btn-vert" style="font-size:13px;padding:8px 18px;white-space:nowrap">Devenir sponsor 🤝</a>
+    <a href="#form-sponsor" class="btn btn-vert" style="font-size:13px;padding:8px 18px;white-space:nowrap">Je suis intéressé 🐾</a>
   </div>
 </nav>
 
