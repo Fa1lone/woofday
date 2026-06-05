@@ -1,154 +1,661 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import DoodleMark from '../components/DoodleMark.astro';
+import LogoTicker from '../components/LogoTicker.astro';
 
 const poles = [
-  'Alimentation & Nutrition',
-  'Bien-être & Santé naturelle',
-  'Éducation & Comportement',
-  'Accessoires & Mode',
-  'Toilettage & Soins',
-  'Associations & Refuge',
-  'Artisanat & Création',
-  'Autre',
+  { icon: '🎓', nom: 'Éducation & Relation',     desc: 'Éducateurs, comportementalistes, agility, obéissance positive.' },
+  { icon: '💚', nom: 'Santé & Bien-être',         desc: 'Vétérinaires, ostéopathes, physiothérapie, relaxation, spa.' },
+  { icon: '🥣', nom: 'Nutrition & Alimentation',  desc: 'Alimentation naturelle, croquettes artisanales, friandises, barf.' },
+  { icon: '🏃', nom: 'Activités & Fun',           desc: 'Sport canin, aquatique, randonnée, jeux, photography.' },
+  { icon: '🧶', nom: 'Artisanat & Accessoires',   desc: 'Créateurs de colliers, laisses, vêtements, bijoux, artisanat.' },
+  { icon: '❤️', nom: 'Associations & Solidarité', desc: 'Refuges, associations, bénévolat, adoption, protection animale.' },
 ];
 ---
 
 <Layout title="Devenir Exposant — Woof Day 2026" description="Rejoignez le Woof Day comme exposant le 13 septembre 2026 à Ambérac. Réservez votre stand pour l'édition 2.">
-  <!-- NAV simple -->
-  <nav class="fixed top-3 left-1/2 -translate-x-1/2 z-50 w-[calc(100%-2rem)] max-w-5xl bg-[#fdfaf4]/90 backdrop-blur-md border border-[#e8e5a8] rounded-full px-6 py-3 flex items-center justify-between shadow-sm">
-    <a href="/" class="flex items-center gap-2">
-      <img src="/logos/logo-couleur.svg" alt="Woof Day" class="h-8 w-auto" />
-    </a>
-    <a href="/" class="text-sm font-semibold text-[#69322d] hover:text-[#de6c49] transition-colors" style="font-family: 'Poppins', sans-serif">← Retour au site</a>
-  </nav>
 
-  <!-- HERO -->
-  <section class="pt-32 pb-16 px-4 bg-[#de6c49] text-white text-center paw-bg relative overflow-hidden">
-    <div class="absolute inset-0 bg-[#de6c49]/80"></div>
-    <div class="relative z-10 max-w-2xl mx-auto">
-      <div class="inline-block bg-white/20 text-white text-xs font-bold uppercase tracking-widest px-4 py-2 rounded-full mb-6" style="font-family: 'Poppins', sans-serif">Édition 2 · 13 sept. 2026</div>
-      <h1 class="text-5xl md:text-6xl font-bold mb-4" style="font-family: 'Fredoka', sans-serif">Devenir Exposant</h1>
-      <p class="text-xl text-white/80 max-w-lg mx-auto" style="font-family: 'Poppins', sans-serif">
-        Réservez votre stand au Woof Day et rencontrez des centaines d'amoureux des chiens en Charente.
-      </p>
+<!-- NAV -->
+<nav style="
+  position:fixed;top:16px;left:50%;translate:-50% 0;z-index:100;
+  width:min(calc(100% - 32px),1100px);
+  background:rgba(243,241,199,.92);backdrop-filter:blur(12px);
+  border:1.5px solid var(--creme-dark);border-radius:var(--r-pill);
+  padding:10px 20px;display:flex;align-items:center;justify-content:space-between;
+">
+  <a href="/" style="display:flex;align-items:center;gap:10px;text-decoration:none">
+    <img src="/logos/tete-chien.svg" alt="" style="height:32px" />
+    <span style="font-family:var(--f-head);font-weight:700;font-size:18px;color:var(--truffe)">Woof Day</span>
+  </a>
+  <div style="display:flex;align-items:center;gap:12px;flex-wrap:nowrap">
+    <a href="/" class="nav-links" style="font-family:var(--f-body);font-size:12px;font-weight:600;color:var(--truffe);opacity:.7;text-decoration:none;white-space:nowrap">← Accueil</a>
+    <div class="nav-links" style="display:flex;align-items:center;gap:12px;margin:0 4px;flex-wrap:nowrap">
+      {[
+        ['#concept','CONCEPT'],
+        ['#edition-2','ÉDITION 2'],
+        ['#pourquoi-exposer','POURQUOI EXPOSER'],
+        ['#logistique','LOGISTIQUE'],
+        ['#com-solidaire','COM & SOLIDAIRE'],
+        ['#faq','FAQ']
+      ].map(([h,l]) => (
+        <a href={h} style="font-family:var(--f-body);font-size:10px;font-weight:700;color:var(--truffe);text-decoration:none;opacity:.6;letter-spacing:0.05em;white-space:nowrap" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity='.6'">{l}</a>
+      ))}
     </div>
-  </section>
+    <a href="/sponsor" class="nav-links" style="font-family:var(--f-body);font-size:12px;font-weight:700;color:var(--vert);text-decoration:none;background:rgba(38,66,43,.1);border:1.5px solid rgba(38,66,43,.3);border-radius:var(--r-pill);padding:6px 12px;white-space:nowrap">Devenir sponsor 🤝</a>
+    <a href="#form-exposant" class="btn btn-terre" style="font-size:13px;padding:8px 18px;white-space:nowrap">Devenir exposant 🏪</a>
+  </div>
+</nav>
 
-  <!-- AVANTAGES -->
-  <section class="py-16 px-4">
-    <div class="max-w-5xl mx-auto">
-      <div class="grid sm:grid-cols-3 gap-6 mb-16">
+<!-- HERO -->
+<section style="
+  min-height:80svh;padding:120px clamp(20px,5vw,40px) clamp(120px,20vw,200px);
+  background:var(--terre);color:#fff;text-align:center;
+  position:relative;overflow:hidden;
+">
+  <!-- Paw watermarks grands — fond -->
+  <div class="paw-mark" style="left:-6%;top:-8%;transform:rotate(-15deg);opacity:.12">🐾</div>
+  <div class="paw-mark" style="right:-4%;top:10%;transform:rotate(20deg);opacity:.1">🐾</div>
+  <div class="paw-mark" style="left:5%;bottom:10%;transform:rotate(-5deg);opacity:.07">🐾</div>
+
+  <!-- Floating paws -->
+  <div class="paw-float" style="--paw-dur:8s;--paw-delay:0s;top:15%;left:8%;font-size:28px;color:rgba(255,255,255,.14);transform:rotate(-12deg)">🐾</div>
+  <div class="paw-float" style="--paw-dur:7s;--paw-delay:2s;top:55%;right:10%;font-size:22px;color:rgba(255,255,255,.1);transform:rotate(15deg)">🐾</div>
+  <div class="paw-float" style="--paw-dur:9s;--paw-delay:1s;top:35%;left:3%;font-size:16px;color:rgba(255,255,255,.08);transform:rotate(-20deg)">🐾</div>
+
+  <!-- Contenu centré -->
+  <div style="position:relative;z-index:3;max-width:700px;margin:0 auto">
+    <div data-reveal style="margin-bottom:20px">
+      <span style="background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.3);border-radius:var(--r-pill);padding:6px 16px;font-family:var(--f-body);font-size:12px;font-weight:600">Édition 2 · 13 sept. 2026</span>
+    </div>
+    <h1 data-reveal data-delay="1" style="font-family:var(--f-head);font-size:clamp(44px,8vw,80px);font-weight:700;margin-bottom:16px;line-height:1.0">Devenir Exposant</h1>
+    <p data-reveal data-delay="2" style="font-family:var(--f-body);font-size:clamp(16px,2.5vw,20px);opacity:.85;max-width:50ch;margin:0 auto 28px;line-height:1.65">
+      Réservez votre stand au Woof Day et rencontrez des centaines d'amoureux des chiens en Charente.
+    </p>
+    <!-- Stat pills -->
+    <div data-reveal data-delay="3" style="display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-bottom:32px">
+      {['✅ Éd.1 : 800 visiteurs','🚀 Éd.2 : 1200+ visés','⏱️ Réponse sous 72h','⚠️ Places limitées par pôle'].map(t => (
+        <span style="background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.3);border-radius:var(--r-pill);padding:7px 14px;font-family:var(--f-body);font-size:12px;font-weight:600">{t}</span>
+      ))}
+    </div>
+    <div data-reveal data-delay="4" style="position:relative;display:inline-flex;isolation:isolate;margin-top:24px">
+      <DoodleMark variant="circle" color="rgba(255,255,255,.5)" style="left:50%;top:50%;width:calc(100% + 78px);height:auto;translate:-50% -50%;transform:rotate(-2deg)" />
+      <DoodleMark variant="burst" color="rgba(255,255,255,.55)" style="right:-34px;top:-50px;width:72px;height:auto;transform:rotate(16deg)" />
+      <a href="#form-exposant" class="btn" style="position:relative;background:rgba(255,255,255,.95);color:var(--terre);font-size:clamp(16px,2.5vw,20px);padding:18px 42px;box-shadow:0 8px 32px rgba(0,0,0,.25)">
+        Candidater maintenant 🏪
+      </a>
+    </div>
+  </div>
+
+  <!-- Border collie face terre — fond orange, centré bas -->
+  <div class="dog-deco" style="position:absolute;bottom:clamp(-230px,-18vw,-150px);right:clamp(-170px,-8vw,-70px);width:fit-content;pointer-events:none;line-height:0;z-index:1">
+    <img src="/images/dog-border-collie-sit-orange.png" alt="" aria-hidden="true"
+      style="width:clamp(230px,29vw,410px);display:block;filter:drop-shadow(0 -12px 40px rgba(0,0,0,.3));" />
+  </div>
+
+  <!-- Annotation bubble gauche "Réserver votre stand" -->
+  <div style="position:absolute;bottom:clamp(80px,18vw,180px);left:clamp(20px,7%,80px);z-index:4;pointer-events:none">
+    <div style="font-family:var(--f-hand);font-size:clamp(14px,2vw,18px);color:rgba(255,255,255,.85);border:2.5px solid rgba(255,255,255,.45);border-radius:50%;padding:14px 22px;transform:rotate(-6deg);text-align:center;line-height:1.4;display:inline-block;position:relative">
+      Réserver votre stand<br/>pour l'édition 2 !
+      <DoodleMark variant="arrow" color="white" style="position:absolute;bottom:-40px;right:-10px;width:44px;height:auto;transform:rotate(10deg);opacity:.55" />
+    </div>
+  </div>
+
+  <!-- Slant bottom -->
+  <div style="position:absolute;bottom:-1px;left:0;right:0;height:60px;background:var(--bg);clip-path:polygon(0 100%,100% 0,100% 100%)"></div>
+</section>
+
+<LogoTicker />
+
+<!-- GALERIE ÉD.1 — preuve sociale -->
+<section id="edition-2" class="sec" style="background:var(--bg)">
+  <div class="inner">
+    <div style="text-align:center;margin-bottom:clamp(28px,4vw,48px)">
+      <div data-reveal style="margin-bottom:16px"><span class="chip chip-terre">Édition précédente</span></div>
+      <h2 data-reveal data-delay="1" style="font-size:clamp(28px,4vw,44px);color:var(--truffe)">La preuve que ça marche</h2>
+    </div>
+    <!-- Stats -->
+    <div data-reveal style="display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:12px;margin-bottom:32px">
+      {[
+        { val: '800', label: 'visiteurs Éd.1', bg: 'var(--truffe)', color: '#fff' },
+        { val: '1200+', label: 'objectif Éd.2', bg: 'var(--terre)', color: '#fff' },
+        { val: '30+', label: 'exposants pionniers', bg: 'var(--vert)', color: '#fff' },
+      ].map(s => (
+        <div style={`background:${s.bg};color:${s.color};border-radius:var(--r-lg);padding:28px;text-align:center`}>
+          <div style="font-family:var(--f-head);font-size:clamp(36px,5vw,54px);font-weight:700;line-height:1">{s.val}</div>
+          <div style="font-family:var(--f-body);font-size:13px;opacity:.75;margin-top:6px;text-transform:uppercase;letter-spacing:.08em;font-weight:600">{s.label}</div>
+        </div>
+      ))}
+    </div>
+    <!-- Photos ambiance -->
+    <div style="display:grid;grid-template-columns:2fr 1fr;grid-template-rows:auto auto;gap:12px">
+      <div style="grid-row:1/3;border-radius:var(--r-xl);overflow:hidden;min-height:280px">
+        <img src="/images/woofday-ambiance-01.webp" alt="Ambiance Woof Day" style="width:100%;height:100%;object-fit:cover" loading="lazy" />
+      </div>
+      <div style="border-radius:var(--r-lg);overflow:hidden;min-height:130px">
+        <img src="/images/woofday-ambiance-02.webp" alt="Chien au Woof Day" style="width:100%;height:100%;object-fit:cover" loading="lazy" />
+      </div>
+      <div style="border-radius:var(--r-lg);overflow:hidden;min-height:130px">
+        <img src="/images/woofday-ambiance-04.webp" alt="Stand exposant" style="width:100%;height:100%;object-fit:cover" loading="lazy" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- POURQUOI EXPOSER -->
+<section id="pourquoi-exposer" class="sec" style="background:var(--creme)">
+  <div class="inner">
+    <div style="text-align:center;margin-bottom:clamp(28px,4vw,48px)">
+      <div data-reveal style="margin-bottom:16px"><span class="chip chip-truffe">Pourquoi venir</span></div>
+      <h2 data-reveal data-delay="1" style="font-size:clamp(28px,4vw,44px);color:var(--truffe)">Ce que vous gagnez</h2>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px">
+      {[
+        { icon: '👥', titre: 'Une audience qualifiée', desc: 'Des centaines de visiteurs passionnés par les chiens et le bien-être animal. Votre cœur de cible.' },
+        { icon: '📍', titre: 'Un emplacement premium', desc: 'Stand bien situé dans les zones thématiques. Plan de village pensé pour le flux visiteurs.' },
+        { icon: '📸', titre: 'Kit media offert', desc: 'Visuels Story, Post, Affiche PDF et Bannière email fournis gratuitement pour préparer votre communication.' },
+        { icon: '❤️', titre: 'Une cause commune', desc: 'L\'événement reverse 100% des bénéfices nets au Refuge. Un argument fort auprès de votre audience.' },
+      ].map((a, i) => (
+        <div data-reveal data-delay={String(i + 1)} style="background:#fff;border-radius:var(--r-xl);padding:28px;border:1.5px solid var(--creme-dark)">
+          <div style="font-size:36px;margin-bottom:12px">{a.icon}</div>
+          <h3 style="font-family:var(--f-head);font-size:20px;font-weight:700;color:var(--truffe);margin-bottom:8px">{a.titre}</h3>
+          <p style="font-family:var(--f-body);font-size:14px;line-height:1.7;color:var(--truffe);opacity:.75">{a.desc}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- NOUVEAUTÉS 2026 -->
+<section class="sec" style="background:var(--vert);color:#fff">
+  <div class="inner">
+    <div style="text-align:center;margin-bottom:clamp(28px,4vw,48px)">
+      <div data-reveal style="margin-bottom:16px"><span class="chip chip-white">Nouveautés</span></div>
+      <h2 data-reveal data-delay="1" style="font-size:clamp(28px,4vw,44px)">Ce qui change pour l'Éd.2</h2>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px">
+      {[
+        { icon: '⚙️', titre: 'Organisation Fluide', desc: 'Plan de village revu. Installation simplifiée. Référent dédié à chaque exposant.' },
+        { icon: '🗺️', titre: 'Village Lisible', desc: 'Signalétique repensée. Les visiteurs trouvent facilement votre stand.' },
+        { icon: '💧', titre: 'Zone Fraîcheur', desc: 'Point eau pour les chiens à chaque zone. Accès eau potable garantit.' },
+        { icon: '🎯', titre: 'Jeux & Concours', desc: 'Programme d\'animations renforcé pour amener du passage sur tous les stands.' },
+      ].map((n, i) => (
+        <div data-reveal data-delay={String(i + 1)} style="background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);border-radius:var(--r-lg);padding:24px">
+          <div style="font-size:32px;margin-bottom:12px">{n.icon}</div>
+          <h3 style="font-family:var(--f-head);font-size:18px;font-weight:700;margin-bottom:8px">{n.titre}</h3>
+          <p style="font-family:var(--f-body);font-size:13px;opacity:.8;line-height:1.65">{n.desc}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- LE HACK VISIBILITÉ -->
+<section class="sec" style="background:var(--bg)">
+  <div class="inner">
+    <div data-reveal style="background:var(--terre);color:#fff;border-radius:var(--r-xl);padding:clamp(28px,5vw,48px);position:relative;overflow:hidden">
+      <img src="/logos/tete-chien.svg" alt="" aria-hidden="true" style="position:absolute;right:-5%;bottom:-15%;width:35%;opacity:.08;filter:brightness(0) invert(1);pointer-events:none"/>
+      <div style="position:relative;z-index:1;max-width:680px">
+        <span style="background:rgba(255,255,255,.2);border-radius:var(--r-pill);padding:6px 14px;font-family:var(--f-body);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.12em;margin-bottom:20px;display:inline-block">
+          💡 Le hack visibilité
+        </span>
+        <h2 style="font-family:var(--f-head);font-size:clamp(28px,4vw,44px);font-weight:700;margin-bottom:16px;line-height:1.1">Gagnez des abonnés<br/><em>avant</em> le jour J</h2>
+        <p style="font-family:var(--f-body);font-size:15px;line-height:1.8;opacity:.9;margin-bottom:24px">
+          Les exposants qui proposent un <strong>lot pour la tombola</strong> ou un <strong>jeu concours Instagram</strong> voient leur audience gonfler avant même l'événement. Les visiteurs viennent <em>spécialement</em> sur votre stand récupérer leur gain.
+        </p>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+          {[
+            { icon: '🎁', titre: 'Lot tombola', desc: 'Le gagnant VIENT sur votre stand récupérer son lot le jour J.' },
+            { icon: '📱', titre: 'Jeu concours', desc: 'Partagez sur Instagram avant l\'événement, récoltez des abonnés qualifiés.' },
+          ].map(h => (
+            <div style="background:rgba(255,255,255,.12);border-radius:var(--r-lg);padding:20px">
+              <div style="font-size:28px;margin-bottom:8px">{h.icon}</div>
+              <h3 style="font-family:var(--f-head);font-size:17px;font-weight:700;margin-bottom:6px">{h.titre}</h3>
+              <p style="font-family:var(--f-body);font-size:13px;opacity:.85;line-height:1.6">{h.desc}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AVANTAGES -->
+<section id="concept" class="sec" style="background:var(--creme)">
+  <div class="inner">
+    <div style="text-align:center;margin-bottom:clamp(28px,4vw,48px)">
+      <div data-reveal style="margin-bottom:16px"><span class="chip chip-vert">Organisation</span></div>
+      <h2 data-reveal data-delay="1" style="font-size:clamp(28px,4vw,44px);color:var(--truffe)">6 pôles thématiques</h2>
+      <p data-reveal data-delay="2" style="font-family:var(--f-body);font-size:15px;color:var(--truffe);opacity:.7;margin-top:10px;max-width:52ch;margin-left:auto;margin-right:auto">Le village est organisé en pôles. Vous êtes regroupés avec des exposants complémentaires, jamais en concurrence directe.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px">
+      {poles.map((p, i) => (
+        <div data-reveal data-delay={String((i % 3) + 1)} style="background:#fff;border-radius:var(--r-lg);padding:24px;border:1.5px solid var(--creme-dark)">
+          <div style="font-size:32px;margin-bottom:10px">{p.icon}</div>
+          <h3 style="font-family:var(--f-head);font-size:18px;font-weight:700;color:var(--truffe);margin-bottom:6px">{p.nom}</h3>
+          <p style="font-family:var(--f-body);font-size:13px;line-height:1.65;color:var(--truffe);opacity:.7">{p.desc}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- LOGISTIQUE -->
+<section id="logistique" class="sec" style="background:var(--bg)">
+  <div class="inner">
+    <div style="text-align:center;margin-bottom:clamp(28px,4vw,48px)">
+      <div data-reveal style="margin-bottom:16px"><span class="chip chip-terre">Organisation</span></div>
+      <h2 data-reveal data-delay="1" style="font-size:clamp(28px,4vw,44px);color:var(--truffe)">Logistique & pratique</h2>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px">
+      <!-- Horaires -->
+      <div data-reveal style="background:var(--truffe);color:#fff;border-radius:var(--r-xl);padding:28px">
+        <h3 style="font-family:var(--f-head);font-size:20px;font-weight:700;margin-bottom:16px">⏰ Horaires</h3>
         {[
-          { icon: '👥', title: 'Une audience qualifiée', desc: 'Des centaines de visiteurs passionnés par les chiens et le bien-être animal' },
-          { icon: '📍', title: 'Un emplacement premium', desc: 'Stand visible, bien situé dans les zones thématiques de l\'événement' },
-          { icon: '❤️', title: 'Une cause commune', desc: 'Participez à un événement solidaire au profit du Refuge de l\'Angoumois' },
-        ].map(a => (
-          <div class="reveal bg-[#f3f1c7] rounded-3xl p-6 text-center">
-            <div class="text-4xl mb-3">{a.icon}</div>
-            <h3 class="font-bold text-[#69322d] text-lg mb-2" style="font-family: 'Fredoka', sans-serif">{a.title}</h3>
-            <p class="text-sm text-[#69322d]/70" style="font-family: 'Poppins', sans-serif">{a.desc}</p>
+          ['Veille (12 sept.)', '16h – 19h', 'Installation possible'],
+          ['Jour J (13 sept.)', '7h – 9h', 'Tout doit être prêt à 9h'],
+          ['Ouverture public', '10h – 18h', '—'],
+          ['Démontage', 'Dès 18h', 'Retrait le même jour'],
+        ].map(([jour, heure, note]) => (
+          <div style="display:flex;gap:12px;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.1);align-items:baseline">
+            <div style="flex:1;font-family:var(--f-body);font-size:13px;opacity:.75">{jour}</div>
+            <div style="font-family:var(--f-head);font-size:16px;font-weight:700">{heure}</div>
           </div>
         ))}
       </div>
+      <!-- Formats stands -->
+      <div data-reveal data-delay="2" style="background:var(--creme);border-radius:var(--r-xl);padding:28px">
+        <h3 style="font-family:var(--f-head);font-size:20px;font-weight:700;color:var(--truffe);margin-bottom:16px">📐 Formats de stand</h3>
+        {[
+          ['Petit', '3 m²', 'Artisanat, asso, créateurs'],
+          ['Standard', '6 m²', 'Professionnels, services'],
+          ['Grand', '9 m²+', 'Marques, démonstrations'],
+        ].map(([nom, surface, cible]) => (
+          <div style="padding:12px 0;border-bottom:1px solid var(--creme-dark)">
+            <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:3px">
+              <span style="font-family:var(--f-head);font-size:16px;font-weight:700;color:var(--truffe)">{nom}</span>
+              <span style="font-family:var(--f-body);font-size:13px;font-weight:600;color:var(--terre)">{surface}</span>
+            </div>
+            <p style="font-family:var(--f-body);font-size:12px;color:var(--truffe);opacity:.65">{cible}</p>
+          </div>
+        ))}
+      </div>
+      <!-- Checklist -->
+      <div data-reveal data-delay="3" style="background:var(--vert);color:#fff;border-radius:var(--r-xl);padding:28px">
+        <h3 style="font-family:var(--f-head);font-size:20px;font-weight:700;margin-bottom:16px">✅ À prévoir</h3>
+        {[
+          'Barnum obligatoire (lestage)',
+          'TPE ou Lydia pour les paiements',
+          'Tables et chaises (non fournies)',
+          'Sacs poubelle pour votre stand',
+          'Eau pour votre chien',
+          'Électricité limitée (sur demande, payant)',
+        ].map(item => (
+          <div style="display:flex;align-items:center;gap:10px;padding:8px 0;font-family:var(--f-body);font-size:13px;opacity:.9;border-bottom:1px solid rgba(255,255,255,.1)">
+            <span style="flex-shrink:0;width:20px;height:20px;border-radius:6px;background:rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;font-size:11px">✓</span>
+            {item}
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
 
-      <!-- FORM -->
-      <div class="max-w-2xl mx-auto reveal">
-        <h2 class="text-3xl font-bold text-[#69322d] text-center mb-8" style="font-family: 'Fredoka', sans-serif">Candidater comme exposant</h2>
-        <form id="exposant-form" class="bg-white rounded-3xl p-8 shadow-sm border border-[#e8e5a8] space-y-5">
-          <div class="grid sm:grid-cols-2 gap-4">
+<!-- CHARTE ÉTHIQUE -->
+<section class="sec" style="background:var(--creme)">
+  <div class="inner-sm">
+    <div data-reveal style="background:#fff;border-radius:var(--r-xl);padding:clamp(24px,4vw,40px);border:1.5px solid var(--creme-dark)">
+      <h3 style="font-family:var(--f-head);font-size:24px;font-weight:700;color:var(--truffe);margin-bottom:8px">⚖️ Charte éthique</h3>
+      <p style="font-family:var(--f-body);font-size:15px;color:var(--truffe);opacity:.8;line-height:1.7;margin-bottom:20px">
+        Le Woof Day est un événement engagé pour le bien-être animal. Tous les exposants s'engagent à respecter des principes éthiques clairs.
+      </p>
+      <button id="toggle-charte" style="background:none;border:2px solid var(--creme-dark);border-radius:var(--r-pill);padding:10px 20px;font-family:var(--f-body);font-size:13px;font-weight:600;color:var(--truffe);cursor:pointer;transition:all .2s" onmouseover="this.style.background='var(--creme)'" onmouseout="this.style.background=''">
+        Voir ce qui est interdit ▾
+      </button>
+      <div id="charte-content" style="display:none;margin-top:16px">
+        <p style="font-family:var(--f-body);font-size:13px;font-weight:700;color:var(--truffe);opacity:.6;text-transform:uppercase;letter-spacing:.1em;margin-bottom:12px">Sont strictement interdits :</p>
+        <ul style="list-style:none;padding:0;display:flex;flex-direction:column;gap:8px">
+          {[
+            'Colliers étrangleurs, électriques ou à pics',
+            'Méthodes coercitives et punitions physiques',
+            'Produits, accessoires ou compléments dangereux pour l\'animal',
+            'Toute pratique contraire au bien-être animal',
+            'Produits non conformes à la réglementation française',
+          ].map(item => (
+            <li style="display:flex;align-items:flex-start;gap:10px;font-family:var(--f-body);font-size:14px;color:var(--truffe);padding:10px 14px;background:var(--bg);border-radius:10px">
+              <span style="color:#c0392b;font-weight:700;flex-shrink:0">✗</span> {item}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- KIT MEDIA -->
+<section class="sec" style="background:var(--bg)">
+  <div class="inner">
+    <div data-reveal style="background:var(--bleu);border-radius:var(--r-xl);padding:clamp(28px,5vw,48px);display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,4vw,48px);align-items:center">
+      <div>
+        <span style="background:var(--truffe);color:#fff;border-radius:var(--r-pill);padding:6px 14px;font-family:var(--f-body);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.12em;margin-bottom:16px;display:inline-block">Inclus dans votre participation</span>
+        <h2 style="font-family:var(--f-head);font-size:clamp(26px,4vw,40px);font-weight:700;color:var(--truffe);margin-bottom:12px">Kit média offert 🎁</h2>
+        <p style="font-family:var(--f-body);font-size:15px;line-height:1.7;color:var(--truffe);opacity:.8">
+          Pour chaque exposant confirmé, on vous envoie gratuitement un kit complet pour communiquer sur votre participation.
+        </p>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+        {[
+          { icon: '📱', label: 'Visuel Story', desc: '"J\'y serai" — Format 9:16' },
+          { icon: '🖼️', label: 'Post carré', desc: 'Format 1:1, fond officiel' },
+          { icon: '📄', label: 'Affiche PDF', desc: 'A3 imprimable avec votre nom' },
+          { icon: '📧', label: 'Bannière email', desc: 'Signature email avec logo' },
+        ].map(k => (
+          <div style="background:rgba(255,255,255,.6);border-radius:var(--r-lg);padding:16px;text-align:center">
+            <div style="font-size:28px;margin-bottom:6px">{k.icon}</div>
+            <div style="font-family:var(--f-head);font-size:15px;font-weight:700;color:var(--truffe);margin-bottom:3px">{k.label}</div>
+            <div style="font-family:var(--f-body);font-size:11px;color:var(--truffe);opacity:.65">{k.desc}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FORMULAIRE 4 ÉTAPES -->
+<section id="form-exposant" class="sec" style="background:var(--creme)">
+  <div class="inner-sm">
+    <div style="text-align:center;margin-bottom:clamp(24px,4vw,40px)">
+      <div data-reveal style="margin-bottom:16px"><span class="chip chip-terre">Candidature</span></div>
+      <h2 data-reveal data-delay="1" style="font-size:clamp(28px,4vw,44px);color:var(--truffe)">Bloquer mon emplacement</h2>
+      <p data-reveal data-delay="2" style="font-family:var(--f-body);font-size:15px;color:var(--truffe);opacity:.7;margin-top:8px">Réponse garantie sous 72h.</p>
+    </div>
+
+    <!-- Step indicator -->
+    <div id="step-indicator" style="display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:32px">
+      {['Identité','Activité','Stand','Impact'].map((label, i) => (
+        <div style="display:flex;align-items:center;gap:8px">
+          <div style="display:flex;flex-direction:column;align-items:center;gap:4px">
+            <div class={`step-dot ${i === 0 ? 'active' : ''}`} id={`dot-${i+1}`}>{i+1}</div>
+            <span style="font-family:var(--f-body);font-size:10px;font-weight:600;color:var(--truffe);opacity:.6;text-transform:uppercase;letter-spacing:.06em">{label}</span>
+          </div>
+          {i < 3 && <div style="width:32px;height:2px;background:var(--creme-dark);margin-bottom:16px"></div>}
+        </div>
+      ))}
+    </div>
+
+    <form id="exposant-form" style="background:#fff;border-radius:var(--r-xl);padding:clamp(24px,5vw,40px);box-shadow:0 8px 40px rgba(105,50,45,.08);border:1.5px solid var(--creme-dark)">
+
+      <!-- Étape 1 — Identité -->
+      <div class="step-panel" id="step-1">
+        <h3 style="font-family:var(--f-head);font-size:20px;font-weight:700;color:var(--truffe);margin-bottom:20px">Étape 1 — Votre identité</h3>
+        <div style="display:grid;gap:14px">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
             <div>
-              <label class="block text-sm font-semibold text-[#69322d] mb-1" style="font-family: 'Poppins', sans-serif">Nom de la structure *</label>
-              <input name="structure" required placeholder="Ma boutique canine" class="w-full border-2 border-[#e8e5a8] rounded-xl px-4 py-3 text-[#69322d] focus:border-[#de6c49] outline-none transition-colors" style="font-family: 'Poppins', sans-serif" />
+              <label style="display:block;font-family:var(--f-body);font-size:13px;font-weight:600;color:var(--truffe);margin-bottom:6px">Nom de la structure *</label>
+              <input name="structure" required placeholder="Ma boutique canine" class="field" />
             </div>
             <div>
-              <label class="block text-sm font-semibold text-[#69322d] mb-1" style="font-family: 'Poppins', sans-serif">Responsable *</label>
-              <input name="responsable" required placeholder="Prénom Nom" class="w-full border-2 border-[#e8e5a8] rounded-xl px-4 py-3 text-[#69322d] focus:border-[#de6c49] outline-none transition-colors" style="font-family: 'Poppins', sans-serif" />
+              <label style="display:block;font-family:var(--f-body);font-size:13px;font-weight:600;color:var(--truffe);margin-bottom:6px">Responsable *</label>
+              <input name="responsable" required placeholder="Prénom Nom" class="field" />
             </div>
           </div>
-          <div class="grid sm:grid-cols-2 gap-4">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
             <div>
-              <label class="block text-sm font-semibold text-[#69322d] mb-1" style="font-family: 'Poppins', sans-serif">Email *</label>
-              <input name="email" type="email" required placeholder="contact@exemple.fr" class="w-full border-2 border-[#e8e5a8] rounded-xl px-4 py-3 text-[#69322d] focus:border-[#de6c49] outline-none transition-colors" style="font-family: 'Poppins', sans-serif" />
+              <label style="display:block;font-family:var(--f-body);font-size:13px;font-weight:600;color:var(--truffe);margin-bottom:6px">Email *</label>
+              <input name="email" type="email" required placeholder="contact@exemple.fr" class="field" />
             </div>
             <div>
-              <label class="block text-sm font-semibold text-[#69322d] mb-1" style="font-family: 'Poppins', sans-serif">Téléphone *</label>
-              <input name="telephone" required placeholder="06 00 00 00 00" class="w-full border-2 border-[#e8e5a8] rounded-xl px-4 py-3 text-[#69322d] focus:border-[#de6c49] outline-none transition-colors" style="font-family: 'Poppins', sans-serif" />
-            </div>
-          </div>
-          <div class="grid sm:grid-cols-2 gap-4">
-            <div>
-              <label class="block text-sm font-semibold text-[#69322d] mb-1" style="font-family: 'Poppins', sans-serif">Ville *</label>
-              <input name="ville" required placeholder="Angoulême" class="w-full border-2 border-[#e8e5a8] rounded-xl px-4 py-3 text-[#69322d] focus:border-[#de6c49] outline-none transition-colors" style="font-family: 'Poppins', sans-serif" />
-            </div>
-            <div>
-              <label class="block text-sm font-semibold text-[#69322d] mb-1" style="font-family: 'Poppins', sans-serif">Pôle *</label>
-              <select name="pole" required class="w-full border-2 border-[#e8e5a8] rounded-xl px-4 py-3 text-[#69322d] focus:border-[#de6c49] outline-none transition-colors bg-white" style="font-family: 'Poppins', sans-serif">
-                <option value="">Choisir…</option>
-                {poles.map(p => <option value={p}>{p}</option>)}
-              </select>
+              <label style="display:block;font-family:var(--f-body);font-size:13px;font-weight:600;color:var(--truffe);margin-bottom:6px">Téléphone *</label>
+              <input name="telephone" required placeholder="06 00 00 00 00" class="field" />
             </div>
           </div>
           <div>
-            <label class="block text-sm font-semibold text-[#69322d] mb-1" style="font-family: 'Poppins', sans-serif">Description de votre activité *</label>
-            <textarea name="description" required rows="3" placeholder="Décrivez votre structure et ce que vous proposez…" class="w-full border-2 border-[#e8e5a8] rounded-xl px-4 py-3 text-[#69322d] focus:border-[#de6c49] outline-none transition-colors resize-none" style="font-family: 'Poppins', sans-serif"></textarea>
+            <label style="display:block;font-family:var(--f-body);font-size:13px;font-weight:600;color:var(--truffe);margin-bottom:6px">Ville *</label>
+            <input name="ville" required placeholder="Angoulême" class="field" />
           </div>
-          <div class="grid sm:grid-cols-2 gap-4">
-            <div>
-              <label class="block text-sm font-semibold text-[#69322d] mb-1" style="font-family: 'Poppins', sans-serif">Taille de stand souhaitée</label>
-              <select name="tailleStand" class="w-full border-2 border-[#e8e5a8] rounded-xl px-4 py-3 text-[#69322d] focus:border-[#de6c49] outline-none transition-colors bg-white" style="font-family: 'Poppins', sans-serif">
-                <option value="">Indifférent</option>
-                <option value="small">Petit (3m²)</option>
-                <option value="medium">Moyen (6m²)</option>
-                <option value="large">Grand (9m²+)</option>
-              </select>
-            </div>
-            <div>
-              <label class="block text-sm font-semibold text-[#69322d] mb-1" style="font-family: 'Poppins', sans-serif">Site web (optionnel)</label>
-              <input name="lienWeb" type="url" placeholder="https://…" class="w-full border-2 border-[#e8e5a8] rounded-xl px-4 py-3 text-[#69322d] focus:border-[#de6c49] outline-none transition-colors" style="font-family: 'Poppins', sans-serif" />
-            </div>
-          </div>
-          <div class="flex items-center gap-3">
-            <input type="checkbox" name="barnum" id="barnum" class="w-4 h-4 accent-[#de6c49]" />
-            <label for="barnum" class="text-sm text-[#69322d]" style="font-family: 'Poppins', sans-serif">J'ai besoin d'un barnum</label>
-            <input type="checkbox" name="electricite" id="elec" class="w-4 h-4 accent-[#de6c49] ml-4" />
-            <label for="elec" class="text-sm text-[#69322d]" style="font-family: 'Poppins', sans-serif">J'ai besoin d'électricité</label>
-          </div>
-          <button type="submit" id="submit-btn" class="w-full bg-[#de6c49] text-white py-4 rounded-full font-bold text-lg hover:bg-[#69322d] transition-colors shadow-md" style="font-family: 'Fredoka', sans-serif">
-            Envoyer ma candidature 🏪
-          </button>
-          <div id="form-success" class="hidden text-center py-4 bg-[#26422b] text-white rounded-2xl font-semibold" style="font-family: 'Fredoka', sans-serif">
-            ✅ Candidature envoyée ! On vous recontacte sous 48h.
-          </div>
-        </form>
+        </div>
       </div>
-    </div>
-  </section>
 
-  <!-- FOOTER -->
-  <footer class="bg-[#69322d] text-white py-8 px-4 text-center text-sm text-white/50" style="font-family: 'Poppins', sans-serif">
-    <a href="/" class="hover:text-white transition-colors">← Retour au site Woof Day</a>
-  </footer>
+      <!-- Étape 2 — Activité -->
+      <div class="step-panel" id="step-2" style="display:none">
+        <h3 style="font-family:var(--f-head);font-size:20px;font-weight:700;color:var(--truffe);margin-bottom:20px">Étape 2 — Votre activité</h3>
+        <div style="display:grid;gap:14px">
+          <div>
+            <label style="display:block;font-family:var(--f-body);font-size:13px;font-weight:600;color:var(--truffe);margin-bottom:6px">Description courte *</label>
+            <textarea name="description" required rows="3" placeholder="Décrivez votre activité et ce que vous proposez au public…" class="field" style="resize:none"></textarea>
+          </div>
+          <div>
+            <label style="display:block;font-family:var(--f-body);font-size:13px;font-weight:600;color:var(--truffe);margin-bottom:6px">Pôle *</label>
+            <select name="pole" required class="field" style="background:#fff">
+              <option value="">Choisir un pôle…</option>
+              {poles.map(p => <option value={p.nom}>{p.icon} {p.nom}</option>)}
+            </select>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+            <div>
+              <label style="display:block;font-family:var(--f-body);font-size:13px;font-weight:600;color:var(--truffe);margin-bottom:6px">Instagram (optionnel)</label>
+              <input name="instagram" placeholder="@votrepage" class="field" />
+            </div>
+            <div>
+              <label style="display:block;font-family:var(--f-body);font-size:13px;font-weight:600;color:var(--truffe);margin-bottom:6px">Site web (optionnel)</label>
+              <input name="lienWeb" type="url" placeholder="https://…" class="field" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Étape 3 — Stand -->
+      <div class="step-panel" id="step-3" style="display:none">
+        <h3 style="font-family:var(--f-head);font-size:20px;font-weight:700;color:var(--truffe);margin-bottom:20px">Étape 3 — Votre stand</h3>
+        <div style="display:grid;gap:14px">
+          <div>
+            <label style="display:block;font-family:var(--f-body);font-size:13px;font-weight:600;color:var(--truffe);margin-bottom:10px">Taille de stand souhaitée</label>
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(96px,1fr));gap:8px" id="taille-btns">
+              {[['petit','Petit','3 m²'],['standard','Standard','6 m²'],['grand','Grand','9 m²+']].map(([val, label, surface]) => (
+                <label style="cursor:pointer">
+                  <input type="radio" name="tailleStand" value={val} style="display:none" class="taille-radio" />
+                  <div class="taille-card" style="border:2px solid var(--creme-dark);border-radius:var(--r-lg);padding:16px;text-align:center;transition:all .2s">
+                    <div style="font-family:var(--f-head);font-size:16px;font-weight:700;color:var(--truffe)">{label}</div>
+                    <div style="font-family:var(--f-body);font-size:12px;color:var(--truffe);opacity:.6;margin-top:3px">{surface}</div>
+                  </div>
+                </label>
+              ))}
+            </div>
+          </div>
+          <div>
+            <label style="display:block;font-family:var(--f-body);font-size:13px;font-weight:600;color:var(--truffe);margin-bottom:6px">Barnum</label>
+            <select name="barnum" class="field" style="background:#fff">
+              <option value="mien">J'apporte le mien</option>
+              <option value="louer">Je souhaite en louer un</option>
+            </select>
+          </div>
+          <div>
+            <label style="display:block;font-family:var(--f-body);font-size:13px;font-weight:600;color:var(--truffe);margin-bottom:6px">Électricité</label>
+            <select name="electricite" class="field" style="background:#fff">
+              <option value="non">Non, je n'en ai pas besoin</option>
+              <option value="standard">Oui — prise standard (tarif à préciser)</option>
+              <option value="forte">Oui — forte puissance (tarif à préciser)</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Étape 4 — Impact -->
+      <div class="step-panel" id="step-4" style="display:none">
+        <h3 style="font-family:var(--f-head);font-size:20px;font-weight:700;color:var(--truffe);margin-bottom:20px">Étape 4 — Votre impact</h3>
+        <div style="display:grid;gap:14px">
+          <div>
+            <label style="display:block;font-family:var(--f-body);font-size:13px;font-weight:600;color:var(--truffe);margin-bottom:6px">Lot pour la tombola / jeu concours (optionnel)</label>
+            <input name="lot" placeholder="Ex: Panier découverte 30€, séance diagnostic…" class="field" />
+            <p style="font-family:var(--f-body);font-size:12px;color:var(--truffe);opacity:.6;margin-top:5px">Les exposants avec un lot bénéficient d'une mention spéciale dans nos communications.</p>
+          </div>
+          <div style="background:var(--creme);border-radius:var(--r-lg);padding:16px">
+            <div style="display:flex;align-items:flex-start;gap:10px">
+              <input type="checkbox" name="panneaux" id="panneaux" style="margin-top:3px;width:16px;height:16px;accent-color:var(--terre);flex-shrink:0" />
+              <label for="panneaux" style="font-family:var(--f-body);font-size:14px;color:var(--truffe);cursor:pointer">
+                <strong>Panneaux co-brandés</strong> — 35€/unité <span style="background:var(--terre);color:#fff;border-radius:4px;font-size:10px;padding:2px 6px;margin-left:4px">limité 10 places</span>
+                <p style="font-size:12px;opacity:.65;margin-top:3px;line-height:1.5">Votre logo apposé sur nos panneaux d'affichage officiels dans tout le village.</p>
+              </label>
+            </div>
+          </div>
+          <div style="background:var(--creme);border-radius:var(--r-lg);padding:16px">
+            <div style="display:flex;align-items:flex-start;gap:10px">
+              <input type="checkbox" name="sponsor" id="sponsor-opt" style="margin-top:3px;width:16px;height:16px;accent-color:var(--terre);flex-shrink:0" />
+              <label for="sponsor-opt" style="font-family:var(--f-body);font-size:14px;color:var(--truffe);cursor:pointer">
+                <strong>Je souhaite aussi devenir sponsor</strong>
+                <p style="font-size:12px;opacity:.65;margin-top:3px">Nous vous enverrons le dossier sponsor en complément.</p>
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Navigation étapes -->
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-top:28px;gap:12px">
+        <button type="button" id="btn-back" onclick="stepNav(-1)" style="display:none" class="btn btn-outline-t" style="padding:14px 28px">← Retour</button>
+        <div style="flex:1"></div>
+        <button type="button" id="btn-next" onclick="stepNav(1)" class="btn btn-terre" style="padding:14px 32px">Étape suivante →</button>
+        <button type="submit" id="btn-submit" style="display:none" class="btn btn-vert" style="padding:14px 32px">Bloquer mon emplacement maintenant →</button>
+      </div>
+
+      <div id="form-success" style="display:none;margin-top:20px;text-align:center;padding:20px;background:var(--vert);color:#fff;border-radius:var(--r-lg);font-family:var(--f-head);font-size:18px;font-weight:600">
+        ✅ Candidature envoyée ! Nous revenons vers vous sous 72h.
+      </div>
+    </form>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq" class="sec" style="background:var(--bg)">
+  <div class="inner-sm">
+    <div style="text-align:center;margin-bottom:clamp(24px,4vw,40px)">
+      <div data-reveal style="margin-bottom:16px"><span class="chip chip-truffe">Des doutes ?</span></div>
+      <h2 data-reveal data-delay="1" style="font-size:clamp(28px,4vw,44px);color:var(--truffe)">Nos réponses.</h2>
+    </div>
+    <div data-reveal style="display:flex;flex-direction:column;gap:12px">
+      {[
+        { q: "Comment se fait la sélection ?", a: "Nous privilégions les acteurs locaux et les activités 100% compatibles avec l'éducation positive. Nous veillons également à ne pas avoir trop de doublons sur un même pôle." },
+        { q: "Pourquoi le barnum est obligatoire ?", a: "Pour l'unité visuelle du village et vous protéger (soleil ou pluie). Si vous n'en avez pas, nous proposons une option location." },
+        { q: "Comment fonctionne le Jeu Concours Instagram et la Tombola ?", a: "Le jeu concours en amont génère de la visibilité digitale. Le jour J, les gagnants récupèrent leur lot directement sur votre stand, créant un flux physique immédiat." },
+        { q: "Quand le tarif de mon emplacement sera-t-il confirmé ?", a: "Sous 72h après votre candidature, nous vous envoyons le devis correspondant à votre profil et format de stand." },
+        { q: "L'événement est-il vraiment gratuit pour les visiteurs ?", a: "Oui ! C'est un choix fort pour maximiser l'affluence. L'événement vit grâce aux exposants, sponsors et à la buvette/tombola." },
+      ].map((f, i) => (
+        <div style="background:#fff;border-radius:var(--r-lg);border:1.5px solid var(--creme-dark);overflow:hidden">
+          <button class="faq-btn" style="width:100%;text-align:left;padding:20px 24px;background:none;border:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:16px">
+            <span style="font-family:var(--f-head);font-size:16px;font-weight:700;color:var(--truffe)">{f.q}</span>
+            <span style="font-size:18px;color:var(--terre)">+</span>
+          </button>
+          <div class="faq-content" style="display:none;padding:0 24px 20px;font-family:var(--f-body);font-size:14px;line-height:1.7;color:var(--truffe);opacity:.8">
+            {f.a}
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer style="background:var(--truffe);color:#fff;padding:clamp(32px,5vw,48px) clamp(20px,5vw,40px);text-align:center">
+  <div style="display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap">
+    <img src="/logos/tete-chien.svg" alt="" style="height:36px;filter:brightness(0) invert(1);opacity:.8"/>
+    <a href="/" style="font-family:var(--f-body);font-size:13px;color:rgba(255,255,255,.6);text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.6)'">← Retour au site Woof Day</a>
+    <span style="opacity:.3">·</span>
+    <a href="/sponsor" style="font-family:var(--f-body);font-size:13px;color:rgba(255,255,255,.6);text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.6)'">Devenir sponsor →</a>
+  </div>
+</footer>
+
 </Layout>
 
 <script>
-  const form = document.getElementById('exposant-form') as HTMLFormElement;
-  const btn = document.getElementById('submit-btn') as HTMLButtonElement;
-  const success = document.getElementById('form-success') as HTMLElement;
+  // Charte toggle
+  document.getElementById('toggle-charte')?.addEventListener('click', function() {
+    const content = document.getElementById('charte-content');
+    const open = content.style.display !== 'none';
+    content.style.display = open ? 'none' : 'block';
+    this.textContent = open ? 'Voir ce qui est interdit ▾' : 'Masquer ▴';
+  });
 
-  form?.addEventListener('submit', async (e) => {
+  // Taille stand cards
+  document.querySelectorAll('.taille-radio').forEach(radio => {
+    radio.addEventListener('change', () => {
+      document.querySelectorAll('.taille-card').forEach(card => {
+        card.style.borderColor = 'var(--creme-dark)';
+        card.style.background = '';
+      });
+      if (radio.checked) {
+        const card = radio.closest('label').querySelector('.taille-card');
+        card.style.borderColor = 'var(--terre)';
+        card.style.background = '#fff5f0';
+      }
+    });
+  });
+
+  // Stepper
+  let currentStep = 1;
+  const totalSteps = 4;
+
+  window.stepNav = (dir) => {
+    const newStep = currentStep + dir;
+    if (newStep < 1 || newStep > totalSteps) return;
+    // validate current step fields before going forward
+    if (dir > 0) {
+      const panel = document.getElementById(`step-${currentStep}`);
+      const required = panel.querySelectorAll('[required]');
+      let valid = true;
+      required.forEach(el => {
+        if (!el.value.trim()) {
+          el.style.borderColor = '#c0392b';
+          valid = false;
+          setTimeout(() => el.style.borderColor = '', 2000);
+        }
+      });
+      if (!valid) return;
+    }
+    document.getElementById(`step-${currentStep}`).style.display = 'none';
+    document.getElementById(`step-${newStep}`).style.display = 'block';
+    for (let i = 1; i <= totalSteps; i++) {
+      const dot = document.getElementById(`dot-${i}`);
+      if (dot) dot.classList.toggle('active', i <= newStep);
+    }
+    currentStep = newStep;
+    const backBtn = document.getElementById('btn-back');
+    const nextBtn = document.getElementById('btn-next');
+    const submitBtn = document.getElementById('btn-submit');
+    backBtn.style.display = currentStep > 1 ? 'inline-flex' : 'none';
+    nextBtn.style.display = currentStep < totalSteps ? 'inline-flex' : 'none';
+    submitBtn.style.display = currentStep === totalSteps ? 'inline-flex' : 'none';
+    window.scrollTo({ top: document.getElementById('form-exposant').offsetTop - 80, behavior: 'smooth' });
+  };
+
+  // FAQ toggle
+  document.querySelectorAll('.faq-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const content = btn.nextElementSibling;
+      const open = content.style.display !== 'none';
+      document.querySelectorAll('.faq-content').forEach(c => c.style.display = 'none');
+      document.querySelectorAll('.faq-btn span:last-child').forEach(s => s.textContent = '+');
+      if (!open) {
+        content.style.display = 'block';
+        btn.querySelector('span:last-child').textContent = '−';
+      }
+    });
+  });
+
+  // Form submit
+  document.getElementById('exposant-form')?.addEventListener('submit', async (e) => {
     e.preventDefault();
-    btn.textContent = 'Envoi en cours…';
-    btn.disabled = true;
+    const submitBtn = document.getElementById('btn-submit');
+    submitBtn.textContent = 'Envoi…'; submitBtn.disabled = true;
     try {
-      const data = Object.fromEntries(new FormData(form));
+      const data = Object.fromEntries(new FormData(e.target));
       const res = await fetch('/api/exposant', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) });
       if (res.ok) {
-        form.style.display = 'none';
-        success.classList.remove('hidden');
+        e.target.style.display = 'none';
+        document.getElementById('form-success').style.display = 'block';
+        window.showToast?.('✅ Candidature envoyée !');
       } else throw new Error();
     } catch {
-      btn.textContent = 'Erreur — Réessayez';
-      btn.disabled = false;
+      submitBtn.textContent = '❌ Erreur — Réessayez';
+      submitBtn.disabled = false;
     }
   });
 </script>

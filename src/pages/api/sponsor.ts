@@ -14,7 +14,7 @@ export const POST: APIRoute = async ({ request }) => {
       zone: data.zone,
       stand: data.stand,
       lot: data.lot,
-      panelCount: data.panelCount ? Number(data.panelCount) : undefined,
+      panelCount: data.panneaux ? Number(data.panneaux) : undefined,
     });
     return new Response(JSON.stringify({ ok: true, id: item.id }), { status: 201 });
   } catch {

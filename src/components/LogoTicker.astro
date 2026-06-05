@@ -1,0 +1,59 @@
+---
+const logos = [
+  '/logos/LOGOCOULEURV1.svg',
+  '/logos/LOGOCOULEURV2.svg',
+  '/logos/LOGOCOULEURV4.svg',
+  '/logos/LOGOCOULEURV5.svg',
+];
+
+const loop = [...logos, ...logos, ...logos];
+---
+
+<div class="logo-ticker" aria-label="Variantes du logo Woof Day">
+  <div class="logo-ticker__track">
+    {loop.map((src) => (
+      <img class="logo-ticker__logo" src={src} alt="Woof Day" loading="lazy" />
+    ))}
+  </div>
+</div>
+
+<style>
+  @keyframes logo-ticker-scroll {
+    from { transform: translate3d(0, 0, 0); }
+    to { transform: translate3d(-33.333%, 0, 0); }
+  }
+
+  .logo-ticker {
+    width: 100%;
+    overflow: hidden;
+    background: var(--truffe);
+    border-top: 4px solid rgba(255,255,255,.12);
+    border-bottom: 4px solid rgba(255,255,255,.12);
+    padding: clamp(14px, 2.2vw, 22px) 0;
+    user-select: none;
+  }
+
+  .logo-ticker__track {
+    width: max-content;
+    display: flex;
+    align-items: center;
+    gap: clamp(34px, 5vw, 72px);
+    flex-wrap: nowrap;
+    white-space: nowrap;
+    animation: logo-ticker-scroll 34s linear infinite;
+    will-change: transform;
+  }
+
+  .logo-ticker:hover .logo-ticker__track {
+    animation-play-state: paused;
+  }
+
+  .logo-ticker__logo {
+    display: block;
+    flex: 0 0 auto;
+    width: clamp(190px, 24vw, 360px);
+    height: auto;
+    max-height: 72px;
+    object-fit: contain;
+  }
+</style>

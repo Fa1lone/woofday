@@ -1,297 +1,576 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import DoodleMark from '../components/DoodleMark.astro';
+import LogoTicker from '../components/LogoTicker.astro';
 
 const packs = [
   {
-    id: 'platine',
-    nom: 'Pack Platine',
-    prix: 'Sur devis',
-    color: '#69322d',
+    id: 'bronze', nom: 'Bronze', prix: '50€', color: '#8B7355', textColor: '#fff',
     avantages: [
-      'Logo en taille XXL sur toutes les communications',
-      'Stand offert (9m²)',
-      'Naming d\'une zone principale',
-      'Prise de parole sur scène',
-      '5 panneaux publicitaires sur site',
-      'Post Instagram dédié',
-      'Mentions dans tous les supports presse',
+      'Remerciements sur les réseaux sociaux',
+      'Votre nom mentionné sur le site officiel',
+      'Participation au jeu concours Instagram',
     ],
   },
   {
-    id: 'or',
-    nom: 'Pack Or',
-    prix: 'À partir de 800€',
-    color: '#de6c49',
-    highlight: true,
+    id: 'argent', nom: 'Argent', prix: '150€', color: '#91acda', textColor: '#26422b',
     avantages: [
-      'Logo taille L sur les communications',
-      'Stand offert (6m²)',
-      'Naming d\'un stand ou d\'une activité',
-      '3 panneaux publicitaires sur site',
-      'Mention sur Instagram',
-      'Logo sur le site officiel',
+      'Logo sur le site officiel (lien actif)',
+      'Mention sur place le jour J',
+      'Stories Instagram dédiées à votre marque',
+      '+ tous les avantages Bronze',
     ],
   },
   {
-    id: 'argent',
-    nom: 'Pack Argent',
-    prix: 'À partir de 400€',
-    color: '#91acda',
+    id: 'or', nom: 'Or', prix: '300€', color: '#de6c49', textColor: '#fff', highlight: true,
     avantages: [
-      'Logo taille M sur les communications',
-      'Stand à tarif réduit',
-      '1 panneau publicitaire sur site',
-      'Mention sur Instagram',
-      'Logo sur le site officiel',
+      'Logo sur affiches & flyers imprimés',
+      'Naming d\'un stand bénévole',
+      'Post Instagram dédié avant l\'événement',
+      '+ tous les avantages Argent',
     ],
   },
   {
-    id: 'bronze',
-    nom: 'Pack Bronze',
-    prix: 'À partir de 150€',
-    color: '#26422b',
+    id: 'platine', nom: 'Platine', prix: '600€', color: '#69322d', textColor: '#fff',
     avantages: [
-      'Logo sur le site officiel',
-      'Mention dans le programme',
-      'Remerciement sur réseaux sociaux',
+      'Post Instagram dédié + Stories',
+      'Kakémono à votre nom sur le site',
+      'Naming d\'une zone entière',
+      '+ tous les avantages Or',
+    ],
+  },
+  {
+    id: 'vip', nom: 'VIP', prix: '1 000€', color: '#26422b', textColor: '#fff', limited: 2,
+    avantages: [
+      '5 Stories dédiées avant et pendant l\'événement',
+      'Logo sur les tenues bénévoles',
+      'Roll-up fourni sur le site',
+      'Naming d\'une zone + stand',
+      '+ tous les avantages Platine',
+    ],
+  },
+  {
+    id: 'principal', nom: 'Sponsor Principal', prix: '2 000€', color: '#1a2e1f', textColor: '#fff', limited: 1, star: true,
+    avantages: [
+      '"Présenté par [votre nom]" sur toutes les communications',
+      'Naming de la zone principale',
+      '2 posts Instagram dédiés + 8–10 Stories',
+      'Logo XXL sur toutes les affiches',
+      'Stand VIP offert (9m²)',
+      '+ tous les avantages VIP',
     ],
   },
 ];
 
-const zones = [
-  { emoji: '🌊', nom: 'Zone Aquatique' },
-  { emoji: '🏆', nom: 'Zone Agility & Sport' },
-  { emoji: '🌿', nom: 'Zone Détente & Zen' },
-  { emoji: '👶', nom: 'Zone Famille & Kids' },
-  { emoji: '🎤', nom: 'Scène Centrale' },
-  { emoji: '🌱', nom: 'Village Bien-Être' },
-];
+const zones = ['🌊 Aquatique','🏆 Agility','🌿 Détente','👶 Famille','🎤 Scène','🌱 Village'];
+const stands = ['🎟️ Tombola','☕ Buvette','🧩 Escape Game','🎨 Peinture','📸 Photo','🎭 Spectacle','🏠 Accueil Refuge'];
 
-const stands = [
-  { emoji: '🎟️', nom: 'Stand Tombola' },
-  { emoji: '☕', nom: 'Stand Buvette' },
-  { emoji: '🧩', nom: 'Escape Game Canin' },
-  { emoji: '🎨', nom: 'Atelier Peinture' },
-  { emoji: '🏅', nom: 'Concours Photo' },
-  { emoji: '🎭', nom: 'Zone Spectacle' },
+const goodies = [
+  { item: 'Gobelet événementiel', prix: '5€/u' },
+  { item: 'Tote bag Woof Day', prix: '20€/u' },
+  { item: 'Bandana chien', prix: '8€/u' },
+  { item: 'Sac kraft', prix: '6€/u' },
+  { item: 'Pochette friandises', prix: '12€/u' },
+  { item: 'Jouet logo', prix: '10€/u' },
 ];
 ---
 
-<Layout title="Devenir Sponsor — Woof Day 2026" description="Sponsorisez le Woof Day 2026 et boostez votre image auprès des amoureux des chiens en Charente. Packs sur mesure disponibles.">
-  <!-- NAV -->
-  <nav class="fixed top-3 left-1/2 -translate-x-1/2 z-50 w-[calc(100%-2rem)] max-w-5xl bg-[#fdfaf4]/90 backdrop-blur-md border border-[#e8e5a8] rounded-full px-6 py-3 flex items-center justify-between shadow-sm">
-    <a href="/" class="flex items-center gap-2">
-      <img src="/logos/logo-couleur.svg" alt="Woof Day" class="h-8 w-auto" />
-    </a>
-    <a href="/" class="text-sm font-semibold text-[#69322d] hover:text-[#de6c49] transition-colors" style="font-family:'Poppins',sans-serif">← Retour au site</a>
-  </nav>
+<Layout title="Devenir Sponsor — Woof Day 2026" description="Sponsorisez le Woof Day 2026. 6 packs disponibles. Budget transparent. Soutien au Refuge de l'Angoumois.">
 
-  <!-- HERO -->
-  <section class="pt-32 pb-20 px-4 bg-[#26422b] text-white text-center relative overflow-hidden paw-bg">
-    <div class="absolute inset-0 bg-[#26422b]/85"></div>
-    <div class="relative z-10 max-w-2xl mx-auto">
-      <div class="inline-block bg-white/20 text-white text-xs font-bold uppercase tracking-widest px-4 py-2 rounded-full mb-6" style="font-family:'Poppins',sans-serif">Partenaires & Sponsors</div>
-      <h1 class="text-5xl md:text-6xl font-bold mb-4" style="font-family:'Fredoka',sans-serif">Devenez Sponsor</h1>
-      <p class="text-xl text-white/80 max-w-lg mx-auto mb-8" style="font-family:'Poppins',sans-serif">
-        Boostez votre image et soutenez une cause locale en vous associant au Woof Day 2026.
-      </p>
-      <div class="flex flex-wrap justify-center gap-4 text-sm text-white/70" style="font-family:'Poppins',sans-serif">
-        <span>🐾 500+ visiteurs attendus</span>
-        <span>·</span>
-        <span>📱 Audience engagée sur Instagram</span>
-        <span>·</span>
-        <span>❤️ Cause : Refuge de l'Angoumois</span>
-      </div>
+<!-- NAV -->
+<nav style="
+  position:fixed;top:16px;left:50%;translate:-50% 0;z-index:100;
+  width:min(calc(100% - 32px),1100px);
+  background:rgba(243,241,199,.92);backdrop-filter:blur(12px);
+  border:1.5px solid var(--creme-dark);border-radius:var(--r-pill);
+  padding:10px 20px;display:flex;align-items:center;justify-content:space-between;
+">
+  <a href="/" style="display:flex;align-items:center;gap:10px;text-decoration:none">
+    <img src="/logos/tete-chien.svg" alt="" style="height:32px" />
+    <span style="font-family:var(--f-head);font-weight:700;font-size:18px;color:var(--truffe)">Woof Day</span>
+  </a>
+  <div style="display:flex;align-items:center;gap:12px;flex-wrap:nowrap">
+    <a href="/" class="nav-links" style="font-family:var(--f-body);font-size:12px;font-weight:600;color:var(--truffe);opacity:.7;text-decoration:none;white-space:nowrap">← Accueil</a>
+    <div class="nav-links" style="display:flex;align-items:center;gap:12px;margin:0 4px;flex-wrap:nowrap">
+      {[
+        ['#esprit','L\'ESPRIT WOOF DAY'],
+        ['#budget','BUDGET'],
+        ['#marketing','MARKETING'],
+        ['#packs','PACKS PARTENAIRES'],
+        ['#form-sponsor','CONTACT']
+      ].map(([h,l]) => (
+        <a href={h} style="font-family:var(--f-body);font-size:10px;font-weight:700;color:var(--truffe);text-decoration:none;opacity:.6;letter-spacing:0.05em;white-space:nowrap" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity='.6'">{l}</a>
+      ))}
     </div>
-  </section>
+    <a href="/exposants" class="nav-links" style="font-family:var(--f-body);font-size:12px;font-weight:700;color:var(--terre);text-decoration:none;background:rgba(222,108,73,.1);border:1.5px solid rgba(222,108,73,.35);border-radius:var(--r-pill);padding:6px 12px;white-space:nowrap">Devenir exposant 🏪</a>
+    <a href="#form-sponsor" class="btn btn-vert" style="font-size:13px;padding:8px 18px;white-space:nowrap">Devenir sponsor 🤝</a>
+  </div>
+</nav>
 
-  <!-- POURQUOI SPONSORISER -->
-  <section class="py-20 px-4">
-    <div class="max-w-5xl mx-auto">
-      <div class="text-center mb-14 reveal">
-        <h2 class="text-4xl font-bold text-[#69322d]" style="font-family:'Fredoka',sans-serif">Pourquoi nous rejoindre ?</h2>
-      </div>
-      <div class="grid sm:grid-cols-3 gap-6">
+<!-- HERO -->
+<section style="
+  min-height:80svh;padding:120px clamp(20px,5vw,40px) clamp(120px,20vw,200px);
+  background:var(--vert);color:#fff;text-align:center;
+  position:relative;overflow:hidden;
+">
+  <!-- Paw watermarks grands — fond -->
+  <div class="paw-mark" style="left:-5%;top:-6%;transform:rotate(-12deg);opacity:.1">🐾</div>
+  <div class="paw-mark" style="right:-3%;top:15%;transform:rotate(18deg);opacity:.08">🐾</div>
+  <div class="paw-mark" style="right:8%;bottom:5%;transform:rotate(8deg);opacity:.07">🐾</div>
+
+  <!-- Floating paws -->
+  <div class="paw-float" style="--paw-dur:9s;--paw-delay:1s;top:18%;left:7%;font-size:28px;color:rgba(255,255,255,.12);transform:rotate(-10deg)">🐾</div>
+  <div class="paw-float" style="--paw-dur:7s;--paw-delay:0s;top:50%;right:10%;font-size:20px;color:rgba(255,255,255,.09);transform:rotate(18deg)">🐾</div>
+  <div class="paw-float" style="--paw-dur:10s;--paw-delay:2.5s;top:30%;left:4%;font-size:16px;color:rgba(255,255,255,.07);transform:rotate(-22deg)">🐾</div>
+
+  <!-- Logo chien fond -->
+  <img src="/logos/logo-chien-blanc.svg" alt="" aria-hidden="true" style="position:absolute;left:-4%;top:50%;translate:0 -50%;width:clamp(200px,30vw,380px);opacity:.05;pointer-events:none"/>
+
+  <!-- Contenu centré -->
+  <div style="position:relative;z-index:3;max-width:700px;margin:0 auto">
+    <div data-reveal style="margin-bottom:20px">
+      <span class="tape-label" style="background:var(--creme);color:var(--truffe)">Partenaires &amp; Sponsors</span>
+    </div>
+    <h1 data-reveal data-delay="1" style="font-family:var(--f-head);font-size:clamp(36px,7vw,72px);font-weight:700;margin-bottom:16px;line-height:1.0">
+      CÉLÉBREZ LE CHIEN<br/>et les humains qui l'aiment.
+    </h1>
+    <p data-reveal data-delay="2" style="font-family:var(--f-body);font-size:clamp(15px,2.5vw,19px);opacity:.85;max-width:52ch;margin:0 auto 28px;line-height:1.65">
+      Associez votre marque à la grande fête canine de Charente. Un événement ancré, solidaire, et mémorable.
+    </p>
+    <div data-reveal data-delay="3" style="display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-bottom:32px">
+      {['🐾 800 visiteurs Éd.1','🚀 1200+ visés Éd.2','🏕️ 50–60 exposants','❤️ Refuge de l\'Angoumois'].map(t => (
+        <span style="background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.3);border-radius:var(--r-pill);padding:7px 14px;font-family:var(--f-body);font-size:12px;font-weight:600">{t}</span>
+      ))}
+    </div>
+    <div data-reveal data-delay="4" style="position:relative;display:inline-flex;isolation:isolate;margin-top:24px">
+      <DoodleMark variant="circle" color="rgba(243,241,199,.72)" style="left:50%;top:50%;width:calc(100% + 78px);height:auto;translate:-50% -50%;transform:rotate(2deg)" />
+      <DoodleMark variant="burst" color="var(--terre)" style="right:-34px;top:-50px;width:72px;height:auto;transform:rotate(18deg)" />
+      <a href="#form-sponsor" class="btn" style="position:relative;background:rgba(255,255,255,.95);color:var(--vert);font-size:clamp(16px,2.5vw,20px);padding:18px 42px;box-shadow:0 8px 32px rgba(0,0,0,.25)">
+        Déposer ma demande 🤝
+      </a>
+    </div>
+  </div>
+
+  <!-- Golden face2 vert — fond vert, centré bas -->
+  <div class="dog-deco" style="position:absolute;bottom:clamp(-230px,-18vw,-150px);right:clamp(-170px,-8vw,-70px);width:fit-content;pointer-events:none;line-height:0;z-index:1">
+    <img src="/images/dog-border-collie-nose-orange.png" alt="" aria-hidden="true"
+      style="width:clamp(240px,31vw,430px);display:block;filter:drop-shadow(0 -16px 48px rgba(0,0,0,.35))" />
+  </div>
+
+  <!-- Annotation bubble gauche — style torn note like inspiration -->
+  <div style="position:absolute;bottom:clamp(60px,14vw,140px);left:clamp(20px,6%,80px);z-index:4;pointer-events:none">
+    <div style="font-family:var(--f-hand);font-size:clamp(13px,2vw,17px);color:rgba(255,255,255,.8);border:2.5px solid rgba(255,255,255,.4);border-radius:50%;padding:14px 24px;transform:rotate(-7deg);text-align:center;line-height:1.4;display:inline-block;position:relative">
+      Booster votre image<br/>et soutenir la cause !
+      <DoodleMark variant="arrow" color="white" style="position:absolute;bottom:-35px;right:-5px;width:44px;height:auto;transform:rotate(12deg);opacity:.5" />
+    </div>
+  </div>
+
+  <!-- Slant bottom -->
+  <div style="position:absolute;bottom:-1px;left:0;right:0;height:60px;background:var(--bg);clip-path:polygon(0 100%,100% 0,100% 100%)"></div>
+</section>
+
+<LogoTicker />
+
+<!-- MANIFESTE -->
+<section id="esprit" class="sec" style="background:var(--bg)">
+  <div class="inner-sm">
+    <div style="text-align:center;margin-bottom:clamp(24px,4vw,40px)">
+      <div data-reveal style="margin-bottom:16px"><span class="chip chip-vert">Notre histoire</span></div>
+      <h2 data-reveal data-delay="1" style="font-size:clamp(28px,4vw,44px);color:var(--truffe)">Pourquoi c'est sérieux</h2>
+    </div>
+    <div data-reveal style="background:#fff;border-radius:var(--r-xl);padding:clamp(24px,4vw,40px);border:1.5px solid var(--creme-dark)">
+      <div style="display:grid;gap:16px">
         {[
-          { icon: '📣', title: 'Visibilité locale & digitale', desc: 'Votre marque vue par des centaines de visiteurs le jour J + communauté Instagram engagée' },
-          { icon: '🎯', title: 'Audience ultra-ciblée', desc: 'Propriétaires de chiens, passionnés du bien-être animal, familles — votre cœur de cible' },
-          { icon: '🤝', title: 'Image responsable', desc: "En soutenant le Woof Day, vous soutenez le Refuge de l'Angoumois. Un partenariat qui a du sens." },
-        ].map(a => (
-          <div class="reveal bg-[#f3f1c7] rounded-3xl p-7 text-center">
-            <div class="text-4xl mb-4">{a.icon}</div>
-            <h3 class="font-bold text-[#69322d] text-xl mb-2" style="font-family:'Fredoka',sans-serif">{a.title}</h3>
-            <p class="text-sm text-[#69322d]/70 leading-relaxed" style="font-family:'Poppins',sans-serif">{a.desc}</p>
+          { titre: 'Édition 1 — La preuve', content: '"Pluie battante. Zéro expérience. 800 visiteurs. La preuve qu\'il y a une vraie demande locale pour ce type d\'événement."' },
+          { titre: 'Édition 2 — La montée en puissance', content: 'Nouveau site en Charente, activités aquatiques, campagne de communication structurée. Objectif 1 200+ visiteurs. Votre marque sur une fusée en phase d\'accélération.' },
+        ].map(s => (
+          <div style="padding-bottom:16px;border-bottom:1px solid var(--creme-dark)">
+            <h3 style="font-family:var(--f-head);font-size:16px;font-weight:700;color:var(--truffe);margin-bottom:8px">{s.titre}</h3>
+            <p style="font-family:var(--f-body);font-size:15px;line-height:1.75;color:var(--truffe);opacity:.8">{s.content}</p>
           </div>
         ))}
-      </div>
-    </div>
-  </section>
-
-  <!-- NAMING ZONES & STANDS -->
-  <section class="py-16 px-4 bg-[#f3f1c7]">
-    <div class="max-w-5xl mx-auto">
-      <div class="text-center mb-10 reveal">
-        <span class="inline-block bg-[#de6c49] text-white text-xs font-bold uppercase tracking-widest px-4 py-2 rounded-full mb-4" style="font-family:'Poppins',sans-serif">Naming exclusif</span>
-        <h2 class="text-4xl font-bold text-[#69322d]" style="font-family:'Fredoka',sans-serif">Donnez votre nom à une zone ou un stand</h2>
-        <p class="mt-3 text-[#69322d]/70 max-w-lg mx-auto" style="font-family:'Poppins',sans-serif">
-          Les sponsors peuvent nominer une zone ou un stand qui portera leur nom le jour de l'événement.
-        </p>
-      </div>
-      <div class="grid sm:grid-cols-2 gap-6">
-        <div class="reveal bg-white rounded-3xl p-6 border-2 border-[#e8e5a8]">
-          <h3 class="font-bold text-[#69322d] text-lg mb-4" style="font-family:'Fredoka',sans-serif">🗺️ Zones disponibles</h3>
-          <div class="space-y-2">
-            {zones.map(z => (
-              <div class="flex items-center gap-3 py-2 border-b border-[#e8e5a8] last:border-0" style="font-family:'Poppins',sans-serif">
-                <span class="text-xl">{z.emoji}</span>
-                <span class="text-sm font-medium text-[#69322d]">{z.nom}</span>
-                <span class="ml-auto text-xs text-[#26422b] font-semibold bg-[#f3f1c7] px-2 py-1 rounded-full">Disponible</span>
-              </div>
-            ))}
-          </div>
-        </div>
-        <div class="reveal bg-white rounded-3xl p-6 border-2 border-[#e8e5a8]">
-          <h3 class="font-bold text-[#69322d] text-lg mb-4" style="font-family:'Fredoka',sans-serif">🏪 Stands disponibles</h3>
-          <div class="space-y-2">
-            {stands.map(s => (
-              <div class="flex items-center gap-3 py-2 border-b border-[#e8e5a8] last:border-0" style="font-family:'Poppins',sans-serif">
-                <span class="text-xl">{s.emoji}</span>
-                <span class="text-sm font-medium text-[#69322d]">{s.nom}</span>
-                <span class="ml-auto text-xs text-[#26422b] font-semibold bg-[#f3f1c7] px-2 py-1 rounded-full">Disponible</span>
-              </div>
-            ))}
-          </div>
+        <button id="toggle-manifeste" style="background:none;border:2px solid var(--creme-dark);border-radius:var(--r-pill);padding:10px 20px;font-family:var(--f-body);font-size:13px;font-weight:600;color:var(--truffe);cursor:pointer;transition:all .2s;align-self:flex-start" onmouseover="this.style.background='var(--creme)'" onmouseout="this.style.background=''">
+          Notre charte éthique ▾
+        </button>
+        <div id="manifeste-content" style="display:none">
+          <p style="font-family:var(--f-body);font-size:14px;line-height:1.75;color:var(--truffe);opacity:.8;padding:16px;background:var(--creme);border-radius:var(--r-md)">
+            Le Woof Day est un événement engagé : <strong>éducation positive uniquement</strong>, pas de méthodes coercitives, pas de produits dangereux. Sponsoriser le Woof Day, c'est s'associer à des valeurs concrètes sur le bien-être animal — pas juste un logo sur une bâche.
+          </p>
         </div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- PACKS -->
-  <section class="py-20 px-4">
-    <div class="max-w-5xl mx-auto">
-      <div class="text-center mb-14 reveal">
-        <span class="inline-block bg-[#f3f1c7] text-[#69322d] text-xs font-bold uppercase tracking-widest px-4 py-2 rounded-full mb-4" style="font-family:'Poppins',sans-serif">Nos offres</span>
-        <h2 class="text-4xl font-bold text-[#69322d]" style="font-family:'Fredoka',sans-serif">Choisissez votre pack</h2>
-      </div>
-      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
-        {packs.map(p => (
-          <div class={`reveal rounded-3xl p-6 border-2 flex flex-col ${p.highlight ? 'border-[#de6c49] shadow-xl scale-[1.02]' : 'border-[#e8e5a8] bg-white'}`} style={p.highlight ? 'background:linear-gradient(135deg,#fff5f0,#fff)' : ''}>
-            {p.highlight && <div class="text-center mb-3"><span class="bg-[#de6c49] text-white text-xs font-bold px-3 py-1 rounded-full" style="font-family:'Poppins',sans-serif">⭐ Populaire</span></div>}
-            <div class="w-10 h-10 rounded-2xl mb-4 flex items-center justify-center text-white text-lg font-bold" style={`background:${p.color}`}>
-              {p.nom[5]}
+<!-- LEVIERS PSYCHOLOGIQUES -->
+<section id="marketing" class="sec" style="background:var(--creme)">
+  <div class="inner">
+    <div style="text-align:center;margin-bottom:clamp(28px,4vw,48px)">
+      <div data-reveal style="margin-bottom:16px"><span class="chip chip-truffe">Pourquoi ça marche</span></div>
+      <h2 data-reveal data-delay="1" style="font-size:clamp(28px,4vw,44px);color:var(--truffe)">Ce que ça fait<br/>pour votre marque</h2>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px">
+      {[
+        { icon: '✨', titre: 'Effet Halo', desc: 'Votre marque hérite de l\'émotion positive de l\'événement. Les gens associent votre nom à une belle journée.' },
+        { icon: '👥', titre: 'Preuve Sociale', desc: 'Des centaines de photos de l\'événement circulent sur les réseaux. Votre logo y apparaît naturellement.' },
+        { icon: '🧠', titre: 'Mémorisation', desc: 'Une marque vue dans un contexte émotionnel fort (chiens, famille, soleil) se grave bien mieux en mémoire.' },
+        { icon: '🤝', titre: 'Réciprocité', desc: 'Le public sait que vous soutenez le Refuge. Il a une raison concrète de vous préférer à vos concurrents.' },
+      ].map((l, i) => (
+        <div data-reveal data-delay={String(i + 1)} style="background:#fff;border-radius:var(--r-xl);padding:24px;border:1.5px solid var(--creme-dark)">
+          <div style="font-size:36px;margin-bottom:12px">{l.icon}</div>
+          <h3 style="font-family:var(--f-head);font-size:20px;font-weight:700;color:var(--truffe);margin-bottom:8px">{l.titre}</h3>
+          <p style="font-family:var(--f-body);font-size:13px;line-height:1.7;color:var(--truffe);opacity:.75">{l.desc}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- BUDGET TRANSPARENT -->
+<section id="budget" class="sec" style="background:var(--truffe);color:#fff">
+  <div class="inner-sm">
+    <div style="text-align:center;margin-bottom:clamp(24px,4vw,40px)">
+      <div data-reveal style="margin-bottom:16px"><span class="chip chip-creme">Transparence</span></div>
+      <h2 data-reveal data-delay="1" style="font-size:clamp(28px,4vw,44px)">Budget transparent</h2>
+      <p data-reveal data-delay="2" style="font-family:var(--f-body);font-size:15px;opacity:.8;margin-top:8px;max-width:50ch;margin-left:auto;margin-right:auto;line-height:1.65">
+        Objectif sponsoring : <strong>4 000€</strong>. Voici pourquoi chaque euro compte.
+      </p>
+    </div>
+    <div data-reveal style="background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:var(--r-xl);padding:clamp(24px,4vw,40px)">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:20px">
+        <div>
+          <h3 style="font-family:var(--f-head);font-size:18px;font-weight:700;margin-bottom:14px;opacity:.9">📤 Dépenses événement</h3>
+          {[
+            ['Panneaux & affiches', '800€'],
+            ['Publicité réseaux', '400€'],
+            ['Lieu & tivolis', '850€'],
+            ['Tenues bénévoles', '450€'],
+            ['Site web', '150€'],
+            ['Achats & matériel', '1 000€'],
+            ['Assurances', '650€'],
+          ].map(([label, val]) => (
+            <div style="display:flex;justify-content:space-between;align-items:baseline;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.1);font-family:var(--f-body);font-size:13px">
+              <span style="opacity:.75">{label}</span>
+              <span style="font-weight:600">{val}</span>
             </div>
-            <h3 class="font-bold text-[#69322d] text-xl mb-1" style="font-family:'Fredoka',sans-serif">{p.nom}</h3>
-            <div class="font-semibold mb-4 text-sm" style={`color:${p.color};font-family:'Poppins',sans-serif`}>{p.prix}</div>
-            <ul class="space-y-2 flex-1 mb-6">
-              {p.avantages.map(a => (
-                <li class="flex items-start gap-2 text-sm text-[#69322d]/80" style="font-family:'Poppins',sans-serif">
-                  <span class="text-[#26422b] mt-0.5 flex-shrink-0">✓</span>
-                  {a}
-                </li>
-              ))}
-            </ul>
-            <button
-              class="w-full py-3 rounded-full font-bold text-sm transition-all hover:-translate-y-0.5"
-              style={`font-family:'Fredoka',sans-serif;background:${p.color};color:white;border:none;cursor:pointer`}
-              onclick={`document.getElementById('sponsor-form').scrollIntoView({behavior:'smooth'});document.querySelector('[name=pack]').value='${p.id}'`}
-            >
-              Choisir ce pack
-            </button>
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <!-- FORMULAIRE -->
-  <section id="sponsor-form" class="py-20 px-4 bg-[#f3f1c7] paw-bg">
-    <div class="max-w-2xl mx-auto reveal">
-      <div class="text-center mb-10">
-        <h2 class="text-4xl font-bold text-[#69322d]" style="font-family:'Fredoka',sans-serif">Déposez votre demande</h2>
-        <p class="mt-3 text-[#69322d]/70" style="font-family:'Poppins',sans-serif">On vous recontacte sous 48h avec une proposition sur mesure.</p>
-      </div>
-      <form id="form-sponsor" class="bg-white rounded-3xl p-8 shadow-sm border border-[#e8e5a8] space-y-5">
-        <div class="grid sm:grid-cols-2 gap-4">
-          <div>
-            <label class="block text-sm font-semibold text-[#69322d] mb-1" style="font-family:'Poppins',sans-serif">Entreprise *</label>
-            <input name="entreprise" required placeholder="Ma Marque" class="w-full border-2 border-[#e8e5a8] rounded-xl px-4 py-3 text-[#69322d] focus:border-[#de6c49] outline-none transition-colors" style="font-family:'Poppins',sans-serif" />
-          </div>
-          <div>
-            <label class="block text-sm font-semibold text-[#69322d] mb-1" style="font-family:'Poppins',sans-serif">Contact *</label>
-            <input name="contact" required placeholder="Prénom Nom" class="w-full border-2 border-[#e8e5a8] rounded-xl px-4 py-3 text-[#69322d] focus:border-[#de6c49] outline-none transition-colors" style="font-family:'Poppins',sans-serif" />
-          </div>
-        </div>
-        <div class="grid sm:grid-cols-2 gap-4">
-          <div>
-            <label class="block text-sm font-semibold text-[#69322d] mb-1" style="font-family:'Poppins',sans-serif">Email *</label>
-            <input name="email" type="email" required placeholder="contact@marque.fr" class="w-full border-2 border-[#e8e5a8] rounded-xl px-4 py-3 text-[#69322d] focus:border-[#de6c49] outline-none transition-colors" style="font-family:'Poppins',sans-serif" />
-          </div>
-          <div>
-            <label class="block text-sm font-semibold text-[#69322d] mb-1" style="font-family:'Poppins',sans-serif">Téléphone</label>
-            <input name="telephone" placeholder="06 00 00 00 00" class="w-full border-2 border-[#e8e5a8] rounded-xl px-4 py-3 text-[#69322d] focus:border-[#de6c49] outline-none transition-colors" style="font-family:'Poppins',sans-serif" />
-          </div>
-        </div>
-        <div class="grid sm:grid-cols-2 gap-4">
-          <div>
-            <label class="block text-sm font-semibold text-[#69322d] mb-1" style="font-family:'Poppins',sans-serif">Pack souhaité</label>
-            <select name="pack" class="w-full border-2 border-[#e8e5a8] rounded-xl px-4 py-3 text-[#69322d] focus:border-[#de6c49] outline-none transition-colors bg-white" style="font-family:'Poppins',sans-serif">
-              <option value="">À définir ensemble</option>
-              <option value="platine">Pack Platine</option>
-              <option value="or">Pack Or</option>
-              <option value="argent">Pack Argent</option>
-              <option value="bronze">Pack Bronze</option>
-              <option value="custom">Pack sur mesure</option>
-            </select>
-          </div>
-          <div>
-            <label class="block text-sm font-semibold text-[#69322d] mb-1" style="font-family:'Poppins',sans-serif">Zone / Stand à nommer</label>
-            <select name="zone" class="w-full border-2 border-[#e8e5a8] rounded-xl px-4 py-3 text-[#69322d] focus:border-[#de6c49] outline-none transition-colors bg-white" style="font-family:'Poppins',sans-serif">
-              <option value="">Pas de naming souhaité</option>
-              <option value="Zone Aquatique">🌊 Zone Aquatique</option>
-              <option value="Zone Agility">🏆 Zone Agility & Sport</option>
-              <option value="Zone Zen">🌿 Zone Détente & Zen</option>
-              <option value="Zone Famille">👶 Zone Famille & Kids</option>
-              <option value="Scène Centrale">🎤 Scène Centrale</option>
-              <option value="Village Bien-Être">🌱 Village Bien-Être</option>
-              <option value="Tombola">🎟️ Stand Tombola</option>
-              <option value="Buvette">☕ Stand Buvette</option>
-            </select>
+          ))}
+          <div style="display:flex;justify-content:space-between;padding:12px 0;font-family:var(--f-head);font-size:16px;font-weight:700">
+            <span>Total dépenses</span><span style="color:var(--creme)">4 300€</span>
           </div>
         </div>
         <div>
-          <label class="block text-sm font-semibold text-[#69322d] mb-1" style="font-family:'Poppins',sans-serif">Votre objectif / message</label>
-          <textarea name="objectif" rows="3" placeholder="Visibilité locale, association avec une cause, recrutement…" class="w-full border-2 border-[#e8e5a8] rounded-xl px-4 py-3 text-[#69322d] focus:border-[#de6c49] outline-none transition-colors resize-none" style="font-family:'Poppins',sans-serif"></textarea>
+          <h3 style="font-family:var(--f-head);font-size:18px;font-weight:700;margin-bottom:14px;opacity:.9">📥 Recettes événement</h3>
+          {[
+            ['Exposants', '1 500€'],
+            ['Tombola', '1 200€'],
+            ['Buvette', '1 000€'],
+          ].map(([label, val]) => (
+            <div style="display:flex;justify-content:space-between;align-items:baseline;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.1);font-family:var(--f-body);font-size:13px">
+              <span style="opacity:.75">{label}</span>
+              <span style="font-weight:600">{val}</span>
+            </div>
+          ))}
+          <div style="display:flex;justify-content:space-between;padding:12px 0;font-family:var(--f-head);font-size:16px;font-weight:700">
+            <span>Total recettes</span><span style="color:var(--creme)">3 700€</span>
+          </div>
+          <div style="background:rgba(255,255,255,.12);border-radius:var(--r-md);padding:14px;margin-top:8px">
+            <p style="font-family:var(--f-body);font-size:13px;line-height:1.65;opacity:.9">
+              ⚠️ <strong>Sans sponsor, l'événement est déficitaire</strong> et le don final au Refuge devient impossible.
+            </p>
+          </div>
         </div>
-        <button type="submit" id="sponsor-submit" class="w-full bg-[#26422b] text-white py-4 rounded-full font-bold text-lg hover:bg-[#69322d] transition-colors shadow-md" style="font-family:'Fredoka',sans-serif">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 6 PACKS -->
+<section id="packs" class="sec" style="background:var(--bg)">
+  <div class="inner">
+    <div style="text-align:center;margin-bottom:clamp(28px,4vw,56px)">
+      <div data-reveal style="margin-bottom:16px"><span class="chip chip-terre">Nos offres</span></div>
+      <h2 data-reveal data-delay="1" style="font-size:clamp(28px,5vw,52px);color:var(--truffe)">Choisissez votre pack</h2>
+      <p data-reveal data-delay="2" style="font-family:var(--f-hand);font-size:18px;color:var(--terre);margin-top:8px;transform:rotate(-0.5deg)">De 50€ à 2 000€ — selon vos ambitions</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px">
+      {packs.map((p, i) => (
+        <div data-reveal data-delay={String((i % 3) + 1)} style={`
+          background:${p.highlight ? 'linear-gradient(135deg,#fff5f0,#fff)' : '#fff'};
+          border:2px solid ${p.highlight ? 'var(--terre)' : 'var(--creme-dark)'};
+          border-radius:var(--r-xl);padding:clamp(20px,3vw,28px);
+          display:flex;flex-direction:column;
+          ${p.highlight ? 'box-shadow:0 12px 40px rgba(222,108,73,.2);transform:scale(1.02)' : ''}
+          ${p.star ? 'box-shadow:0 12px 40px rgba(26,46,31,.15)' : ''}
+        `}>
+          {p.highlight && <div style="text-align:center;margin-bottom:10px"><span style="background:var(--terre);color:#fff;border-radius:var(--r-pill);padding:4px 14px;font-family:var(--f-body);font-size:11px;font-weight:700">⭐ Populaire</span></div>}
+          {p.star && <div style="text-align:center;margin-bottom:10px"><span style="background:var(--vert);color:#fff;border-radius:var(--r-pill);padding:4px 14px;font-family:var(--f-body);font-size:11px;font-weight:700">⭐ Exclusif × 1</span></div>}
+          {p.limited && !p.star && <div style="text-align:center;margin-bottom:10px"><span style="background:var(--truffe);color:#fff;border-radius:var(--r-pill);padding:4px 14px;font-family:var(--f-body);font-size:11px;font-weight:700">🔒 Limité × {p.limited}</span></div>}
+          <div style={`width:44px;height:44px;border-radius:var(--r-md);background:${p.color};display:flex;align-items:center;justify-content:center;color:${p.textColor};font-family:var(--f-head);font-size:18px;font-weight:700;margin-bottom:12px;flex-shrink:0`}>{p.nom[0]}</div>
+          <h3 style="font-family:var(--f-head);font-size:clamp(18px,2.5vw,22px);font-weight:700;color:var(--truffe);margin-bottom:4px">{p.nom}</h3>
+          <div style={`font-family:var(--f-head);font-size:clamp(22px,3vw,30px);font-weight:700;color:${p.color};margin-bottom:16px`}>{p.prix}</div>
+          <ul style="list-style:none;padding:0;flex:1;display:flex;flex-direction:column;gap:8px;margin-bottom:20px">
+            {p.avantages.map(a => (
+              <li style="display:flex;align-items:flex-start;gap:8px;font-family:var(--f-body);font-size:13px;color:var(--truffe);opacity:.85;line-height:1.5">
+                <span style={`color:${p.color};font-weight:700;flex-shrink:0`}>✓</span>{a}
+              </li>
+            ))}
+          </ul>
+          <button
+            class="btn"
+            style={`width:100%;background:${p.color};color:${p.textColor};font-size:14px;padding:12px 20px`}
+            onclick={`selectPack('${p.id}')`}
+          >
+            Choisir ce pack
+          </button>
+        </div>
+      ))}
+    </div>
+
+    <!-- Option panneaux co-brandés -->
+    <div data-reveal style="margin-top:24px;background:var(--creme);border-radius:var(--r-lg);padding:20px 24px;display:flex;align-items:center;gap:16px;flex-wrap:wrap">
+      <div style="font-size:28px">🪧</div>
+      <div style="flex:1">
+        <h3 style="font-family:var(--f-head);font-size:18px;font-weight:700;color:var(--truffe);margin-bottom:4px">Panneaux co-brandés Vediaux</h3>
+        <p style="font-family:var(--f-body);font-size:13px;color:var(--truffe);opacity:.7">Votre logo sur les panneaux officiels de l'événement. Visible tout au long de la journée.</p>
+      </div>
+      <div style="font-family:var(--f-head);font-size:24px;font-weight:700;color:var(--terre)">65€/unité</div>
+    </div>
+  </div>
+</section>
+
+<!-- ZONES & STANDS -->
+<section class="sec" style="background:var(--creme)">
+  <div class="inner">
+    <div style="text-align:center;margin-bottom:clamp(28px,4vw,48px)">
+      <div data-reveal style="margin-bottom:16px"><span class="chip chip-vert">Naming exclusif</span></div>
+      <h2 data-reveal data-delay="1" style="font-size:clamp(28px,4vw,44px);color:var(--truffe)">Donnez votre nom à une zone</h2>
+      <p data-reveal data-delay="2" style="font-family:var(--f-body);font-size:15px;color:var(--truffe);opacity:.7;margin-top:10px">Disponible à partir du pack Or. Une zone ou un stand porte votre nom toute la journée.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+      <div data-reveal style="background:#fff;border-radius:var(--r-xl);padding:28px;border:1.5px solid var(--creme-dark)">
+        <h3 style="font-family:var(--f-head);font-size:20px;font-weight:700;color:var(--truffe);margin-bottom:16px">🗺️ Zones disponibles</h3>
+        <div style="display:flex;flex-direction:column;gap:6px">
+          {zones.map(z => (
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--creme-dark);font-family:var(--f-body);font-size:14px;color:var(--truffe)">
+              <span>{z}</span>
+              <span style="background:var(--vert);color:#fff;border-radius:var(--r-pill);padding:3px 10px;font-size:11px;font-weight:700">Disponible</span>
+            </div>
+          ))}
+        </div>
+      </div>
+      <div data-reveal data-delay="2" style="background:#fff;border-radius:var(--r-xl);padding:28px;border:1.5px solid var(--creme-dark)">
+        <h3 style="font-family:var(--f-head);font-size:20px;font-weight:700;color:var(--truffe);margin-bottom:16px">🏪 Stands disponibles</h3>
+        <div style="display:flex;flex-direction:column;gap:6px">
+          {stands.map(s => (
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--creme-dark);font-family:var(--f-body);font-size:14px;color:var(--truffe)">
+              <span>{s}</span>
+              <span style="background:var(--vert);color:#fff;border-radius:var(--r-pill);padding:3px 10px;font-size:11px;font-weight:700">Disponible</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PARTENARIAT EN NATURE + GOODIES -->
+<section class="sec" style="background:var(--bg)">
+  <div class="inner" style="display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,4vw,48px)">
+    <div data-reveal>
+      <div style="margin-bottom:16px"><span class="chip chip-terre">Alternative</span></div>
+      <h2 style="font-family:var(--f-head);font-size:clamp(24px,3.5vw,36px);font-weight:700;color:var(--truffe);margin-bottom:12px">Partenariat en nature</h2>
+      <p style="font-family:var(--f-body);font-size:15px;line-height:1.75;color:var(--truffe);opacity:.8;margin-bottom:20px">
+        Pas de budget cash disponible ? Vous pouvez contribuer autrement :
+      </p>
+      <div style="display:flex;flex-direction:column;gap:10px">
+        {['Dons de lots pour la tombola','Compétences (graphisme, com, photo)','Matériel pour l\'événement','Impression d\'affiches'].map(item => (
+          <div style="display:flex;align-items:center;gap:12px;padding:14px 16px;background:var(--creme);border-radius:var(--r-md);font-family:var(--f-body);font-size:14px;color:var(--truffe)">
+            <span>🤝</span>{item}
+          </div>
+        ))}
+      </div>
+    </div>
+    <div data-reveal data-delay="2">
+      <div style="margin-bottom:16px"><span class="chip chip-bleu">Co-branding</span></div>
+      <h2 style="font-family:var(--f-head);font-size:clamp(24px,3.5vw,36px);font-weight:700;color:var(--truffe);margin-bottom:12px">Goodies à votre nom</h2>
+      <p style="font-family:var(--f-body);font-size:15px;line-height:1.75;color:var(--truffe);opacity:.8;margin-bottom:20px">
+        Votre logo sur les goodies officiels distribués aux visiteurs.
+      </p>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+        {goodies.map(g => (
+          <div style="background:#fff;border:1.5px solid var(--creme-dark);border-radius:var(--r-md);padding:14px;display:flex;justify-content:space-between;align-items:center">
+            <span style="font-family:var(--f-body);font-size:13px;color:var(--truffe)">{g.item}</span>
+            <span style="font-family:var(--f-head);font-size:14px;font-weight:700;color:var(--terre)">{g.prix}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FORMULAIRE ENRICHI -->
+<section id="form-sponsor" class="sec" style="background:var(--creme)">
+  <div class="inner-sm">
+    <div style="text-align:center;margin-bottom:clamp(24px,4vw,40px)">
+      <div data-reveal style="margin-bottom:16px"><span class="chip chip-vert">Candidature</span></div>
+      <h2 data-reveal data-delay="1" style="font-size:clamp(28px,4vw,44px);color:var(--truffe)">Déposez votre demande</h2>
+      <p data-reveal data-delay="2" style="font-family:var(--f-body);font-size:15px;color:var(--truffe);opacity:.7;margin-top:8px">On vous recontacte sous 48h avec une proposition sur mesure.</p>
+    </div>
+
+    <form id="form-spons" data-reveal style="background:#fff;border-radius:var(--r-xl);padding:clamp(24px,5vw,40px);box-shadow:0 8px 40px rgba(105,50,45,.08);border:1.5px solid var(--creme-dark)">
+      <div style="display:grid;gap:16px">
+        <!-- Sélecteur pack -->
+        <div>
+          <label style="display:block;font-family:var(--f-body);font-size:13px;font-weight:600;color:var(--truffe);margin-bottom:10px">Pack souhaité</label>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(96px,1fr));gap:8px" id="pack-selector">
+            {packs.map(p => (
+              <label style="cursor:pointer">
+                <input type="radio" name="pack" value={p.id} class="pack-radio" style="display:none" />
+                <div class="pack-btn" style={`border:2px solid var(--creme-dark);border-radius:var(--r-md);padding:10px 8px;text-align:center;transition:all .2s`}>
+                  <div style="font-family:var(--f-head);font-size:14px;font-weight:700;color:var(--truffe)">{p.nom}</div>
+                  <div style={`font-family:var(--f-body);font-size:12px;color:${p.color};font-weight:600`}>{p.prix}</div>
+                </div>
+              </label>
+            ))}
+          </div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+          <div>
+            <label style="display:block;font-family:var(--f-body);font-size:13px;font-weight:600;color:var(--truffe);margin-bottom:6px">Entreprise *</label>
+            <input name="entreprise" required placeholder="Ma Marque" class="field" />
+          </div>
+          <div>
+            <label style="display:block;font-family:var(--f-body);font-size:13px;font-weight:600;color:var(--truffe);margin-bottom:6px">Contact *</label>
+            <input name="contact" required placeholder="Prénom Nom" class="field" />
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+          <div>
+            <label style="display:block;font-family:var(--f-body);font-size:13px;font-weight:600;color:var(--truffe);margin-bottom:6px">Email *</label>
+            <input name="email" type="email" required placeholder="contact@marque.fr" class="field" />
+          </div>
+          <div>
+            <label style="display:block;font-family:var(--f-body);font-size:13px;font-weight:600;color:var(--truffe);margin-bottom:6px">Téléphone</label>
+            <input name="telephone" placeholder="06 00 00 00 00" class="field" />
+          </div>
+        </div>
+
+        <!-- Panneaux compteur -->
+        <div style="background:var(--creme);border-radius:var(--r-lg);padding:16px">
+          <label style="display:block;font-family:var(--f-body);font-size:13px;font-weight:600;color:var(--truffe);margin-bottom:10px">Panneaux co-brandés Vediaux (65€/unité)</label>
+          <div style="display:flex;align-items:center;gap:12px">
+            <button type="button" onclick="changePanneaux(-1)" style="width:36px;height:36px;border-radius:50%;border:2px solid var(--creme-dark);background:#fff;cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;color:var(--truffe)">−</button>
+            <span id="panneaux-count" style="font-family:var(--f-head);font-size:24px;font-weight:700;color:var(--truffe);min-width:32px;text-align:center">0</span>
+            <button type="button" onclick="changePanneaux(1)" style="width:36px;height:36px;border-radius:50%;border:2px solid var(--creme-dark);background:#fff;cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;color:var(--truffe)">+</button>
+            <span style="font-family:var(--f-body);font-size:14px;color:var(--truffe);opacity:.6">= <span id="panneaux-total" style="font-weight:700;color:var(--terre)">0€</span></span>
+          </div>
+          <input type="hidden" name="panneaux" id="panneaux-input" value="0" />
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+          <div>
+            <label style="display:block;font-family:var(--f-body);font-size:13px;font-weight:600;color:var(--truffe);margin-bottom:6px">Zone souhaitée</label>
+            <select name="zone" class="field" style="background:#fff">
+              <option value="">Pas de naming</option>
+              {zones.map(z => <option value={z}>{z}</option>)}
+            </select>
+          </div>
+          <div>
+            <label style="display:block;font-family:var(--f-body);font-size:13px;font-weight:600;color:var(--truffe);margin-bottom:6px">Stand souhaité</label>
+            <select name="stand" class="field" style="background:#fff">
+              <option value="">Pas de naming</option>
+              {stands.map(s => <option value={s}>{s}</option>)}
+            </select>
+          </div>
+        </div>
+
+        <div>
+          <label style="display:block;font-family:var(--f-body);font-size:13px;font-weight:600;color:var(--truffe);margin-bottom:6px">Lot jeu concours (optionnel)</label>
+          <input name="lot" placeholder="Ex: Bon d'achat 50€, produit découverte…" class="field" />
+        </div>
+
+        <div>
+          <label style="display:block;font-family:var(--f-body);font-size:13px;font-weight:600;color:var(--truffe);margin-bottom:6px">Votre objectif</label>
+          <textarea name="objectif" rows="3" placeholder="Visibilité locale, association avec une cause, acquisition clients, recrutement…" class="field" style="resize:none"></textarea>
+        </div>
+
+        <button type="submit" id="sponsor-submit" class="btn btn-vert" style="width:100%;font-size:18px;padding:18px">
           Envoyer ma demande 🤝
         </button>
-        <div id="sponsor-success" class="hidden text-center py-4 bg-[#26422b] text-white rounded-2xl font-semibold" style="font-family:'Fredoka',sans-serif">
+        <div id="sponsor-success" style="display:none;text-align:center;padding:20px;background:var(--vert);color:#fff;border-radius:var(--r-lg);font-family:var(--f-head);font-size:18px;font-weight:600">
           ✅ Demande envoyée ! On vous recontacte sous 48h.
         </div>
-      </form>
-    </div>
-  </section>
+      </div>
+    </form>
+  </div>
+</section>
 
-  <!-- FOOTER -->
-  <footer class="bg-[#69322d] text-white py-8 px-4 text-center text-sm text-white/50" style="font-family:'Poppins',sans-serif">
-    <a href="/" class="hover:text-white transition-colors">← Retour au site Woof Day</a>
-  </footer>
+<!-- FOOTER -->
+<footer style="background:var(--truffe);color:#fff;padding:clamp(32px,5vw,48px) clamp(20px,5vw,40px);text-align:center">
+  <div style="display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap">
+    <img src="/logos/tete-chien.svg" alt="" style="height:36px;filter:brightness(0) invert(1);opacity:.8"/>
+    <a href="/" style="font-family:var(--f-body);font-size:13px;color:rgba(255,255,255,.6);text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.6)'">← Retour au site Woof Day</a>
+    <span style="opacity:.3">·</span>
+    <a href="/exposants" style="font-family:var(--f-body);font-size:13px;color:rgba(255,255,255,.6);text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.6)'">Devenir exposant →</a>
+  </div>
+</footer>
+
 </Layout>
 
 <script>
-  const form = document.getElementById('form-sponsor') as HTMLFormElement;
-  const btn = document.getElementById('sponsor-submit') as HTMLButtonElement;
-  const success = document.getElementById('sponsor-success') as HTMLElement;
+  // Manifeste toggle
+  document.getElementById('toggle-manifeste')?.addEventListener('click', function() {
+    const c = document.getElementById('manifeste-content');
+    const open = c.style.display !== 'none';
+    c.style.display = open ? 'none' : 'block';
+    this.textContent = open ? 'Notre charte éthique ▾' : 'Masquer ▴';
+  });
 
+  // Pack selector
+  document.querySelectorAll('.pack-radio').forEach(radio => {
+    radio.addEventListener('change', () => {
+      document.querySelectorAll('.pack-btn').forEach(btn => {
+        btn.style.borderColor = 'var(--creme-dark)';
+        btn.style.background = '';
+      });
+      if (radio.checked) {
+        const btn = radio.closest('label').querySelector('.pack-btn');
+        btn.style.borderColor = 'var(--vert)';
+        btn.style.background = '#f0f7f0';
+      }
+    });
+  });
+
+  window.selectPack = (id) => {
+    const radio = document.querySelector(`.pack-radio[value="${id}"]`);
+    if (radio) { radio.checked = true; radio.dispatchEvent(new Event('change')); }
+    document.getElementById('form-sponsor').scrollIntoView({ behavior: 'smooth' });
+  };
+
+  // Panneaux counter
+  let panneauxQty = 0;
+  window.changePanneaux = (dir) => {
+    panneauxQty = Math.max(0, Math.min(10, panneauxQty + dir));
+    document.getElementById('panneaux-count').textContent = panneauxQty;
+    document.getElementById('panneaux-total').textContent = (panneauxQty * 65) + '€';
+    document.getElementById('panneaux-input').value = panneauxQty;
+  };
+
+  // Form submit
+  const form = document.getElementById('form-spons');
   form?.addEventListener('submit', async (e) => {
     e.preventDefault();
-    btn.textContent = 'Envoi…';
-    btn.disabled = true;
+    const btn = document.getElementById('sponsor-submit');
+    btn.textContent = 'Envoi…'; btn.disabled = true;
     try {
       const data = Object.fromEntries(new FormData(form));
       const res = await fetch('/api/sponsor', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) });
-      if (res.ok) { form.style.display = 'none'; success.classList.remove('hidden'); }
-      else throw new Error();
+      if (res.ok) {
+        form.style.display = 'none';
+        document.getElementById('sponsor-success').style.display = 'block';
+        window.showToast?.('✅ Demande envoyée !');
+      } else throw new Error();
     } catch {
       btn.textContent = '❌ Erreur — Réessayez';
       btn.disabled = false;

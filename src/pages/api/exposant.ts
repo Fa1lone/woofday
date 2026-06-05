@@ -14,8 +14,8 @@ export const POST: APIRoute = async ({ request }) => {
       description: data.description ?? '',
       tailleStand: data.tailleStand,
       lienWeb: data.lienWeb,
-      barnum: data.barnum === 'on' || data.barnum === true,
-      electricite: data.electricite === 'on' || data.electricite === true,
+      barnum: data.barnum,
+      electricite: data.electricite,
     });
     return new Response(JSON.stringify({ ok: true, id: item.id }), { status: 201 });
   } catch (e) {
