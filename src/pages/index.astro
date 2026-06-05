@@ -2,52 +2,20 @@
 import Layout from '../layouts/Layout.astro';
 import DoodleMark from '../components/DoodleMark.astro';
 import LogoTicker from '../components/LogoTicker.astro';
-import { getInterestCount } from '../lib/data';
+import { getInterestCount, getActivities, getExposants } from '../lib/data';
 const count = getInterestCount();
+const activities = getActivities().sort((a, b) => a.order - b.order);
+const allExposants = getExposants();
+const confirmedExposants = allExposants.filter(e => e.status === 'confirmed');
+
+// On affiche soit les vrais exposants confirmés, soit les fictifs s'il n'y en a pas encore
+const exposantsToShow = confirmedExposants.length > 0 ? confirmedExposants.slice(0, 6) : [
+  { structure: 'Caninéo Santé', pole: 'Alimentation & Friandises', imageUrl: 'https://images.unsplash.com/photo-1601758228041-f3b2795255f1?w=120&h=120&q=80&fit=crop', description: 'Alimentation naturelle et locale pour chiens.', instagram: '@cadineo_sante', color: '#de6c49', emoji: '🦴' },
+  { structure: 'Doggy Toys 16', pole: 'Créateur Accessoires', imageUrl: 'https://images.unsplash.com/photo-1548199973-03cce0bbc87b?w=120&h=120&q=80&fit=crop', description: 'Accessoires, laisses et jouets éco-responsables.', instagram: '@doggytoys16', color: '#26422b', emoji: '🧶' },
+  { structure: 'Aqua Dog Charente', pole: 'Activités Sportives', imageUrl: 'https://images.unsplash.com/photo-1518717758536-85ae29035b6d?w=120&h=120&q=80&fit=crop', description: 'Spécialistes des activités aquatiques canines.', instagram: '@aquadog_charente', color: '#91acda', emoji: '🌊' },
+];
 
 const gcalUrl = "https://calendar.google.com/calendar/render?action=TEMPLATE&text=Woof+Day+2026&dates=20260913T080000Z/20260913T160000Z&details=La+grande+f%C3%AAte+canine+de+Charente+%E2%80%94+Entr%C3%A9e+gratuite+%F0%9F%90%BE&location=Amb%C3%A9rac%2C+Charente+(16)&sf=true&output=xml";
-
-const exposantsFictifs = [
-  { emoji: '🦴', nom: 'Caninéo Santé', activite: 'Alimentation & Friandises', color: '#de6c49',
-    photo: 'https://images.unsplash.com/photo-1601758228041-f3b2795255f1?w=120&h=120&q=80&fit=crop',
-    desc: 'Alimentation naturelle et locale pour chiens. Croquettes artisanales, friandises sans additifs, compléments santé.',
-    long: 'Caninéo Santé propose une gamme complète d\'alimentation naturelle pour chiens, fabriquée localement en Charente. Friandises sans additifs, croquettes artisanales, compléments santé, barf. Conseils personnalisés sur place.',
-    instagram: '@cadineo_sante' },
-  { emoji: '🧶', nom: 'Doggy Toys 16', activite: 'Créateur Accessoires', color: '#26422b',
-    photo: 'https://images.unsplash.com/photo-1548199973-03cce0bbc87b?w=120&h=120&q=80&fit=crop',
-    desc: 'Accessoires, laisses et jouets éco-responsables fabriqués à la main. Chaque pièce est unique.',
-    long: 'Doggy Toys 16 crée des accessoires canins éco-responsables : laisses, colliers, harnais et jouets en matières naturelles. Fabrication artisanale, zéro plastique. Personnalisation sur commande.',
-    instagram: '@doggytoys16' },
-  { emoji: '🌊', nom: 'Aqua Dog Charente', activite: 'Activités Sportives', color: '#91acda',
-    photo: 'https://images.unsplash.com/photo-1518717758536-85ae29035b6d?w=120&h=120&q=80&fit=crop',
-    desc: 'Spécialistes des activités aquatiques canines. Initiations, séances en groupe, bains sécurisés.',
-    long: 'Aqua Dog Charente est le référent régional pour les activités aquatiques canines. Initiations à la natation, séances de balnéo, hydrotherapy, dock diving. Éducateurs diplômés, chiens de tous niveaux acceptés.',
-    instagram: '@aquadog_charente' },
-  { emoji: '🎓', nom: 'Truffes & Co', activite: 'Éducation & Comportement', color: '#69322d',
-    photo: 'https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=120&h=120&q=80&fit=crop',
-    desc: 'Éducation canine positive. Démonstrations et ateliers en direct. Sans contrainte ni punition.',
-    long: 'Truffes & Co pratique une éducation 100% positive basée sur le renforcement. Démonstrations d\'agility, ateliers pratiques, conseils comportement. Éducatrice certifiée CFPPA, approche bienveillante.',
-    instagram: '@truffesandco' },
-  { emoji: '🤲', nom: 'Pattes de Velours', activite: 'Ostéopathie Canine', color: '#de6c49',
-    photo: 'https://images.unsplash.com/photo-1552053831-71594a27632d?w=120&h=120&q=80&fit=crop',
-    desc: 'Séances de massage canin et d\'ostéopathie. Détente et récupération pour votre chien.',
-    long: 'Pattes de Velours propose des soins de bien-être canin : massages relaxants, ostéopathie animale, physiothérapie. Consultation sur place le jour J avec démonstration. Diplômée en ostéopathie animale.',
-    instagram: '@pattesdeVelours' },
-  { emoji: '📸', nom: 'Clic Clac Dog', activite: 'Photographie Animale', color: '#26422b',
-    photo: 'https://images.unsplash.com/photo-1537151608828-ea2b11777ee8?w=120&h=120&q=80&fit=crop',
-    desc: 'Portraits professionnels de votre chien. Séances flash le jour J, photos retouchées livrées sous 48h.',
-    long: 'Clic Clac Dog réalise des portraits photo professionnels de votre chien sur fond neutre ou en décor naturel. Séances flash de 10 min, rendu garanti sous 48h par email. Tirage possible sur demande.',
-    instagram: '@clicclacdogphoto' },
-];
-
-const zones = [
-  { emoji: '🌊', nom: 'Zone Aquatique',    desc: 'Baignade & jeux d\'eau' },
-  { emoji: '🏆', nom: 'Agility & Sport',   desc: 'Parcours, démonstrations' },
-  { emoji: '🌿', nom: 'Détente & Zen',     desc: 'Massages canins, relaxation' },
-  { emoji: '👶', nom: 'Famille & Kids',    desc: 'Ateliers, animations enfants' },
-  { emoji: '🎤', nom: 'Scène Centrale',    desc: 'Spectacles, concours, remises' },
-  { emoji: '🌱', nom: 'Village Bien-Être', desc: 'Santé naturelle & alimentation' },
-];
 
 const faqs = [
   { q: "Le Woof Day est-il payant ?",         a: "Non, l'entrée est totalement gratuite." },
@@ -452,19 +420,19 @@ const waText = encodeURIComponent("Woof Day 2026 — Dimanche 13 sept à Ambéra
     </div>
 
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin-bottom:32px">
-      {exposantsFictifs.map((e, i) => (
+      {exposantsToShow.map((e: any, i) => (
         <button data-reveal data-delay={String((i % 3) + 1)}
           data-idx={i}
           onclick={`openExpModal(${i})`}
           style={`background:#fff;border:2px solid var(--creme-dark);border-radius:var(--r-xl);padding:24px;text-align:left;cursor:pointer;transition:transform .25s,box-shadow .25s;`}
           onmouseover="this.style.transform='translateY(-4px)';this.style.boxShadow='0 12px 32px rgba(105,50,45,.12)'"
           onmouseout="this.style.transform='';this.style.boxShadow=''">
-          <div style={`width:64px;height:64px;border-radius:var(--r-md);background:${e.color};overflow:hidden;margin-bottom:14px;flex-shrink:0`}>
-            <img src={e.photo} alt={e.nom} style="width:100%;height:100%;object-fit:cover" loading="lazy" onerror={`this.style.display='none';this.parentElement.innerHTML='${e.emoji}';this.parentElement.style.display='flex';this.parentElement.style.alignItems='center';this.parentElement.style.justifyContent='center';this.parentElement.style.fontSize='28px'`} />
+          <div style={`width:64px;height:64px;border-radius:var(--r-md);background:${e.color ?? 'var(--terre)'};overflow:hidden;margin-bottom:14px;flex-shrink:0`}>
+            <img src={e.imageUrl} alt={e.structure} style="width:100%;height:100%;object-fit:cover" loading="lazy" onerror={`this.style.display='none';this.parentElement.innerHTML='${e.emoji ?? '🐾'}';this.parentElement.style.display='flex';this.parentElement.style.alignItems='center';this.parentElement.style.justifyContent='center';this.parentElement.style.fontSize='28px'`} />
           </div>
-          <span style={`font-family:var(--f-body);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:${e.color};display:block;margin-bottom:6px`}>{e.activite}</span>
-          <h3 style="font-family:var(--f-head);font-size:22px;font-weight:700;color:var(--truffe);margin-bottom:8px">{e.nom}</h3>
-          <p style="font-family:var(--f-body);font-size:13px;line-height:1.65;color:var(--truffe);opacity:.7">{e.desc}</p>
+          <span style={`font-family:var(--f-body);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:${e.color ?? 'var(--terre)'};display:block;margin-bottom:6px`}>{e.pole}</span>
+          <h3 style="font-family:var(--f-head);font-size:22px;font-weight:700;color:var(--truffe);margin-bottom:8px">{e.structure}</h3>
+          <p style="font-family:var(--f-body);font-size:13px;line-height:1.65;color:var(--truffe);opacity:.7;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden">{e.description}</p>
           <div style="margin-top:14px;font-family:var(--f-body);font-size:12px;font-weight:600;color:var(--terre)">Voir la fiche →</div>
         </button>
       ))}
@@ -578,11 +546,11 @@ const waText = encodeURIComponent("Woof Day 2026 — Dimanche 13 sept à Ambéra
       <p data-reveal data-delay="2" style="font-family:var(--f-hand);font-size:22px;opacity:.7;transform:rotate(-1.5deg);max-width:200px;text-align:right">une journée,<br/>6 mondes !</p>
     </div>
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px">
-      {zones.map((z, i) => (
+      {activities.map((z, i) => (
         <div data-reveal data-delay={String(i % 3 + 1)} style="background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:var(--r-lg);padding:28px 24px;transition: background .25s, transform .25s" onmouseover="this.style.background='rgba(255,255,255,.14)';this.style.transform='translateY(-4px)'" onmouseout="this.style.background='rgba(255,255,255,.08)';this.style.transform=''">
           <div style="font-size:36px;margin-bottom:12px">{z.emoji}</div>
           <h3 style="font-family:var(--f-head);font-size:20px;font-weight:700;margin-bottom:6px">{z.nom}</h3>
-          <p style="font-family:var(--f-body);font-size:14px;opacity:.65;line-height:1.6">{z.desc}</p>
+          <p style="font-family:var(--f-body);font-size:14px;opacity:.65;line-height:1.6">{z.description}</p>
         </div>
       ))}
     </div>
@@ -749,7 +717,7 @@ const waText = encodeURIComponent("Woof Day 2026 — Dimanche 13 sept à Ambéra
 </div>
 </Layout>
 
-<script define:vars={{ exposantsFictifs }}>
+<script define:vars={{ exposantsToShow }}>
   // Progress bar
   window.addEventListener('scroll', () => {
     const el = document.getElementById('pbar');
@@ -794,7 +762,7 @@ const waText = encodeURIComponent("Woof Day 2026 — Dimanche 13 sept à Ambéra
   const btn = document.getElementById('btn-participe');
   const countEl = document.getElementById('interest-count');
   let voted = localStorage.getItem('wd_v') === '1';
-  if (voted) { btn.textContent = '✅ Je participe !'; btn.style.background = '#26422b'; }
+  if (voted) { if (btn) { btn.textContent = '✅ Je participe !'; btn.style.background = '#26422b'; } }
 
   btn?.addEventListener('click', async () => {
     if (voted) { document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' }); return; }
@@ -806,14 +774,15 @@ const waText = encodeURIComponent("Woof Day 2026 — Dimanche 13 sept à Ambéra
     try {
       const res = await fetch('/api/interest', { method: 'POST' });
       const { count } = await res.json();
-      animCount(countEl, parseInt(countEl.textContent ?? '0'), count);
+      if (countEl) animCount(countEl, parseInt(countEl.textContent ?? '0'), count);
       localStorage.setItem('wd_v', '1');
       voted = true;
-      btn.textContent = '✅ Je participe !';
-      btn.style.background = '#26422b';
+      if (btn) { btn.textContent = '✅ Je participe !'; btn.style.background = '#26422b'; }
       const block = document.getElementById('interest-block');
-      block.style.transform = 'scale(1.06)';
-      setTimeout(() => block.style.transform = '', 320);
+      if (block) {
+        block.style.transform = 'scale(1.06)';
+        setTimeout(() => block.style.transform = '', 320);
+      }
       window.showToast?.('🐾 Tu es comptabilisé·e !');
     } catch {}
   });
@@ -836,16 +805,16 @@ const waText = encodeURIComponent("Woof Day 2026 — Dimanche 13 sept à Ambéra
   const agendaDrop = document.getElementById('agenda-drop');
   agendaBtn?.addEventListener('click', (e) => {
     e.stopPropagation();
-    agendaDrop.style.display = agendaDrop.style.display === 'block' ? 'none' : 'block';
+    if (agendaDrop) agendaDrop.style.display = agendaDrop.style.display === 'block' ? 'none' : 'block';
   });
   document.addEventListener('click', () => { if (agendaDrop) agendaDrop.style.display = 'none'; });
 
   // FAQ
   document.querySelectorAll('.faq-btn').forEach(b => {
     b.addEventListener('click', () => {
-      const item = b.closest('.faq-item');
-      const body = item.querySelector('.faq-body');
-      const chev = item.querySelector('.faq-chevron');
+      const item = b.closest('.faq-item') as HTMLElement;
+      const body = item.querySelector('.faq-body') as HTMLElement;
+      const chev = item.querySelector('.faq-chevron') as HTMLElement;
       const open = body.style.display !== 'none';
       body.style.display = open ? 'none' : 'block';
       chev.style.transform = open ? '' : 'rotate(180deg)';
@@ -854,16 +823,17 @@ const waText = encodeURIComponent("Woof Day 2026 — Dimanche 13 sept à Ambéra
   });
 
   // Contact form
-  const form = document.getElementById('contact-form');
+  const form = document.getElementById('contact-form') as HTMLFormElement;
   form?.addEventListener('submit', async (e) => {
     e.preventDefault();
-    const submitBtn = form.querySelector('button[type=submit]');
+    const submitBtn = form.querySelector('button[type=submit]') as HTMLButtonElement;
     submitBtn.textContent = 'Envoi…'; submitBtn.disabled = true;
     try {
       const res = await fetch('/api/contact', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(Object.fromEntries(new FormData(form))) });
       if (res.ok) {
         form.style.display = 'none';
-        document.getElementById('contact-success').style.display = 'block';
+        const successEl = document.getElementById('contact-success');
+        if (successEl) successEl.style.display = 'block';
         window.showToast?.('✅ Message envoyé !');
       } else throw new Error();
     } catch { submitBtn.textContent = '❌ Erreur — Réessayez'; submitBtn.disabled = false; }
@@ -871,31 +841,50 @@ const waText = encodeURIComponent("Woof Day 2026 — Dimanche 13 sept à Ambéra
 
   // Exposant modal
   window.openExpModal = (i) => {
-    const e = exposantsFictifs[i];
+    const e = exposantsToShow[i];
     const avatar = document.getElementById('exp-avatar');
-    avatar.style.background = e.color;
-    avatar.innerHTML = `<img src="${e.photo}" alt="${e.nom}" style="width:100%;height:100%;object-fit:cover" onerror="this.style.display='none';this.parentElement.innerHTML='${e.emoji}';this.parentElement.style.display='flex';this.parentElement.style.alignItems='center';this.parentElement.style.justifyContent='center';this.parentElement.style.fontSize='36px'" />`;
-    document.getElementById('exp-badge').textContent = e.activite;
-    document.getElementById('exp-nom').textContent = e.nom;
-    document.getElementById('exp-desc').textContent = e.long;
+    if (avatar) {
+      avatar.style.background = e.color ?? 'var(--terre)';
+      avatar.innerHTML = `<img src="${e.imageUrl}" alt="${e.structure}" style="width:100%;height:100%;object-fit:cover" onerror="this.style.display='none';this.parentElement.innerHTML='${e.emoji ?? '🐾'}';this.parentElement.style.display='flex';this.parentElement.style.alignItems='center';this.parentElement.style.justifyContent='center';this.parentElement.style.fontSize='36px'" />`;
+    }
+    const badge = document.getElementById('exp-badge');
+    if (badge) badge.textContent = e.pole;
+    const nom = document.getElementById('exp-nom');
+    if (nom) nom.textContent = e.structure;
+    const desc = document.getElementById('exp-desc');
+    if (desc) desc.textContent = e.description;
     const links = document.getElementById('exp-links');
-    links.innerHTML = '';
-    if (e.instagram) {
-      const a = document.createElement('a');
-      a.href = `https://instagram.com/${e.instagram.replace('@','')}`;
-      a.target = '_blank'; a.rel = 'noopener';
-      a.className = 'btn btn-outline-t';
-      a.style.fontSize = '13px'; a.style.padding = '8px 18px';
-      a.textContent = '📸 ' + e.instagram;
-      links.appendChild(a);
+    if (links) {
+      links.innerHTML = '';
+      if (e.instagram) {
+        const a = document.createElement('a');
+        a.href = `https://instagram.com/${e.instagram.replace('@','')}`;
+        a.target = '_blank'; a.rel = 'noopener';
+        a.className = 'btn btn-outline-t';
+        a.style.fontSize = '13px'; a.style.padding = '8px 18px';
+        a.textContent = '📸 ' + e.instagram;
+        links.appendChild(a);
+      }
+      if (e.lienWeb) {
+        const a = document.createElement('a');
+        a.href = e.lienWeb;
+        a.target = '_blank'; a.rel = 'noopener';
+        a.className = 'btn btn-outline-t';
+        a.style.fontSize = '13px'; a.style.padding = '8px 18px';
+        a.textContent = '🌐 Site Web';
+        links.appendChild(a);
+      }
     }
     const modal = document.getElementById('exp-modal');
-    modal.style.display = 'flex';
-    document.body.style.overflow = 'hidden';
+    if (modal) {
+      modal.style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+    }
   };
 
   window.closeExpModal = () => {
-    document.getElementById('exp-modal').style.display = 'none';
+    const modal = document.getElementById('exp-modal');
+    if (modal) modal.style.display = 'none';
     document.body.style.overflow = '';
   };
 

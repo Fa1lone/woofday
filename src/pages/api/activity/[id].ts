@@ -1,10 +1,10 @@
 import type { APIRoute } from 'astro';
-import { updateExposant, deleteExposant } from '../../../lib/data';
+import { updateActivity, deleteActivity } from '../../../lib/data';
 
 export const PATCH: APIRoute = async ({ request, params }) => {
   try {
     const data = await request.json();
-    updateExposant(params.id!, data);
+    updateActivity(params.id!, data);
     return new Response(JSON.stringify({ ok: true }), { status: 200 });
   } catch {
     return new Response(JSON.stringify({ error: 'Erreur' }), { status: 500 });
@@ -13,7 +13,7 @@ export const PATCH: APIRoute = async ({ request, params }) => {
 
 export const DELETE: APIRoute = async ({ params }) => {
   try {
-    deleteExposant(params.id!);
+    deleteActivity(params.id!);
     return new Response(JSON.stringify({ ok: true }), { status: 200 });
   } catch {
     return new Response(JSON.stringify({ error: 'Erreur' }), { status: 500 });
