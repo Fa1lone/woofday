@@ -41,8 +41,8 @@ export type Exposant = {
   description: string;
   tailleStand?: string;
   lienWeb?: string;
-  barnum?: boolean;
-  electricite?: boolean;
+  barnum?: string;
+  electricite?: string;
   status: 'pending' | 'confirmed' | 'rejected';
   createdAt: string;
 };
