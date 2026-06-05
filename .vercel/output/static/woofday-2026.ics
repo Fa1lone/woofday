@@ -1,0 +1,14 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Woof Day//woofday.fr//FR
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+DTSTART;TZID=Europe/Paris:20260913T100000
+DTEND;TZID=Europe/Paris:20260913T180000
+SUMMARY:Woof Day 2026
+DESCRIPTION:La grande fête canine de Charente.\nEntrée gratuite. 50+ exposants\, animations\, tombola\, activités aquatiques.\nAu profit du Refuge de l'Angoumois.
+LOCATION:Ambérac\, Charente (16)
+URL:https://woofday.fr
+END:VEVENT
+END:VCALENDAR

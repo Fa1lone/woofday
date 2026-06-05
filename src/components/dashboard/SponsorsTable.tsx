@@ -115,7 +115,7 @@ export function SponsorsTable({ initialData }: { initialData: Sponsor[] }) {
                       {s.instagram && <a href={`https://instagram.com/${s.instagram.replace('@','')}`} target="_blank" style={{ fontSize: 11, color: '#de6c49', textDecoration: 'none', fontWeight: 600 }}>📸 Instagram</a>}
                     </div>
                   </div>
-                  <div style={{ text-align: 'right' }}>
+                  <div style={{ textAlign: 'right' }}>
                     <span style={{ padding: '3px 10px', borderRadius: 9999, fontSize: 12, fontWeight: 600, background: STATUS_COLORS[s.status], color: '#69322d', display: 'inline-block', marginBottom: 8 }}>
                       {STATUS_LABELS[s.status]}
                     </span>
