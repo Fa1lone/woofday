@@ -1,0 +1,63 @@
+---
+type Variant = "arrow" | "arrow-curved" | "circle" | "burst" | "underline";
+
+interface Props {
+  variant?: Variant;
+  color?: string;
+  class?: string;
+  style?: string;
+}
+
+const {
+  variant = "arrow",
+  color = "currentColor",
+  class: className = "",
+  style = "",
+} = Astro.props;
+---
+
+{variant === "arrow" && (
+  <svg class={`doodle-mark ${className}`} style={style} width="60" height="50" viewBox="0 0 60 50" fill="none" aria-hidden="true">
+    <path d="M5 5 C15 3 35 15 52 40" stroke={color} stroke-width="2.5" stroke-linecap="round" fill="none"/>
+    <path d="M52 40 L42 34" stroke={color} stroke-width="2.5" stroke-linecap="round"/>
+    <path d="M52 40 L48 48" stroke={color} stroke-width="2.5" stroke-linecap="round"/>
+  </svg>
+)}
+
+{variant === "arrow-curved" && (
+  <svg class={`doodle-mark ${className}`} style={style} width="80" height="80" viewBox="0 0 80 80" fill="none" aria-hidden="true">
+    <path d="M10 10 Q 40 5, 50 40 T 70 70" stroke={color} stroke-width="2" stroke-linecap="round" fill="none"/>
+    <path d="M70 70 L58 68" stroke={color} stroke-width="2" stroke-linecap="round"/>
+    <path d="M70 70 L68 58" stroke={color} stroke-width="2" stroke-linecap="round"/>
+  </svg>
+)}
+
+{variant === "circle" && (
+  <svg class={`doodle-mark ${className}`} style={style} width="220" height="96" viewBox="0 0 220 96" fill="none" aria-hidden="true">
+    <path d="M112 7C164 6 211 24 214 51C217 76 176 90 109 90C42 90 8 75 8 50C8 23 58 8 112 7Z" stroke={color} stroke-width="3" stroke-linecap="round" />
+    <path d="M116 13C166 13 205 29 205 51C205 72 168 84 108 84C48 84 17 72 17 51C17 31 60 14 116 13Z" stroke={color} stroke-width="1.8" stroke-linecap="round" opacity=".45" />
+  </svg>
+)}
+
+{variant === "burst" && (
+  <svg class={`doodle-mark ${className}`} style={style} width="86" height="70" viewBox="0 0 86 70" fill="none" aria-hidden="true">
+    <path d="M43 5 L43 20" stroke={color} stroke-width="4" stroke-linecap="round" />
+    <path d="M15 15 L28 28" stroke={color} stroke-width="4" stroke-linecap="round" />
+    <path d="M71 15 L58 28" stroke={color} stroke-width="4" stroke-linecap="round" />
+  </svg>
+)}
+
+{variant === "underline" && (
+  <svg class={`doodle-mark ${className}`} style={style} width="160" height="20" viewBox="0 0 160 20" fill="none" aria-hidden="true">
+    <path d="M5 10 C30 12 130 8 155 12" stroke={color} stroke-width="4" stroke-linecap="round" fill="none" />
+  </svg>
+)}
+
+<style>
+  .doodle-mark {
+    position: absolute;
+    pointer-events: none;
+    user-select: none;
+    overflow: visible;
+  }
+</style>

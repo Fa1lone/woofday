@@ -47,4 +47,26 @@ const {
 
 <style is:global>
   @import '../styles/global.css';
+
+  html,
+  body {
+    overflow-x: hidden;
+  }
+
+  .dog-deco {
+    position: absolute;
+    bottom: 0;
+    width: fit-content;
+    pointer-events: none;
+    line-height: 0;
+    z-index: 1;
+  }
+
+  @media (max-width: 768px) {
+    .dog-deco {
+      display: none;
+      opacity: 0;
+      pointer-events: none;
+    }
+  }
 </style>

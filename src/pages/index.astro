@@ -1,5 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import DoodleMark from '../components/DoodleMark.astro';
+import LogoTicker from '../components/LogoTicker.astro';
 import { getInterestCount } from '../lib/data';
 const count = getInterestCount();
 
@@ -84,8 +86,8 @@ const waText = encodeURIComponent("Woof Day 2026 — Dimanche 13 sept à Ambéra
   </div>
   <div style="display:flex;align-items:center;gap:8px">
     <div class="nav-pro-links" style="display:flex;align-items:center;gap:6px">
-      <a href="/exposants" style="font-family:var(--f-body);font-size:13px;font-weight:700;color:var(--terre);text-decoration:none;background:rgba(222,108,73,.1);border:1.5px solid rgba(222,108,73,.35);border-radius:var(--r-pill);padding:7px 14px;transition:background .2s" onmouseover="this.style.background='rgba(222,108,73,.2)'" onmouseout="this.style.background='rgba(222,108,73,.1)'">Exposant 🏪</a>
-      <a href="/sponsor" style="font-family:var(--f-body);font-size:13px;font-weight:700;color:var(--vert);text-decoration:none;background:rgba(38,66,43,.1);border:1.5px solid rgba(38,66,43,.3);border-radius:var(--r-pill);padding:7px 14px;transition:background .2s" onmouseover="this.style.background='rgba(38,66,43,.2)'" onmouseout="this.style.background='rgba(38,66,43,.1)'">Sponsor 🤝</a>
+      <a href="/exposants" style="font-family:var(--f-body);font-size:13px;font-weight:700;color:var(--terre);text-decoration:none;background:rgba(222,108,73,.1);border:1.5px solid rgba(222,108,73,.35);border-radius:var(--r-pill);padding:7px 14px;transition:background .2s" onmouseover="this.style.background='rgba(222,108,73,.2)'" onmouseout="this.style.background='rgba(222,108,73,.1)'">Devenir exposant 🏪</a>
+      <a href="/sponsor" style="font-family:var(--f-body);font-size:13px;font-weight:700;color:var(--vert);text-decoration:none;background:rgba(38,66,43,.1);border:1.5px solid rgba(38,66,43,.3);border-radius:var(--r-pill);padding:7px 14px;transition:background .2s" onmouseover="this.style.background='rgba(38,66,43,.2)'" onmouseout="this.style.background='rgba(38,66,43,.1)'">Devenir sponsor 🤝</a>
     </div>
     <a href="#contact" id="btn-viens" class="btn btn-terre" style="font-size:14px;padding:10px 22px">Je viens 🐾</a>
   </div>
@@ -129,11 +131,7 @@ const waText = encodeURIComponent("Woof Day 2026 — Dimanche 13 sept à Ambéra
   <!-- Flèche annotation "c'est gratuit !" -->
   <div class="arrow-deco" style="bottom:clamp(90px,14vw,170px);left:clamp(20px,7%,110px)">
     <div class="arrow-note" style="color:rgba(255,255,255,.65);transform:rotate(-8deg)">
-      <svg width="52" height="40" viewBox="0 0 52 40" fill="none">
-        <path d="M6 6 C14 4 32 12 46 34" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" fill="none"/>
-        <path d="M46 34 L37 29" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
-        <path d="M46 34 L43 42" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
-      </svg>
+      <DoodleMark variant="arrow" color="currentColor" style="position:relative;width:52px;height:auto;margin-bottom:4px" />
       c'est gratuit !
     </div>
   </div>
@@ -142,11 +140,7 @@ const waText = encodeURIComponent("Woof Day 2026 — Dimanche 13 sept à Ambéra
   <div class="arrow-deco" style="bottom:clamp(60px,10vw,120px);right:clamp(20px,7%,120px)">
     <div class="arrow-note" style="color:rgba(255,255,255,.5);transform:rotate(6deg);text-align:right">
       marque le 13 sept !
-      <svg width="48" height="36" viewBox="0 0 48 36" fill="none">
-        <path d="M42 6 C34 4 16 12 4 30" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/>
-        <path d="M4 30 L13 25" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-        <path d="M4 30 L7 38" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-      </svg>
+      <DoodleMark variant="arrow" color="currentColor" style="position:relative;width:48px;height:auto;margin-top:4px;transform:scaleX(-1) rotate(10deg)" />
     </div>
   </div>
 
@@ -190,6 +184,7 @@ const waText = encodeURIComponent("Woof Day 2026 — Dimanche 13 sept à Ambéra
         Je participe ! 🐾
       </button>
       <a href="/exposants" class="btn btn-outline-w" style="font-size:clamp(14px,2vw,18px)">Devenir exposant</a>
+      <a href="/sponsor" class="btn btn-outline-w" style="font-size:clamp(14px,2vw,18px)">Devenir sponsor</a>
       <!-- Agenda dropdown -->
       <div style="position:relative">
         <button id="agenda-btn" class="btn btn-outline-w" style="font-size:clamp(13px,2vw,16px);padding:14px 22px">
@@ -237,9 +232,9 @@ const waText = encodeURIComponent("Woof Day 2026 — Dimanche 13 sept à Ambéra
   </div>
 
   <!-- Dog cutout hero — Golden assis vert sur fond orange -->
-  <div class="dog-deco" style="right:clamp(0px,2vw,40px)">
+  <div class="dog-deco" style="position:absolute;bottom:0;right:clamp(10px,2vw,30px);width:fit-content;pointer-events:none;line-height:0;z-index:1">
     <img src="/images/dog-golden-assis2-vert.png" alt="" aria-hidden="true"
-      style="width:clamp(260px,36vw,480px);display:block;
+      style="width:clamp(230px,32vw,440px);display:block;
              filter:drop-shadow(0 -8px 32px rgba(0,0,0,.3));" />
   </div>
 
@@ -248,29 +243,7 @@ const waText = encodeURIComponent("Woof Day 2026 — Dimanche 13 sept à Ambéra
 </section>
 
 <!-- ══════════════════════════════════ BANDEROLE DÉFILANTE ══ -->
-<div style="background:var(--truffe);padding:18px 0;overflow:hidden;position:relative;z-index:2;border-top:4px solid rgba(255,255,255,.12);border-bottom:4px solid rgba(255,255,255,.12)" aria-hidden="true">
-  <div class="marquee-strip">
-    <div class="marquee-track">
-      {[
-        {img:'/logos/LOGOCOULEURV1.svg', sep:'🐾'},
-        {img:'/logos/LOGOCOULEURV2.svg', sep:'✦'},
-        {img:'/logos/LOGOCOULEURV3.svg', sep:'🐾'},
-        {img:'/logos/LOGOCOULEURV4.svg', sep:'✦'},
-        {img:'/logos/LOGOCOULEURV5.svg', sep:'🐾'},
-        {img:'/logos/LOGOCOULEURV1.svg', sep:'✦'},
-        {img:'/logos/LOGOCOULEURV2.svg', sep:'🐾'},
-        {img:'/logos/LOGOCOULEURV3.svg', sep:'✦'},
-        {img:'/logos/LOGOCOULEURV4.svg', sep:'🐾'},
-        {img:'/logos/LOGOCOULEURV5.svg', sep:'✦'},
-      ].map((item) => (
-        <div style="display:inline-flex;align-items:center;gap:28px;padding:0 32px;flex-shrink:0">
-          <img src={item.img} alt="Woof Day" style="height:60px;width:auto;display:block;flex-shrink:0" />
-          <span style="font-size:24px;color:rgba(255,255,255,.2);flex-shrink:0">{item.sep}</span>
-        </div>
-      ))}
-    </div>
-  </div>
-</div>
+<LogoTicker />
 
 <!-- ══════════════════════════════════════════ POURQUOI VENIR ══ -->
 <section id="pourquoi" class="sec" style="background:var(--bg)">
@@ -299,7 +272,8 @@ const waText = encodeURIComponent("Woof Day 2026 — Dimanche 13 sept à Ambéra
     </div>
 
     <!-- Callout -->
-    <div data-reveal style="background:var(--creme-dark);border-radius:var(--r-lg);padding:24px 32px;text-align:center">
+    <div data-reveal style="background:var(--creme-dark);border-radius:var(--r-lg);padding:24px 32px;text-align:center;position:relative;overflow:hidden">
+      <DoodleMark variant="circle" color="rgba(105,50,45,.32)" style="left:50%;top:50%;width:min(92%,520px);height:auto;translate:-50% -50%;transform:rotate(-1.5deg)" />
       <p style="font-family:var(--f-hand);font-size:clamp(18px,3vw,24px);color:var(--truffe);transform:rotate(-0.5deg)">
         En gros : une sortie qui fait plaisir… et qui sert à quelque chose. 🐾
       </p>
@@ -310,7 +284,7 @@ const waText = encodeURIComponent("Woof Day 2026 — Dimanche 13 sept à Ambéra
 <!-- ═══════════════════════════════════════════════ PROGRAMME ══ -->
 <section class="sec" style="background:var(--creme);position:relative;overflow:hidden">
   <!-- Terrier assis truffe — bas droite -->
-  <div class="dog-deco" style="right:-2%">
+  <div class="dog-deco" style="position:absolute;bottom:0;right:-2%;width:fit-content;pointer-events:none;line-height:0;z-index:1">
     <img src="/images/dog-terrier-assis-truffe.png" alt="" aria-hidden="true"
       style="width:clamp(220px,28vw,400px);display:block;filter:drop-shadow(-6px 0 18px rgba(105,50,45,.2))" />
   </div>
@@ -361,9 +335,9 @@ const waText = encodeURIComponent("Woof Day 2026 — Dimanche 13 sept à Ambéra
 <!-- ═════════════════════════════════════════════════ CONCEPT ══ -->
 <section id="concept" class="sec" style="background:var(--vert);color:#fff;position:relative;overflow:hidden;padding-bottom:clamp(80px,14vw,180px)">
   <!-- Border Collie portrait terre — fond vert -->
-  <div class="dog-deco" style="right:clamp(-20px,0vw,0px)">
+  <div class="dog-deco" style="position:absolute;bottom:clamp(-220px,-14vw,-120px);right:clamp(-160px,-6vw,-60px);width:fit-content;pointer-events:none;line-height:0;z-index:1">
     <img src="/images/dog-border-collie-portrait-terre.png" alt="" aria-hidden="true"
-      style="width:clamp(260px,36vw,500px);display:block;filter:drop-shadow(-8px 0 24px rgba(0,0,0,.3))" />
+      style="width:clamp(230px,30vw,400px);display:block;filter:drop-shadow(-8px 0 24px rgba(0,0,0,.3))" />
   </div>
   <!-- Paw watermarks fond -->
   <div class="paw-mark" style="right:-4%;top:-5%">🐾</div>
@@ -455,11 +429,6 @@ const waText = encodeURIComponent("Woof Day 2026 — Dimanche 13 sept à Ambéra
 <section id="exposants-teaser" class="sec" style="background:var(--creme);position:relative;overflow:hidden">
   <!-- Paw watermark -->
   <div class="paw-mark" style="left:-4%;bottom:-8%;opacity:.04;color:var(--truffe)">🐾</div>
-  <!-- Terrier face2 truffe — bas gauche -->
-  <div class="dog-deco" style="left:-1%">
-    <img src="/images/dog-terrier-face2-truffe.png" alt="" aria-hidden="true"
-      style="width:clamp(180px,22vw,300px);display:block;filter:drop-shadow(6px -4px 16px rgba(105,50,45,.2))" />
-  </div>
   <div class="inner" style="position:relative;z-index:2">
     <div style="display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:16px;margin-bottom:clamp(32px,5vw,48px)">
       <div>
@@ -530,7 +499,7 @@ const waText = encodeURIComponent("Woof Day 2026 — Dimanche 13 sept à Ambéra
   <!-- Paw watermarks doux -->
   <div class="paw-mark" style="right:-3%;bottom:-8%;opacity:.05;color:var(--truffe)">🐾</div>
   <!-- Vizsla debout bleu — bas gauche -->
-  <div class="dog-deco" style="left:-2%">
+  <div class="dog-deco" style="position:absolute;bottom:0;left:-2%;width:fit-content;pointer-events:none;line-height:0;z-index:1">
     <img src="/images/dog-vizsla-debout-bleu.png" alt="" aria-hidden="true"
       style="width:clamp(200px,26vw,360px);display:block;filter:drop-shadow(6px 0 18px rgba(145,172,218,.3));transform:scaleX(-1)" />
   </div>
@@ -650,7 +619,7 @@ const waText = encodeURIComponent("Woof Day 2026 — Dimanche 13 sept à Ambéra
     </div>
 
     <div data-reveal style="background:var(--creme);border-radius:var(--r-lg);overflow:hidden;height:280px;position:relative">
-      <iframe src="https://www.openstreetmap.org/export/embed.html?bbox=-0.3%2C45.6%2C-0.0%2C45.8&layer=mapnik&marker=45.7%2C-0.15" style="width:100%;height:100%;border:none;opacity:.85" title="Carte Ambérac" loading="lazy"></iframe>
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d11046.2230491845!2d0.05382025!3d45.8920197!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47fee6c7c0b02e7b%3A0x405d39260ee97a0!2s16140%20Amb%C3%A9rac!5e0!3m2!1sfr!2sfr!4v1717616000000!5m2!1sfr!2sfr" style="width:100%;height:100%;border:none;opacity:.9" title="Carte Ambérac" loading="lazy"></iframe>
       <div style="position:absolute;top:16px;left:16px;background:var(--truffe);color:#fff;padding:10px 18px;border-radius:var(--r-pill);font-family:var(--f-head);font-size:14px;font-weight:600;box-shadow:0 4px 16px rgba(0,0,0,.2)">
         📍 Ambérac, 16 — Parking gratuit
       </div>
@@ -660,11 +629,6 @@ const waText = encodeURIComponent("Woof Day 2026 — Dimanche 13 sept à Ambéra
 
 <!-- ═══════════════════════════════════════════════ BÉNÉVOLAT ══ -->
 <section class="sec" style="background:var(--terre);color:#fff;position:relative;overflow:hidden">
-  <!-- Dachshund face bleu — bas droit -->
-  <div class="dog-deco" style="right:-1%">
-    <img src="/images/dog-dachshund-face-bleu.png" alt="" aria-hidden="true"
-      style="width:clamp(220px,28vw,400px);display:block;filter:drop-shadow(-6px -4px 20px rgba(0,0,0,.25));transform:scaleX(-1)" />
-  </div>
   <div class="inner" style="display:grid;grid-template-columns:1fr 1fr;gap:clamp(32px,6vw,80px);align-items:center;position:relative;z-index:2">
     <div>
       <div data-reveal style="margin-bottom:20px"><span class="chip chip-white">Implication</span></div>
@@ -695,16 +659,6 @@ const waText = encodeURIComponent("Woof Day 2026 — Dimanche 13 sept à Ambéra
 
 <!-- ══════════════════════════════════════════════════════ FAQ ══ -->
 <section id="faq" class="sec" style="background:var(--vert);color:#fff;position:relative;overflow:hidden">
-  <!-- Dachshund peek — les yeux qui dépassent au bord bas gauche -->
-  <div class="dog-deco" style="bottom:-28%;left:clamp(-10px,3vw,40px)">
-    <img src="/images/dog-dachshund-peek-white.png" alt="" aria-hidden="true"
-      style="width:clamp(200px,26vw,340px);display:block;filter:drop-shadow(0 -4px 16px rgba(0,0,0,.4))" />
-  </div>
-  <!-- Vizsla full body bleu — fond vert, bas droit -->
-  <div class="dog-deco" style="right:-1%">
-    <img src="/images/dog-vizsla-full-bleu.png" alt="" aria-hidden="true"
-      style="width:clamp(210px,28vw,380px);display:block;filter:drop-shadow(-6px 0 20px rgba(0,0,0,.35));transform:scaleX(-1)" />
-  </div>
   <div class="inner-sm" style="position:relative;z-index:2">
     <div style="text-align:center;margin-bottom:clamp(32px,5vw,56px)">
       <div data-reveal style="margin-bottom:16px"><span class="chip chip-white">FAQ</span></div>
@@ -726,11 +680,6 @@ const waText = encodeURIComponent("Woof Day 2026 — Dimanche 13 sept à Ambéra
 
 <!-- ═══════════════════════════════════════════════════ CONTACT ══ -->
 <section id="contact" class="sec" style="background:var(--creme);position:relative;overflow:hidden">
-  <!-- Golden face2 vert — bas droit, regarde le formulaire -->
-  <div class="dog-deco" style="right:-1%">
-    <img src="/images/dog-golden-face2-vert.png" alt="" aria-hidden="true"
-      style="width:clamp(200px,26vw,360px);display:block;filter:drop-shadow(-6px -4px 18px rgba(38,66,43,.2));transform:scaleX(-1)" />
-  </div>
   <div class="inner-sm" style="position:relative;z-index:2">
     <div style="text-align:center;margin-bottom:clamp(32px,5vw,48px)">
       <div data-reveal style="margin-bottom:16px"><span class="chip chip-terre">Contact</span></div>

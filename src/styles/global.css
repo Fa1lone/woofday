@@ -29,8 +29,11 @@ html {
   color: var(--truffe);
   font-family: var(--f-body);
   -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
   scroll-behavior: smooth;
 }
+
+body { overflow-x: hidden; }
 
 h1, h2, h3, h4 { font-family: var(--f-head); line-height: 1.1; }
 
@@ -219,9 +222,43 @@ h1, h2, h3, h4 { font-family: var(--f-head); line-height: 1.1; }
 }
 .marquee-track:hover { animation-play-state: paused; }
 
+@keyframes logo-ticker-scroll {
+  from { transform: translate3d(0, 0, 0); }
+  to { transform: translate3d(-33.333%, 0, 0); }
+}
+.logo-ticker {
+  width: 100%;
+  overflow: hidden;
+  background: var(--truffe);
+  border-top: 4px solid rgba(255,255,255,.12);
+  border-bottom: 4px solid rgba(255,255,255,.12);
+  padding: clamp(14px, 2.2vw, 22px) 0;
+  user-select: none;
+}
+.logo-ticker__track {
+  width: max-content;
+  display: flex;
+  align-items: center;
+  gap: clamp(34px, 5vw, 72px);
+  flex-wrap: nowrap;
+  white-space: nowrap;
+  animation: logo-ticker-scroll 34s linear infinite;
+  will-change: transform;
+}
+.logo-ticker:hover .logo-ticker__track { animation-play-state: paused; }
+.logo-ticker__logo {
+  display: block;
+  flex: 0 0 auto;
+  width: clamp(190px, 24vw, 360px);
+  height: auto;
+  max-height: 72px;
+  object-fit: contain;
+}
+
 /* ── DOG DECO (responsive) ───────────────────────────────────────────────────── */
 .dog-deco {
-  position: absolute; bottom: 0; pointer-events: none; line-height: 0; z-index: 1;
+  position: absolute; bottom: 0; width: fit-content;
+  pointer-events: none; line-height: 0; z-index: 1;
 }
 
 /* ── RESPONSIVE ──────────────────────────────────────────────────────────────── */
@@ -229,7 +266,7 @@ h1, h2, h3, h4 { font-family: var(--f-head); line-height: 1.1; }
   .nav-links { display: none !important; }
   .nav-pro-links { display: none !important; }
   .resp-2col { grid-template-columns: 1fr !important; }
-  .dog-deco { opacity: 0; pointer-events: none; }
+  .dog-deco { display: none !important; opacity: 0; pointer-events: none; }
   .inner { max-width: 100%; padding-left: 0; padding-right: 0; }
 }
 @media (max-width: 480px) {

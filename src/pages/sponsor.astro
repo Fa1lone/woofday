@@ -1,5 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import DoodleMark from '../components/DoodleMark.astro';
+import LogoTicker from '../components/LogoTicker.astro';
 
 const packs = [
   {
@@ -87,10 +89,21 @@ const goodies = [
     <img src="/logos/tete-chien.svg" alt="" style="height:32px" />
     <span style="font-family:var(--f-head);font-weight:700;font-size:18px;color:var(--truffe)">Woof Day</span>
   </a>
-  <div style="display:flex;align-items:center;gap:10px">
-    <a href="/" class="nav-links" style="font-family:var(--f-body);font-size:13px;font-weight:600;color:var(--truffe);opacity:.7;text-decoration:none">← Accueil</a>
-    <a href="/exposants" class="nav-links" style="font-family:var(--f-body);font-size:13px;font-weight:700;color:var(--terre);text-decoration:none;background:rgba(222,108,73,.1);border:1.5px solid rgba(222,108,73,.35);border-radius:var(--r-pill);padding:7px 14px">Exposant 🏪</a>
-    <a href="#form-sponsor" class="btn btn-vert" style="font-size:14px;padding:10px 22px">Déposer une demande 🤝</a>
+  <div style="display:flex;align-items:center;gap:12px;flex-wrap:nowrap">
+    <a href="/" class="nav-links" style="font-family:var(--f-body);font-size:12px;font-weight:600;color:var(--truffe);opacity:.7;text-decoration:none;white-space:nowrap">← Accueil</a>
+    <div class="nav-links" style="display:flex;align-items:center;gap:12px;margin:0 4px;flex-wrap:nowrap">
+      {[
+        ['#esprit','L\'ESPRIT WOOF DAY'],
+        ['#budget','BUDGET'],
+        ['#marketing','MARKETING'],
+        ['#packs','PACKS PARTENAIRES'],
+        ['#form-sponsor','CONTACT']
+      ].map(([h,l]) => (
+        <a href={h} style="font-family:var(--f-body);font-size:10px;font-weight:700;color:var(--truffe);text-decoration:none;opacity:.6;letter-spacing:0.05em;white-space:nowrap" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity='.6'">{l}</a>
+      ))}
+    </div>
+    <a href="/exposants" class="nav-links" style="font-family:var(--f-body);font-size:12px;font-weight:700;color:var(--terre);text-decoration:none;background:rgba(222,108,73,.1);border:1.5px solid rgba(222,108,73,.35);border-radius:var(--r-pill);padding:6px 12px;white-space:nowrap">Devenir exposant 🏪</a>
+    <a href="#form-sponsor" class="btn btn-vert" style="font-size:13px;padding:8px 18px;white-space:nowrap">Devenir sponsor 🤝</a>
   </div>
 </nav>
 
@@ -129,34 +142,37 @@ const goodies = [
         <span style="background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.3);border-radius:var(--r-pill);padding:7px 14px;font-family:var(--f-body);font-size:12px;font-weight:600">{t}</span>
       ))}
     </div>
-    <a href="#form-sponsor" data-reveal data-delay="4" class="btn" style="background:rgba(255,255,255,.95);color:var(--vert);font-size:clamp(16px,2.5vw,20px);padding:18px 42px;box-shadow:0 8px 32px rgba(0,0,0,.25)">
-      Déposer ma demande 🤝
-    </a>
+    <div data-reveal data-delay="4" style="position:relative;display:inline-flex;isolation:isolate;margin-top:24px">
+      <DoodleMark variant="circle" color="rgba(243,241,199,.72)" style="left:50%;top:50%;width:calc(100% + 78px);height:auto;translate:-50% -50%;transform:rotate(2deg)" />
+      <DoodleMark variant="burst" color="var(--terre)" style="right:-34px;top:-50px;width:72px;height:auto;transform:rotate(18deg)" />
+      <a href="#form-sponsor" class="btn" style="position:relative;background:rgba(255,255,255,.95);color:var(--vert);font-size:clamp(16px,2.5vw,20px);padding:18px 42px;box-shadow:0 8px 32px rgba(0,0,0,.25)">
+        Déposer ma demande 🤝
+      </a>
+    </div>
   </div>
 
   <!-- Golden face2 vert — fond vert, centré bas -->
-  <div class="dog-deco" style="left:50%;translate:-50% 0">
-    <img src="/images/dog-golden-face2-vert.png" alt="" aria-hidden="true"
-      style="width:clamp(300px,40vw,560px);display:block;filter:drop-shadow(0 -16px 48px rgba(0,0,0,.35))" />
+  <div class="dog-deco" style="position:absolute;bottom:clamp(-230px,-18vw,-150px);right:clamp(-170px,-8vw,-70px);width:fit-content;pointer-events:none;line-height:0;z-index:1">
+    <img src="/images/dog-border-collie-nose-orange.png" alt="" aria-hidden="true"
+      style="width:clamp(240px,31vw,430px);display:block;filter:drop-shadow(0 -16px 48px rgba(0,0,0,.35))" />
   </div>
 
   <!-- Annotation bubble gauche — style torn note like inspiration -->
   <div style="position:absolute;bottom:clamp(60px,14vw,140px);left:clamp(20px,6%,80px);z-index:4;pointer-events:none">
-    <div style="font-family:var(--f-hand);font-size:clamp(13px,2vw,17px);color:rgba(255,255,255,.8);border:2.5px solid rgba(255,255,255,.4);border-radius:50%;padding:14px 24px;transform:rotate(-7deg);text-align:center;line-height:1.4;display:inline-block">
+    <div style="font-family:var(--f-hand);font-size:clamp(13px,2vw,17px);color:rgba(255,255,255,.8);border:2.5px solid rgba(255,255,255,.4);border-radius:50%;padding:14px 24px;transform:rotate(-7deg);text-align:center;line-height:1.4;display:inline-block;position:relative">
       Booster votre image<br/>et soutenir la cause !
+      <DoodleMark variant="arrow" color="white" style="position:absolute;bottom:-35px;right:-5px;width:44px;height:auto;transform:rotate(12deg);opacity:.5" />
     </div>
-    <svg width="44" height="34" viewBox="0 0 44 34" fill="none" style="display:block;margin:0 0 0 auto;transform:rotate(12deg);opacity:.5">
-      <path d="M40 4 C28 3 8 16 4 30" stroke="white" stroke-width="2" stroke-linecap="round" fill="none"/>
-      <path d="M4 30 L12 25 M4 30 L7 38" stroke="white" stroke-width="2" stroke-linecap="round"/>
-    </svg>
   </div>
 
   <!-- Slant bottom -->
   <div style="position:absolute;bottom:-1px;left:0;right:0;height:60px;background:var(--bg);clip-path:polygon(0 100%,100% 0,100% 100%)"></div>
 </section>
 
+<LogoTicker />
+
 <!-- MANIFESTE -->
-<section class="sec" style="background:var(--bg)">
+<section id="esprit" class="sec" style="background:var(--bg)">
   <div class="inner-sm">
     <div style="text-align:center;margin-bottom:clamp(24px,4vw,40px)">
       <div data-reveal style="margin-bottom:16px"><span class="chip chip-vert">Notre histoire</span></div>
@@ -187,7 +203,7 @@ const goodies = [
 </section>
 
 <!-- LEVIERS PSYCHOLOGIQUES -->
-<section class="sec" style="background:var(--creme)">
+<section id="marketing" class="sec" style="background:var(--creme)">
   <div class="inner">
     <div style="text-align:center;margin-bottom:clamp(28px,4vw,48px)">
       <div data-reveal style="margin-bottom:16px"><span class="chip chip-truffe">Pourquoi ça marche</span></div>
@@ -211,7 +227,7 @@ const goodies = [
 </section>
 
 <!-- BUDGET TRANSPARENT -->
-<section class="sec" style="background:var(--truffe);color:#fff">
+<section id="budget" class="sec" style="background:var(--truffe);color:#fff">
   <div class="inner-sm">
     <div style="text-align:center;margin-bottom:clamp(24px,4vw,40px)">
       <div data-reveal style="margin-bottom:16px"><span class="chip chip-creme">Transparence</span></div>
@@ -269,7 +285,7 @@ const goodies = [
 </section>
 
 <!-- 6 PACKS -->
-<section class="sec" style="background:var(--bg)">
+<section id="packs" class="sec" style="background:var(--bg)">
   <div class="inner">
     <div style="text-align:center;margin-bottom:clamp(28px,4vw,56px)">
       <div data-reveal style="margin-bottom:16px"><span class="chip chip-terre">Nos offres</span></div>
@@ -406,7 +422,7 @@ const goodies = [
         <!-- Sélecteur pack -->
         <div>
           <label style="display:block;font-family:var(--f-body);font-size:13px;font-weight:600;color:var(--truffe);margin-bottom:10px">Pack souhaité</label>
-          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px" id="pack-selector">
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(96px,1fr));gap:8px" id="pack-selector">
             {packs.map(p => (
               <label style="cursor:pointer">
                 <input type="radio" name="pack" value={p.id} class="pack-radio" style="display:none" />

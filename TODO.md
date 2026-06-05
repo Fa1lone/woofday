@@ -183,6 +183,14 @@ Cynofeel a une barre fixe en bas sur mobile (z-index élevé) avec le CTA princi
 
 ## FEATURES TRANSVERSALES
 
+- [x] **Banderole logos Woof Day sous les héros**
+  - Composant partagé sur accueil, exposants et sponsor
+  - Une seule ligne horizontale, logos variants qui défilent
+
+- [x] **Annotations visuelles façon posts Instagram**
+  - Cercles manuscrits, petits traits d'attention et flèches SVG locales
+  - Utilisées pour souligner les CTA/messages importants sans masquer le texte
+
 - [x] **Bouton "Ajouter à l'agenda"**
   - Google Calendar : URL avec paramètres date/lieu/titre
   - Apple / Outlook : fichier `.ics` téléchargeable
