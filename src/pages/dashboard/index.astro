@@ -3,8 +3,11 @@ import DashboardLayout from '../../layouts/DashboardLayout.astro';
 import { ExposantsTable } from '../../components/dashboard/ExposantsTable';
 import { getCandidaturesExposant, getInterestCount } from '../../lib/data';
 
-const candidatures = await getCandidaturesExposant();
-const interestCount = await getInterestCount();
+let candidatures: Awaited<ReturnType<typeof getCandidaturesExposant>> = [];
+let interestCount = 0;
+try {
+  [candidatures, interestCount] = await Promise.all([getCandidaturesExposant(), getInterestCount()]);
+} catch (e) { console.error('[dashboard] DB error:', e); }
 
 const stats = [
   { val: candidatures.length, label: 'Candidatures', color: '#de6c49' },
