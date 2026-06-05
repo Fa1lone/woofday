@@ -1,10 +1,29 @@
 import type { APIRoute } from 'astro';
-import { addActivity } from '../../../lib/data';
+import { addFiche } from '../../../lib/data';
+import { checkSession } from '../../../lib/auth';
 
-export const POST: APIRoute = async ({ request }) => {
+export const POST: APIRoute = async ({ request, cookies }) => {
+  if (!checkSession(cookies)) {
+    return new Response('Unauthorized', { status: 401 });
+  }
   try {
     const data = await request.json();
-    const item = addActivity(data);
+    const item = await addFiche({
+      nom: data.nom ?? '',
+      estExposant: data.estExposant ?? false,
+      estSponsor: data.estSponsor ?? false,
+      visuelUrl: data.visuelUrl,
+      descriptionCourte: data.descriptionCourte,
+      descriptionLongue: data.descriptionLongue,
+      quiIlsSont: data.quiIlsSont,
+      ceQuIlsFont: data.ceQuIlsFont,
+      siteWeb: data.siteWeb,
+      instagram: data.instagram,
+      visible: data.visible ?? false,
+      miseEnAvant: data.miseEnAvant ?? false,
+      archive: false,
+      displayOrder: data.displayOrder ?? 0,
+    });
     return new Response(JSON.stringify(item), { status: 201 });
   } catch {
     return new Response(JSON.stringify({ error: 'Erreur' }), { status: 500 });

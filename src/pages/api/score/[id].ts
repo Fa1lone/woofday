@@ -1,5 +1,5 @@
 import type { APIRoute } from 'astro';
-import { updateCandidatureSponsorStatut, deleteCandidatureSponsor } from '../../../lib/data';
+import { updateZoneStand, deleteZoneStand } from '../../../lib/data';
 import { checkSession } from '../../../lib/auth';
 
 export const PATCH: APIRoute = async ({ request, params, cookies }) => {
@@ -8,9 +8,7 @@ export const PATCH: APIRoute = async ({ request, params, cookies }) => {
   }
   try {
     const data = await request.json();
-    if (data.statut) {
-      await updateCandidatureSponsorStatut(params.id!, data.statut);
-    }
+    await updateZoneStand(params.id!, data);
     return new Response(JSON.stringify({ ok: true }), { status: 200 });
   } catch {
     return new Response(JSON.stringify({ error: 'Erreur' }), { status: 500 });
@@ -22,7 +20,7 @@ export const DELETE: APIRoute = async ({ params, cookies }) => {
     return new Response('Unauthorized', { status: 401 });
   }
   try {
-    await deleteCandidatureSponsor(params.id!);
+    await deleteZoneStand(params.id!);
     return new Response(JSON.stringify({ ok: true }), { status: 200 });
   } catch {
     return new Response(JSON.stringify({ error: 'Erreur' }), { status: 500 });

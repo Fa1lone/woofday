@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-type Sponsor = {
+type CandidatureSponsor = {
   id: string;
   entreprise: string;
   contact: string;
@@ -8,185 +8,151 @@ type Sponsor = {
   telephone?: string;
   pack?: string;
   objectif?: string;
-  imageUrl?: string;
+  zone?: string;
+  stand?: string;
+  lot?: string;
+  panelCount?: number;
   lienWeb?: string;
   instagram?: string;
-  status: 'pending' | 'confirmed' | 'rejected';
+  statut: 'nouveau' | 'vu' | 'accepte' | 'refuse';
   createdAt: string;
 };
 
-const PACK_LABELS: Record<string, string> = {
-  platine: '🥇 Platine', or: '🟡 Or', argent: '⚪ Argent', bronze: '🟤 Bronze', custom: '✨ Sur mesure',
+const statutColors: Record<string, string> = {
+  nouveau: '#de6c49',
+  vu: '#91acda',
+  accepte: '#26422b',
+  refuse: '#9a9a9a',
+};
+const statutLabels: Record<string, string> = {
+  nouveau: '🆕 Nouveau',
+  vu: '👀 Vu',
+  accepte: '✅ Accepté',
+  refuse: '❌ Refusé',
+};
+const packColors: Record<string, string> = {
+  platine: '#8B7355',
+  gold: '#c9a846',
+  silver: '#9a9a9a',
+  bronze: '#cd7f32',
+  'zone-premium': '#5b1b8f',
+  stand: '#26422b',
+  panneau: '#91acda',
 };
 
-const STATUS_LABELS = { pending: '⏳ En attente', confirmed: '✅ Confirmé', rejected: '❌ Refusé' };
-const STATUS_COLORS = { pending: '#f3f1c7', confirmed: '#d4edda', rejected: '#fde8e8' };
+export function SponsorsTable({ initialData }: { initialData: CandidatureSponsor[] }) {
+  const [items, setItems] = useState<CandidatureSponsor[]>(initialData);
+  const [expanded, setExpanded] = useState<string | null>(null);
 
-export function SponsorsTable({ initialData }: { initialData: Sponsor[] }) {
-  const [data, setData] = useState(initialData);
-  const [editingId, setEditingId] = useState<string | null>(null);
-  const [editForm, setEditForm] = useState<Partial<Sponsor>>({});
-  const [isAdding, setIsAdding] = useState(false);
-
-  async function saveSponsor(sponsor: Partial<Sponsor>) {
-    const isNew = !sponsor.id;
-    const method = isNew ? 'POST' : 'PATCH';
-    const url = isNew ? '/api/sponsor/create' : '/api/sponsor/' + sponsor.id;
-
-    const res = await fetch(url, {
-      method,
+  const updateStatut = async (id: string, statut: string) => {
+    const res = await fetch(`/api/sponsor/${id}`, {
+      method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(sponsor)
+      body: JSON.stringify({ statut }),
     });
-    const result = await res.json();
-
-    if (isNew) {
-      setData(prev => [result, ...prev]);
-    } else {
-      setData(prev => prev.map(s => s.id === sponsor.id ? { ...s, ...sponsor } : s));
+    if (res.ok) {
+      setItems(items.map(i => i.id === id ? { ...i, statut: statut as CandidatureSponsor['statut'] } : i));
+      (window as Window & { showToast?: (msg: string) => void }).showToast?.('Statut mis à jour');
     }
-  }
-
-  async function updateSponsor(id: string, updates: Partial<Sponsor>) {
-    await saveSponsor({ ...updates, id });
-  }
-
-  async function deleteSponsor(id: string) {
-    if (!confirm('Supprimer ce sponsor ?')) return;
-    setData(prev => prev.filter(s => s.id !== id));
-    await fetch('/api/sponsor/' + id, { method: 'DELETE' });
-  }
-
-  const handleEdit = (s: Sponsor) => {
-    setEditingId(s.id);
-    setEditForm(s);
   };
 
-  const handleAdd = () => {
-    setIsAdding(true);
-    setEditForm({ entreprise: '', contact: '', email: '', pack: 'bronze', status: 'confirmed' });
+  const deleteItem = async (id: string) => {
+    if (!confirm('Supprimer cette candidature sponsor ?')) return;
+    const res = await fetch(`/api/sponsor/${id}`, { method: 'DELETE' });
+    if (res.ok) {
+      setItems(items.filter(i => i.id !== id));
+      (window as Window & { showToast?: (msg: string) => void }).showToast?.('Candidature supprimée');
+    }
   };
 
-  const handleSave = async () => {
-    await saveSponsor(editForm);
-    setEditingId(null);
-    setIsAdding(false);
-  };
+  if (items.length === 0) {
+    return (
+      <div style={{ textAlign: 'center', padding: 64, color: '#69322d', opacity: .4, fontFamily: "'Poppins', sans-serif" }}>
+        Aucune candidature sponsor pour l'instant.
+      </div>
+    );
+  }
 
   return (
-    <div style={{ fontFamily: "'Poppins', sans-serif" }}>
-      <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: 20 }}>
-        <button onClick={handleAdd} style={{ padding: '10px 20px', borderRadius: 12, border: 'none', background: '#de6c49', color: 'white', fontWeight: 700, cursor: 'pointer', fontFamily: "'Fredoka', sans-serif" }}>
-          + Ajouter un sponsor
-        </button>
-      </div>
-
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-        {isAdding && (
-          <div style={{ background: '#f3f1c7', borderRadius: 16, padding: '20px', border: '2px dashed #de6c49' }}>
-            <SponsorForm form={editForm} onChange={setEditForm} onSave={handleSave} onCancel={() => setIsAdding(false)} />
-          </div>
-        )}
-
-        {data.length === 0 && !isAdding ? (
-          <div style={{ textAlign: 'center', padding: '64px', color: '#69322d', opacity: .4 }}>
-            Aucun sponsor pour l'instant.
-          </div>
-        ) : (
-          data.slice().reverse().map(s => (
-            <div key={s.id} style={{ background: 'white', borderRadius: 16, padding: '16px 20px', border: '1.5px solid #e8e5a8' }}>
-              {editingId === s.id ? (
-                <SponsorForm form={editForm} onChange={setEditForm} onSave={handleSave} onCancel={() => setEditingId(null)} />
-              ) : (
-                <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12, alignItems: 'flex-start' }}>
-                  {s.imageUrl && (
-                    <img src={s.imageUrl} style={{ width: 60, height: 60, borderRadius: 12, objectFit: 'contain', border: '1px solid #e8e5a8', padding: 4 }} alt="" />
-                  )}
-                  <div style={{ flex: 1, minWidth: 200 }}>
-                    <div style={{ fontFamily: "'Fredoka', sans-serif", fontWeight: 700, fontSize: 16, color: '#69322d' }}>{s.entreprise}</div>
-                    <div style={{ fontSize: 13, color: '#69322d', opacity: .7 }}>{s.contact}</div>
-                    {s.pack && <div style={{ fontSize: 12, color: '#26422b', fontWeight: 600, marginTop: 4 }}>{PACK_LABELS[s.pack] ?? s.pack}</div>}
-                    <div style={{ fontSize: 12, color: '#de6c49', marginTop: 4 }}>
-                        {s.zone && <span>📍 {s.zone}</span>}
-                        {s.stand && <span> · 🏠 {s.stand}</span>}
-                    </div>
-                    <div style={{ display: 'flex', gap: 12, marginTop: 8 }}>
-                      {s.lienWeb && <a href={s.lienWeb} target="_blank" style={{ fontSize: 11, color: '#de6c49', textDecoration: 'none', fontWeight: 600 }}>🌐 Site Web</a>}
-                      {s.instagram && <a href={`https://instagram.com/${s.instagram.replace('@','')}`} target="_blank" style={{ fontSize: 11, color: '#de6c49', textDecoration: 'none', fontWeight: 600 }}>📸 Instagram</a>}
-                    </div>
-                  </div>
-                  <div style={{ textAlign: 'right' }}>
-                    <span style={{ padding: '3px 10px', borderRadius: 9999, fontSize: 12, fontWeight: 600, background: STATUS_COLORS[s.status], color: '#69322d', display: 'inline-block', marginBottom: 8 }}>
-                      {STATUS_LABELS[s.status]}
-                    </span>
-                    <div style={{ display: 'flex', gap: 6, justifyContent: 'flex-end' }}>
-                      <button onClick={() => handleEdit(s)} style={{ padding: '4px 10px', borderRadius: 8, border: '1.5px solid #e8e5a8', background: 'white', fontSize: 11, fontWeight: 600, cursor: 'pointer' }}>
-                        ✏️ Éditer
-                      </button>
-                      {s.status !== 'confirmed' && (
-                        <button onClick={() => updateSponsor(s.id, { status: 'confirmed' })} style={{ padding: '4px 10px', borderRadius: 8, border: 'none', background: '#26422b', color: 'white', fontSize: 11, fontWeight: 600, cursor: 'pointer' }}>
-                          ✅ Confirmer
-                        </button>
-                      )}
-                      <button onClick={() => deleteSponsor(s.id)} style={{ padding: '4px 10px', borderRadius: 8, border: 'none', background: '#fde8e8', color: '#c0392b', fontSize: 11, fontWeight: 600, cursor: 'pointer' }}>
-                        🗑️
-                      </button>
-                    </div>
-                    <div style={{ fontSize: 11, color: '#69322d', opacity: .4, marginTop: 4 }}>{new Date(s.createdAt).toLocaleDateString('fr-FR')}</div>
-                  </div>
-                </div>
-              )}
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+      {items.map(item => (
+        <div key={item.id} style={{ background: 'white', borderRadius: 16, border: '1.5px solid #e8e5a8', overflow: 'hidden' }}>
+          <div
+            style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '14px 18px', cursor: 'pointer' }}
+            onClick={() => setExpanded(expanded === item.id ? null : item.id)}
+          >
+            <div style={{ flex: 1, minWidth: 0 }}>
+              <div style={{ fontFamily: "'Fredoka', sans-serif", fontWeight: 700, fontSize: 16, color: '#69322d' }}>
+                {item.entreprise}
+              </div>
+              <div style={{ fontFamily: "'Poppins', sans-serif", fontSize: 12, color: '#69322d', opacity: .6, marginTop: 2 }}>
+                {item.contact} · {item.email}
+              </div>
             </div>
-          ))
-        )}
-      </div>
+            {item.pack && (
+              <span style={{
+                background: (packColors[item.pack] ?? '#de6c49') + '22',
+                color: packColors[item.pack] ?? '#de6c49',
+                borderRadius: 20, padding: '3px 10px',
+                fontFamily: "'Poppins', sans-serif", fontSize: 11, fontWeight: 700,
+              }}>
+                {item.pack.toUpperCase()}
+              </span>
+            )}
+            <span style={{
+              background: statutColors[item.statut] + '22',
+              color: statutColors[item.statut],
+              borderRadius: 20, padding: '3px 10px',
+              fontFamily: "'Poppins', sans-serif", fontSize: 11, fontWeight: 600, whiteSpace: 'nowrap',
+            }}>
+              {statutLabels[item.statut]}
+            </span>
+            <div style={{ fontFamily: "'Poppins', sans-serif", fontSize: 11, color: '#69322d', opacity: .4, whiteSpace: 'nowrap' }}>
+              {new Date(item.createdAt).toLocaleDateString('fr-FR', { day: 'numeric', month: 'short' })}
+            </div>
+            <span style={{ fontSize: 12, color: '#69322d', opacity: .4 }}>{expanded === item.id ? '▲' : '▼'}</span>
+          </div>
+
+          {expanded === item.id && (
+            <div style={{ borderTop: '1px solid #f0ede5', padding: '14px 18px', background: '#faf9f6' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8, marginBottom: 12, fontFamily: "'Poppins', sans-serif", fontSize: 13 }}>
+                {item.telephone && <div><strong>Téléphone :</strong> {item.telephone}</div>}
+                {item.zone && <div><strong>Zone souhaitée :</strong> {item.zone}</div>}
+                {item.stand && <div><strong>Stand :</strong> {item.stand}</div>}
+                {item.lot && <div><strong>Lot :</strong> {item.lot}</div>}
+                {item.panelCount && <div><strong>Nb panneaux :</strong> {item.panelCount}</div>}
+                {item.lienWeb && <div><strong>Site :</strong> <a href={item.lienWeb} target="_blank" style={{ color: '#91acda' }}>{item.lienWeb}</a></div>}
+                {item.instagram && <div><strong>Instagram :</strong> @{item.instagram.replace('@', '')}</div>}
+                {item.objectif && <div style={{ gridColumn: 'span 2' }}><strong>Objectif :</strong> {item.objectif}</div>}
+              </div>
+
+              <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+                {(['nouveau', 'vu', 'accepte', 'refuse'] as const).map(s => (
+                  <button
+                    key={s}
+                    onClick={() => updateStatut(item.id, s)}
+                    style={{
+                      background: item.statut === s ? statutColors[s] : 'white',
+                      color: item.statut === s ? 'white' : statutColors[s],
+                      border: `1.5px solid ${statutColors[s]}`,
+                      borderRadius: 8, padding: '5px 12px',
+                      fontFamily: "'Poppins', sans-serif", fontSize: 12, fontWeight: 600, cursor: 'pointer',
+                    }}
+                  >
+                    {statutLabels[s]}
+                  </button>
+                ))}
+                <button
+                  onClick={() => deleteItem(item.id)}
+                  style={{ marginLeft: 'auto', background: 'white', color: '#cc4444', border: '1.5px solid #cc4444', borderRadius: 8, padding: '5px 12px', fontFamily: "'Poppins', sans-serif", fontSize: 12, fontWeight: 600, cursor: 'pointer' }}
+                >
+                  🗑 Supprimer
+                </button>
+              </div>
+            </div>
+          )}
+        </div>
+      ))}
     </div>
   );
 }
-
-function SponsorForm({ form, onChange, onSave, onCancel }: any) {
-  return (
-    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
-      <div style={{ gridColumn: 'span 2' }}>
-        <label style={{ display: 'block', fontSize: 11, fontWeight: 700, marginBottom: 4 }}>ENTREPRISE</label>
-        <input style={inputStyle} value={form.entreprise} onChange={ev => onChange({...form, entreprise: ev.target.value})} />
-      </div>
-      <div>
-        <label style={{ display: 'block', fontSize: 11, fontWeight: 700, marginBottom: 4 }}>SITE WEB</label>
-        <input style={inputStyle} value={form.lienWeb || ''} onChange={ev => onChange({...form, lienWeb: ev.target.value})} placeholder="https://..." />
-      </div>
-      <div>
-        <label style={{ display: 'block', fontSize: 11, fontWeight: 700, marginBottom: 4 }}>INSTAGRAM</label>
-        <input style={inputStyle} value={form.instagram || ''} onChange={ev => onChange({...form, instagram: ev.target.value})} placeholder="@compte" />
-      </div>
-      <div>
-        <label style={{ display: 'block', fontSize: 11, fontWeight: 700, marginBottom: 4 }}>ZONE</label>
-        <input style={inputStyle} value={form.zone || ''} onChange={ev => onChange({...form, zone: ev.target.value})} placeholder="ex: Scène Centrale" />
-      </div>
-      <div>
-        <label style={{ display: 'block', fontSize: 11, fontWeight: 700, marginBottom: 4 }}>STAND</label>
-        <input style={inputStyle} value={form.stand || ''} onChange={ev => onChange({...form, stand: ev.target.value})} placeholder="ex: Stand A1" />
-      </div>
-      <div style={{ gridColumn: 'span 2' }}>
-        <label style={{ display: 'block', fontSize: 11, fontWeight: 700, marginBottom: 4 }}>IMAGE URL (LOGO)</label>
-        <input style={inputStyle} value={form.imageUrl || ''} onChange={ev => onChange({...form, imageUrl: ev.target.value})} placeholder="https://..." />
-      </div>
-      <div style={{ gridColumn: 'span 2', display: 'flex', gap: 8, justifyContent: 'flex-end', marginTop: 8 }}>
-        <button onClick={onCancel} style={{ padding: '8px 16px', borderRadius: 8, border: '1.5px solid #e8e5a8', background: 'white', cursor: 'pointer', fontSize: 13, fontWeight: 600 }}>Annuler</button>
-        <button onClick={onSave} style={{ padding: '8px 16px', borderRadius: 8, border: 'none', background: '#26422b', color: 'white', cursor: 'pointer', fontSize: 13, fontWeight: 600 }}>Enregistrer</button>
-      </div>
-    </div>
-  );
-}
-
-const inputStyle = {
-  width: '100%',
-  border: '1.5px solid #e8e5a8',
-  borderRadius: 10,
-  padding: '8px 12px',
-  fontSize: 14,
-  fontFamily: "'Poppins', sans-serif",
-  color: '#69322d',
-  outline: 'none',
-  boxSizing: 'border-box' as const,
-};

@@ -1,18 +1,21 @@
 ---
 import DashboardLayout from '../../layouts/DashboardLayout.astro';
 import { SponsorsTable } from '../../components/dashboard/SponsorsTable';
-import { getSponsors } from '../../lib/data';
+import { getCandidaturesSponsor } from '../../lib/data';
 
-const sponsors = getSponsors();
+const candidatures = await getCandidaturesSponsor();
+
+const stats = [
+  { val: candidatures.length, label: 'Candidatures', color: '#26422b' },
+  { val: candidatures.filter(s => s.statut === 'nouveau').length, label: 'Nouvelles', color: '#de6c49' },
+  { val: candidatures.filter(s => s.statut === 'accepte').length, label: 'Acceptées', color: '#5b1b8f' },
+  { val: candidatures.filter(s => s.statut === 'refuse').length, label: 'Refusées', color: '#9a9a9a' },
+];
 ---
 
-<DashboardLayout title="Sponsors" activeTab="sponsors">
+<DashboardLayout title="Candidatures Sponsors" activeTab="sponsors">
   <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:12px;margin-bottom:24px">
-    {[
-      { val: sponsors.length, label: 'Total', color: '#26422b' },
-      { val: sponsors.filter(s => s.status === 'confirmed').length, label: 'Confirmés', color: '#26422b' },
-      { val: sponsors.filter(s => s.status === 'pending').length, label: 'En attente', color: '#de6c49' },
-    ].map(s => (
+    {stats.map(s => (
       <div style="background:white;border-radius:16px;padding:16px;border:1.5px solid #e8e5a8;text-align:center">
         <div style={`font-family:'Fredoka',sans-serif;font-size:28px;font-weight:700;color:${s.color}`}>{s.val}</div>
         <div style="font-family:'Poppins',sans-serif;font-size:11px;color:#69322d;opacity:.6;text-transform:uppercase">{s.label}</div>
@@ -20,17 +23,11 @@ const sponsors = getSponsors();
     ))}
   </div>
 
-  <div style="display:flex;gap:10px;margin-bottom:20px">
-    <a href="/api/export?type=sponsors" download="sponsors.csv" style="display:inline-flex;align-items:center;gap:8px;background:#fff;border:1.5px solid #e8e5a8;border-radius:10px;padding:8px 16px;font-family:'Poppins',sans-serif;font-size:13px;font-weight:600;color:#69322d;text-decoration:none">
+  <div style="margin-bottom:20px">
+    <a href="/api/export?type=sponsors" download="candidatures-sponsors.csv" style="display:inline-flex;align-items:center;gap:8px;background:#fff;border:1.5px solid #e8e5a8;border-radius:10px;padding:8px 16px;font-family:'Poppins',sans-serif;font-size:13px;font-weight:600;color:#69322d;text-decoration:none">
       📥 Export CSV sponsors
     </a>
   </div>
 
-  {sponsors.length === 0 ? (
-    <div style="text-align:center;padding:64px;color:#69322d;opacity:.4;font-family:'Poppins',sans-serif">
-      Aucune demande de sponsoring pour l'instant.
-    </div>
-  ) : (
-    <SponsorsTable initialData={sponsors} client:load />
-  )}
+  <SponsorsTable initialData={candidatures} client:load />
 </DashboardLayout>

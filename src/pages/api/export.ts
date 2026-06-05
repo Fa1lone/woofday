@@ -1,8 +1,8 @@
 import type { APIRoute } from 'astro';
-import { getExposants, getSponsors, getContacts } from '../../lib/data';
+import { getFiches, getZonesStands, getCandidaturesExposant, getCandidaturesSponsor, getContacts } from '../../lib/data';
 import { checkSession } from '../../lib/auth';
 
-export const GET: APIRoute = ({ request, cookies }) => {
+export const GET: APIRoute = async ({ request, cookies }) => {
   if (!checkSession(cookies)) {
     return new Response('Unauthorized', { status: 401 });
   }
@@ -14,13 +14,19 @@ export const GET: APIRoute = ({ request, cookies }) => {
   let filename = 'export.csv';
 
   if (type === 'exposants') {
-    rows = getExposants();
-    filename = 'exposants.csv';
+    rows = (await getCandidaturesExposant()) as unknown as Record<string, unknown>[];
+    filename = 'candidatures-exposants.csv';
   } else if (type === 'sponsors') {
-    rows = getSponsors();
-    filename = 'sponsors.csv';
+    rows = (await getCandidaturesSponsor()) as unknown as Record<string, unknown>[];
+    filename = 'candidatures-sponsors.csv';
+  } else if (type === 'fiches') {
+    rows = (await getFiches()) as unknown as Record<string, unknown>[];
+    filename = 'fiches.csv';
+  } else if (type === 'zones') {
+    rows = (await getZonesStands()) as unknown as Record<string, unknown>[];
+    filename = 'zones-stands.csv';
   } else if (type === 'contacts') {
-    rows = getContacts();
+    rows = (await getContacts()) as unknown as Record<string, unknown>[];
     filename = 'contacts.csv';
   }
 
