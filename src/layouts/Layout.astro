@@ -1,0 +1,53 @@
+---
+interface Props {
+  title?: string;
+  description?: string;
+  ogImage?: string;
+}
+
+const {
+  title = 'Woof Day — Événement canin gratuit à Ambérac (16)',
+  description = 'Le Woof Day, c\'est la grande fête canine de Charente ! Dimanche 13 septembre 2026 à Ambérac — entrée gratuite, 50+ exposants, animations, tombola. Au profit du Refuge de l\'Angoumois.',
+  ogImage = '/logos/logo-couleur.svg',
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="icon" type="image/svg+xml" href="/logos/logo-chien-noir.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  </head>
+  <body>
+    <div id="progress-bar" style="width:0%"></div>
+    <slot />
+    <script>
+      // Progress bar
+      window.addEventListener('scroll', () => {
+        const el = document.getElementById('progress-bar');
+        if (!el) return;
+        const scrolled = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+        el.style.width = scrolled + '%';
+      });
+      // Scroll reveal
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+      }, { threshold: 0.12 });
+      document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    </script>
+  </body>
+</html>
+
+<style is:global>
+  @import '../styles/global.css';
+</style>

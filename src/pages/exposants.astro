@@ -1,0 +1,154 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const poles = [
+  'Alimentation & Nutrition',
+  'Bien-être & Santé naturelle',
+  'Éducation & Comportement',
+  'Accessoires & Mode',
+  'Toilettage & Soins',
+  'Associations & Refuge',
+  'Artisanat & Création',
+  'Autre',
+];
+---
+
+<Layout title="Devenir Exposant — Woof Day 2026" description="Rejoignez le Woof Day comme exposant le 13 septembre 2026 à Ambérac. Réservez votre stand pour l'édition 2.">
+  <!-- NAV simple -->
+  <nav class="fixed top-3 left-1/2 -translate-x-1/2 z-50 w-[calc(100%-2rem)] max-w-5xl bg-[#fdfaf4]/90 backdrop-blur-md border border-[#e8e5a8] rounded-full px-6 py-3 flex items-center justify-between shadow-sm">
+    <a href="/" class="flex items-center gap-2">
+      <img src="/logos/logo-couleur.svg" alt="Woof Day" class="h-8 w-auto" />
+    </a>
+    <a href="/" class="text-sm font-semibold text-[#69322d] hover:text-[#de6c49] transition-colors" style="font-family: 'Poppins', sans-serif">← Retour au site</a>
+  </nav>
+
+  <!-- HERO -->
+  <section class="pt-32 pb-16 px-4 bg-[#de6c49] text-white text-center paw-bg relative overflow-hidden">
+    <div class="absolute inset-0 bg-[#de6c49]/80"></div>
+    <div class="relative z-10 max-w-2xl mx-auto">
+      <div class="inline-block bg-white/20 text-white text-xs font-bold uppercase tracking-widest px-4 py-2 rounded-full mb-6" style="font-family: 'Poppins', sans-serif">Édition 2 · 13 sept. 2026</div>
+      <h1 class="text-5xl md:text-6xl font-bold mb-4" style="font-family: 'Fredoka', sans-serif">Devenir Exposant</h1>
+      <p class="text-xl text-white/80 max-w-lg mx-auto" style="font-family: 'Poppins', sans-serif">
+        Réservez votre stand au Woof Day et rencontrez des centaines d'amoureux des chiens en Charente.
+      </p>
+    </div>
+  </section>
+
+  <!-- AVANTAGES -->
+  <section class="py-16 px-4">
+    <div class="max-w-5xl mx-auto">
+      <div class="grid sm:grid-cols-3 gap-6 mb-16">
+        {[
+          { icon: '👥', title: 'Une audience qualifiée', desc: 'Des centaines de visiteurs passionnés par les chiens et le bien-être animal' },
+          { icon: '📍', title: 'Un emplacement premium', desc: 'Stand visible, bien situé dans les zones thématiques de l\'événement' },
+          { icon: '❤️', title: 'Une cause commune', desc: 'Participez à un événement solidaire au profit du Refuge de l\'Angoumois' },
+        ].map(a => (
+          <div class="reveal bg-[#f3f1c7] rounded-3xl p-6 text-center">
+            <div class="text-4xl mb-3">{a.icon}</div>
+            <h3 class="font-bold text-[#69322d] text-lg mb-2" style="font-family: 'Fredoka', sans-serif">{a.title}</h3>
+            <p class="text-sm text-[#69322d]/70" style="font-family: 'Poppins', sans-serif">{a.desc}</p>
+          </div>
+        ))}
+      </div>
+
+      <!-- FORM -->
+      <div class="max-w-2xl mx-auto reveal">
+        <h2 class="text-3xl font-bold text-[#69322d] text-center mb-8" style="font-family: 'Fredoka', sans-serif">Candidater comme exposant</h2>
+        <form id="exposant-form" class="bg-white rounded-3xl p-8 shadow-sm border border-[#e8e5a8] space-y-5">
+          <div class="grid sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-sm font-semibold text-[#69322d] mb-1" style="font-family: 'Poppins', sans-serif">Nom de la structure *</label>
+              <input name="structure" required placeholder="Ma boutique canine" class="w-full border-2 border-[#e8e5a8] rounded-xl px-4 py-3 text-[#69322d] focus:border-[#de6c49] outline-none transition-colors" style="font-family: 'Poppins', sans-serif" />
+            </div>
+            <div>
+              <label class="block text-sm font-semibold text-[#69322d] mb-1" style="font-family: 'Poppins', sans-serif">Responsable *</label>
+              <input name="responsable" required placeholder="Prénom Nom" class="w-full border-2 border-[#e8e5a8] rounded-xl px-4 py-3 text-[#69322d] focus:border-[#de6c49] outline-none transition-colors" style="font-family: 'Poppins', sans-serif" />
+            </div>
+          </div>
+          <div class="grid sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-sm font-semibold text-[#69322d] mb-1" style="font-family: 'Poppins', sans-serif">Email *</label>
+              <input name="email" type="email" required placeholder="contact@exemple.fr" class="w-full border-2 border-[#e8e5a8] rounded-xl px-4 py-3 text-[#69322d] focus:border-[#de6c49] outline-none transition-colors" style="font-family: 'Poppins', sans-serif" />
+            </div>
+            <div>
+              <label class="block text-sm font-semibold text-[#69322d] mb-1" style="font-family: 'Poppins', sans-serif">Téléphone *</label>
+              <input name="telephone" required placeholder="06 00 00 00 00" class="w-full border-2 border-[#e8e5a8] rounded-xl px-4 py-3 text-[#69322d] focus:border-[#de6c49] outline-none transition-colors" style="font-family: 'Poppins', sans-serif" />
+            </div>
+          </div>
+          <div class="grid sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-sm font-semibold text-[#69322d] mb-1" style="font-family: 'Poppins', sans-serif">Ville *</label>
+              <input name="ville" required placeholder="Angoulême" class="w-full border-2 border-[#e8e5a8] rounded-xl px-4 py-3 text-[#69322d] focus:border-[#de6c49] outline-none transition-colors" style="font-family: 'Poppins', sans-serif" />
+            </div>
+            <div>
+              <label class="block text-sm font-semibold text-[#69322d] mb-1" style="font-family: 'Poppins', sans-serif">Pôle *</label>
+              <select name="pole" required class="w-full border-2 border-[#e8e5a8] rounded-xl px-4 py-3 text-[#69322d] focus:border-[#de6c49] outline-none transition-colors bg-white" style="font-family: 'Poppins', sans-serif">
+                <option value="">Choisir…</option>
+                {poles.map(p => <option value={p}>{p}</option>)}
+              </select>
+            </div>
+          </div>
+          <div>
+            <label class="block text-sm font-semibold text-[#69322d] mb-1" style="font-family: 'Poppins', sans-serif">Description de votre activité *</label>
+            <textarea name="description" required rows="3" placeholder="Décrivez votre structure et ce que vous proposez…" class="w-full border-2 border-[#e8e5a8] rounded-xl px-4 py-3 text-[#69322d] focus:border-[#de6c49] outline-none transition-colors resize-none" style="font-family: 'Poppins', sans-serif"></textarea>
+          </div>
+          <div class="grid sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-sm font-semibold text-[#69322d] mb-1" style="font-family: 'Poppins', sans-serif">Taille de stand souhaitée</label>
+              <select name="tailleStand" class="w-full border-2 border-[#e8e5a8] rounded-xl px-4 py-3 text-[#69322d] focus:border-[#de6c49] outline-none transition-colors bg-white" style="font-family: 'Poppins', sans-serif">
+                <option value="">Indifférent</option>
+                <option value="small">Petit (3m²)</option>
+                <option value="medium">Moyen (6m²)</option>
+                <option value="large">Grand (9m²+)</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-sm font-semibold text-[#69322d] mb-1" style="font-family: 'Poppins', sans-serif">Site web (optionnel)</label>
+              <input name="lienWeb" type="url" placeholder="https://…" class="w-full border-2 border-[#e8e5a8] rounded-xl px-4 py-3 text-[#69322d] focus:border-[#de6c49] outline-none transition-colors" style="font-family: 'Poppins', sans-serif" />
+            </div>
+          </div>
+          <div class="flex items-center gap-3">
+            <input type="checkbox" name="barnum" id="barnum" class="w-4 h-4 accent-[#de6c49]" />
+            <label for="barnum" class="text-sm text-[#69322d]" style="font-family: 'Poppins', sans-serif">J'ai besoin d'un barnum</label>
+            <input type="checkbox" name="electricite" id="elec" class="w-4 h-4 accent-[#de6c49] ml-4" />
+            <label for="elec" class="text-sm text-[#69322d]" style="font-family: 'Poppins', sans-serif">J'ai besoin d'électricité</label>
+          </div>
+          <button type="submit" id="submit-btn" class="w-full bg-[#de6c49] text-white py-4 rounded-full font-bold text-lg hover:bg-[#69322d] transition-colors shadow-md" style="font-family: 'Fredoka', sans-serif">
+            Envoyer ma candidature 🏪
+          </button>
+          <div id="form-success" class="hidden text-center py-4 bg-[#26422b] text-white rounded-2xl font-semibold" style="font-family: 'Fredoka', sans-serif">
+            ✅ Candidature envoyée ! On vous recontacte sous 48h.
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="bg-[#69322d] text-white py-8 px-4 text-center text-sm text-white/50" style="font-family: 'Poppins', sans-serif">
+    <a href="/" class="hover:text-white transition-colors">← Retour au site Woof Day</a>
+  </footer>
+</Layout>
+
+<script>
+  const form = document.getElementById('exposant-form') as HTMLFormElement;
+  const btn = document.getElementById('submit-btn') as HTMLButtonElement;
+  const success = document.getElementById('form-success') as HTMLElement;
+
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    btn.textContent = 'Envoi en cours…';
+    btn.disabled = true;
+    try {
+      const data = Object.fromEntries(new FormData(form));
+      const res = await fetch('/api/exposant', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) });
+      if (res.ok) {
+        form.style.display = 'none';
+        success.classList.remove('hidden');
+      } else throw new Error();
+    } catch {
+      btn.textContent = 'Erreur — Réessayez';
+      btn.disabled = false;
+    }
+  });
+</script>

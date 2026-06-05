@@ -1,0 +1,73 @@
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Kalam:wght@400;700&family=Poppins:wght@400;500;600;700&display=swap');
+
+@theme {
+  /* DA Woof Day */
+  --color-truffe:     #69322d;
+  --color-terre:      #de6c49;
+  --color-vert:       #26422b;
+  --color-bleu:       #91acda;
+  --color-creme:      #f3f1c7;
+
+  /* Nuances */
+  --color-truffe-light: #8a4a44;
+  --color-terre-light:  #e8845f;
+  --color-vert-light:   #3a5c3f;
+  --color-creme-dark:   #e8e5a8;
+
+  /* Fond */
+  --color-bg:         #fdfaf4;
+  --color-surface:    #ffffff;
+
+  /* Fonts */
+  --font-heading: 'Fredoka', sans-serif;
+  --font-accent:  'Kalam', cursive;
+  --font-body:    'Poppins', sans-serif;
+
+  /* Radius */
+  --radius-card:  2rem;
+  --radius-pill:  9999px;
+  --radius-btn:   9999px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-family: var(--font-body);
+  background-color: var(--color-bg);
+  color: var(--color-truffe);
+  scroll-behavior: smooth;
+}
+
+h1, h2, h3, h4, h5 {
+  font-family: var(--font-heading);
+}
+
+/* Scroll reveal */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity .6s cubic-bezier(.22,1,.36,1), transform .6s cubic-bezier(.22,1,.36,1);
+}
+.reveal.visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* Progress bar */
+#progress-bar {
+  position: fixed;
+  top: 0; left: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--color-truffe), var(--color-terre), var(--color-creme));
+  z-index: 9999;
+  pointer-events: none;
+  transition: width .1s linear;
+}
+
+/* Paw pattern */
+.paw-bg {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60'%3E%3Ccircle cx='30' cy='22' r='6' fill='%2369322d' opacity='.06'/%3E%3Ccircle cx='20' cy='16' r='4' fill='%2369322d' opacity='.06'/%3E%3Ccircle cx='40' cy='16' r='4' fill='%2369322d' opacity='.06'/%3E%3Ccircle cx='14' cy='26' r='4' fill='%2369322d' opacity='.06'/%3E%3Ccircle cx='46' cy='26' r='4' fill='%2369322d' opacity='.06'/%3E%3Cellipse cx='30' cy='35' rx='10' ry='8' fill='%2369322d' opacity='.06'/%3E%3C/svg%3E");
+}

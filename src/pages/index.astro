@@ -1,0 +1,313 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const zones = [
+  { emoji: '🌊', nom: 'Zone Aquatique', desc: 'Baignade & jeux d\'eau pour chiens' },
+  { emoji: '🏆', nom: 'Zone Agility & Sport', desc: 'Parcours & démonstrations sportives' },
+  { emoji: '🌿', nom: 'Zone Détente & Zen', desc: 'Massages canins, relaxation' },
+  { emoji: '👶', nom: 'Zone Famille & Kids', desc: 'Ateliers dessin, animations enfants' },
+  { emoji: '🎤', nom: 'Scène Centrale', desc: 'Spectacles, concours, remise des prix' },
+  { emoji: '🌱', nom: 'Village Bien-Être', desc: 'Exposants santé naturelle & alimentation' },
+];
+
+const faqs = [
+  { q: "Le Woof Day est-il payant ?", a: "Non, l'entrée est totalement gratuite." },
+  { q: "Puis-je venir avec mon chien ?", a: "Oui, les chiens sont les bienvenus, tenus en laisse." },
+  { q: "Où a lieu le Woof Day ?", a: "À Ambérac, près d'Angoulême, en Charente (16)." },
+  { q: "Quand a lieu le Woof Day ?", a: "Le dimanche 13 septembre 2026, de 10h à 18h." },
+  { q: "Est-ce réservé aux passionnés de chiens ?", a: "Non. Le Woof Day est ouvert à tous : familles, curieux, amoureux des animaux — avec ou sans chien." },
+  { q: "Y aura-t-il des activités ?", a: "Oui : plus de 50 exposants, animations, concours, tombola à gain immédiat, activités aquatiques et surprises." },
+  { q: "Le Woof Day soutient-il une cause ?", a: "Oui. 100% des bénéfices nets sont reversés au Refuge de l'Angoumois." },
+  { q: "Où suivre les prochaines annonces ?", a: "Sur Instagram @woofday_charente et sur ce site officiel." },
+];
+
+const stats = [
+  { val: '50+', label: 'Exposants passionnés' },
+  { val: '100%', label: 'Entrée gratuite' },
+  { val: '1', label: 'Journée inoubliable' },
+  { val: '♥', label: 'Au profit du Refuge' },
+];
+---
+
+<Layout>
+  <!-- NAV -->
+  <nav id="navbar" class="fixed top-3 left-1/2 -translate-x-1/2 z-50 w-[calc(100%-2rem)] max-w-5xl bg-[#fdfaf4]/90 backdrop-blur-md border border-[#e8e5a8] rounded-full px-6 py-3 flex items-center justify-between shadow-sm">
+    <a href="/" class="flex items-center gap-2">
+      <img src="/logos/logo-couleur.svg" alt="Woof Day" class="h-8 w-auto" />
+    </a>
+    <div class="hidden md:flex items-center gap-6 text-sm font-semibold text-[#69322d]" style="font-family: 'Poppins', sans-serif">
+      <a href="#concept" class="hover:text-[#de6c49] transition-colors">L'événement</a>
+      <a href="#zones" class="hover:text-[#de6c49] transition-colors">Zones</a>
+      <a href="#exposants" class="hover:text-[#de6c49] transition-colors">Exposants</a>
+      <a href="#infos" class="hover:text-[#de6c49] transition-colors">Infos pratiques</a>
+    </div>
+    <a href="#contact" class="bg-[#de6c49] text-white px-5 py-2 rounded-full text-sm font-bold hover:bg-[#69322d] transition-colors" style="font-family: 'Fredoka', sans-serif">
+      Je viens ! 🐾
+    </a>
+  </nav>
+
+  <!-- HERO -->
+  <section class="relative min-h-screen flex flex-col items-center justify-center text-center paw-bg overflow-hidden pt-24 pb-16 px-4">
+    <div class="absolute inset-0 bg-gradient-to-b from-[#f3f1c7]/60 to-[#fdfaf4]"></div>
+    <div class="relative z-10 max-w-4xl mx-auto">
+      <div class="inline-flex items-center gap-2 bg-[#de6c49] text-white text-xs font-bold uppercase tracking-widest px-4 py-2 rounded-full mb-8 shadow-md" style="font-family: 'Poppins', sans-serif">
+        🐾 Édition 2 — 13 septembre 2026
+      </div>
+      <img src="/logos/logo-couleur.svg" alt="Woof Day" class="h-24 md:h-36 mx-auto mb-6 drop-shadow-xl" />
+      <p class="text-2xl md:text-3xl font-bold text-[#26422b] mb-3" style="font-family: 'Fredoka', sans-serif">
+        La grande fête canine de Charente
+      </p>
+      <p class="text-base md:text-lg text-[#69322d]/80 max-w-xl mx-auto mb-10" style="font-family: 'Poppins', sans-serif">
+        50+ exposants · Animations · Concours · Tombola · Activités aquatiques<br />
+        <span class="font-semibold text-[#de6c49]">Au profit du Refuge de l'Angoumois</span>
+      </p>
+
+      <!-- Countdown -->
+      <div id="countdown" class="flex justify-center gap-3 mb-10 flex-wrap"></div>
+
+      <div class="flex flex-col sm:flex-row gap-3 justify-center">
+        <a href="#contact" class="bg-[#de6c49] text-white px-8 py-4 rounded-full font-bold text-lg shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all" style="font-family: 'Fredoka', sans-serif">
+          Je veux venir ! 🐾
+        </a>
+        <a href="/exposants" class="border-2 border-[#69322d] text-[#69322d] px-8 py-4 rounded-full font-bold text-lg hover:bg-[#69322d] hover:text-white transition-all" style="font-family: 'Fredoka', sans-serif">
+          Devenir exposant
+        </a>
+      </div>
+
+      <!-- Info bar -->
+      <div class="mt-12 flex flex-col sm:flex-row items-center justify-center gap-6 text-sm text-[#69322d]/70" style="font-family: 'Poppins', sans-serif">
+        <span>📍 Ambérac, Charente (16)</span>
+        <span class="hidden sm:block opacity-30">·</span>
+        <span>📅 Dimanche 13 sept. 2026</span>
+        <span class="hidden sm:block opacity-30">·</span>
+        <span>🕙 10h – 18h</span>
+        <span class="hidden sm:block opacity-30">·</span>
+        <span class="text-[#26422b] font-semibold">✅ Entrée gratuite</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS BAR -->
+  <section class="py-12 bg-[#69322d]">
+    <div class="max-w-4xl mx-auto px-4 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+      {stats.map(s => (
+        <div>
+          <div class="text-4xl font-bold text-[#f3f1c7]" style="font-family: 'Fredoka', sans-serif">{s.val}</div>
+          <div class="text-xs uppercase tracking-widest text-[#f3f1c7]/60 mt-1" style="font-family: 'Poppins', sans-serif">{s.label}</div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- CONCEPT -->
+  <section id="concept" class="py-24 px-4">
+    <div class="max-w-5xl mx-auto">
+      <div class="text-center mb-16 reveal">
+        <span class="inline-block bg-[#f3f1c7] text-[#26422b] text-xs font-bold uppercase tracking-widest px-4 py-2 rounded-full mb-4" style="font-family: 'Poppins', sans-serif">L'événement</span>
+        <h2 class="text-4xl md:text-5xl font-bold text-[#69322d]" style="font-family: 'Fredoka', sans-serif">Qu'est-ce que le Woof Day ?</h2>
+      </div>
+      <div class="grid md:grid-cols-2 gap-12 items-center">
+        <div class="reveal">
+          <p class="text-lg text-[#69322d]/80 leading-relaxed mb-6" style="font-family: 'Poppins', sans-serif">
+            Le Woof Day, c'est <strong>la journée incontournable pour les amoureux des chiens</strong> en Charente. Une fête ouverte à tous — avec ou sans chien — pour découvrir, échanger et profiter ensemble.
+          </p>
+          <ul class="space-y-4">
+            {[
+              { icon: '🏪', text: 'Ateliers et activités canines' },
+              { icon: '🤝', text: "Rencontre d'experts passionnés" },
+              { icon: '🛍️', text: 'Exposants et artisans sélectionnés' },
+              { icon: '💆', text: 'Bien-être et convivialité' },
+            ].map(item => (
+              <li class="flex items-center gap-3 text-[#69322d]" style="font-family: 'Poppins', sans-serif">
+                <span class="text-2xl">{item.icon}</span>
+                <span class="font-medium">{item.text}</span>
+              </li>
+            ))}
+          </ul>
+          <div class="mt-8 inline-flex items-center gap-3 bg-[#f3f1c7] rounded-2xl px-5 py-4">
+            <span class="text-2xl">❤️</span>
+            <div>
+              <div class="font-bold text-[#69322d]" style="font-family: 'Fredoka', sans-serif">Au profit du Refuge de l'Angoumois</div>
+              <div class="text-sm text-[#69322d]/60" style="font-family: 'Poppins', sans-serif">100% des bénéfices nets reversés</div>
+            </div>
+          </div>
+        </div>
+        <div class="reveal flex justify-center">
+          <img src="/logos/sticker.svg" alt="Woof Day — Événements canins" class="w-80 max-w-full opacity-90" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ZONES -->
+  <section id="zones" class="py-24 px-4 bg-[#f3f1c7]">
+    <div class="max-w-5xl mx-auto">
+      <div class="text-center mb-16 reveal">
+        <span class="inline-block bg-white text-[#de6c49] text-xs font-bold uppercase tracking-widest px-4 py-2 rounded-full mb-4" style="font-family: 'Poppins', sans-serif">Le programme</span>
+        <h2 class="text-4xl md:text-5xl font-bold text-[#69322d]" style="font-family: 'Fredoka', sans-serif">Les zones de l'événement</h2>
+      </div>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        {zones.map((z, i) => (
+          <div class="reveal bg-white rounded-3xl p-6 border-2 border-transparent hover:border-[#de6c49] transition-all hover:-translate-y-1 shadow-sm cursor-default" style={`transition-delay: ${i * 80}ms`}>
+            <div class="text-4xl mb-3">{z.emoji}</div>
+            <h3 class="text-lg font-bold text-[#69322d] mb-1" style="font-family: 'Fredoka', sans-serif">{z.nom}</h3>
+            <p class="text-sm text-[#69322d]/60" style="font-family: 'Poppins', sans-serif">{z.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPOSANTS placeholder -->
+  <section id="exposants" class="py-24 px-4">
+    <div class="max-w-5xl mx-auto text-center reveal">
+      <span class="inline-block bg-[#91acda]/20 text-[#69322d] text-xs font-bold uppercase tracking-widest px-4 py-2 rounded-full mb-4" style="font-family: 'Poppins', sans-serif">Exposants & Sponsors</span>
+      <h2 class="text-4xl md:text-5xl font-bold text-[#69322d] mb-6" style="font-family: 'Fredoka', sans-serif">Bientôt la liste des exposants</h2>
+      <p class="text-lg text-[#69322d]/70 max-w-xl mx-auto mb-10" style="font-family: 'Poppins', sans-serif">
+        Les inscriptions sont ouvertes ! Retrouvez ici la liste complète des exposants et sponsors dès leur confirmation.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-3 justify-center">
+        <a href="/exposants" class="inline-flex items-center gap-2 bg-[#26422b] text-white px-8 py-4 rounded-full font-bold text-lg shadow-md hover:bg-[#69322d] transition-colors" style="font-family: 'Fredoka', sans-serif">
+          Devenir exposant 🏪
+        </a>
+        <a href="/sponsor" class="inline-flex items-center gap-2 border-2 border-[#26422b] text-[#26422b] px-8 py-4 rounded-full font-bold text-lg hover:bg-[#26422b] hover:text-white transition-colors" style="font-family: 'Fredoka', sans-serif">
+          Devenir sponsor 🤝
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- INFOS PRATIQUES -->
+  <section id="infos" class="py-24 px-4 bg-[#26422b] text-white">
+    <div class="max-w-5xl mx-auto">
+      <div class="text-center mb-16 reveal">
+        <span class="inline-block bg-white/20 text-white text-xs font-bold uppercase tracking-widest px-4 py-2 rounded-full mb-4" style="font-family: 'Poppins', sans-serif">Infos pratiques</span>
+        <h2 class="text-4xl md:text-5xl font-bold" style="font-family: 'Fredoka', sans-serif">Tout savoir avant de venir</h2>
+      </div>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        {[
+          { icon: '📅', label: 'Date', val: 'Dimanche 13 sept. 2026' },
+          { icon: '🕙', label: 'Horaires', val: '10h – 18h' },
+          { icon: '📍', label: 'Lieu', val: 'Ambérac, Charente (16)' },
+          { icon: '🎫', label: 'Tarif', val: 'Entrée gratuite' },
+        ].map(info => (
+          <div class="reveal bg-white/10 rounded-2xl p-6 text-center border border-white/20">
+            <div class="text-3xl mb-2">{info.icon}</div>
+            <div class="text-xs uppercase tracking-widest text-white/60 mb-1" style="font-family: 'Poppins', sans-serif">{info.label}</div>
+            <div class="font-bold text-lg" style="font-family: 'Fredoka', sans-serif">{info.val}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq" class="py-24 px-4">
+    <div class="max-w-2xl mx-auto">
+      <div class="text-center mb-16 reveal">
+        <span class="inline-block bg-[#f3f1c7] text-[#69322d] text-xs font-bold uppercase tracking-widest px-4 py-2 rounded-full mb-4" style="font-family: 'Poppins', sans-serif">FAQ</span>
+        <h2 class="text-4xl md:text-5xl font-bold text-[#69322d]" style="font-family: 'Fredoka', sans-serif">Questions fréquentes</h2>
+      </div>
+      <div class="space-y-3">
+        {faqs.map((f, i) => (
+          <div class="reveal faq-item bg-white border-2 border-[#e8e5a8] rounded-2xl overflow-hidden">
+            <button class="faq-btn w-full flex justify-between items-center px-6 py-5 text-left gap-4">
+              <span class="font-semibold text-[#69322d]" style="font-family: 'Poppins', sans-serif">{f.q}</span>
+              <span class="faq-icon flex-shrink-0 w-7 h-7 rounded-lg bg-[#f3f1c7] flex items-center justify-center text-[#de6c49] transition-transform duration-200">▾</span>
+            </button>
+            <div class="faq-body hidden px-6 pb-5 text-[#69322d]/70 leading-relaxed" style="font-family: 'Poppins', sans-serif">{f.a}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="py-24 px-4 paw-bg bg-[#f3f1c7]">
+    <div class="max-w-xl mx-auto reveal">
+      <div class="text-center mb-10">
+        <span class="inline-block bg-[#de6c49] text-white text-xs font-bold uppercase tracking-widest px-4 py-2 rounded-full mb-4" style="font-family: 'Poppins', sans-serif">Contact</span>
+        <h2 class="text-4xl font-bold text-[#69322d]" style="font-family: 'Fredoka', sans-serif">Restons en contact !</h2>
+        <p class="mt-3 text-[#69322d]/70" style="font-family: 'Poppins', sans-serif">Vous souhaitez venir, nous aider, partager une idée ? Écrivez-nous.</p>
+      </div>
+      <form id="contact-form" class="bg-white rounded-3xl p-8 shadow-sm border border-[#e8e5a8] space-y-4">
+        <div>
+          <label class="block text-sm font-semibold text-[#69322d] mb-1" style="font-family: 'Poppins', sans-serif">Je souhaite…</label>
+          <select name="reason" class="w-full border-2 border-[#e8e5a8] rounded-xl px-4 py-3 text-[#69322d] focus:border-[#de6c49] outline-none transition-colors bg-white" style="font-family: 'Poppins', sans-serif" required>
+            <option value="">Choisir une raison…</option>
+            <option value="venir">Venir à l'événement</option>
+            <option value="benevole">Être bénévole</option>
+            <option value="idee">Proposer une idée</option>
+            <option value="info">Être tenu informé</option>
+            <option value="affiche">Demander des affiches</option>
+            <option value="pro">Devenir Exposant / Sponsor</option>
+          </select>
+        </div>
+        <input name="nom" placeholder="Votre nom" required class="w-full border-2 border-[#e8e5a8] rounded-xl px-4 py-3 text-[#69322d] focus:border-[#de6c49] outline-none transition-colors" style="font-family: 'Poppins', sans-serif" />
+        <input name="email" type="email" placeholder="Email" required class="w-full border-2 border-[#e8e5a8] rounded-xl px-4 py-3 text-[#69322d] focus:border-[#de6c49] outline-none transition-colors" style="font-family: 'Poppins', sans-serif" />
+        <textarea name="message" placeholder="Votre message (optionnel)" rows="3" class="w-full border-2 border-[#e8e5a8] rounded-xl px-4 py-3 text-[#69322d] focus:border-[#de6c49] outline-none transition-colors resize-none" style="font-family: 'Poppins', sans-serif"></textarea>
+        <button type="submit" class="w-full bg-[#de6c49] text-white py-4 rounded-full font-bold text-lg hover:bg-[#69322d] transition-colors shadow-md" style="font-family: 'Fredoka', sans-serif">
+          Envoyer 🐾
+        </button>
+      </form>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="bg-[#69322d] text-white py-12 px-4">
+    <div class="max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+      <div class="flex items-center gap-3">
+        <img src="/logos/logo-chien-blanc.svg" alt="Woof Day" class="h-10" />
+        <div>
+          <div class="font-bold" style="font-family: 'Fredoka', sans-serif">Woof Day</div>
+          <div class="text-xs text-white/50" style="font-family: 'Poppins', sans-serif">Événements canins · Charente (16)</div>
+        </div>
+      </div>
+      <div class="flex items-center gap-6 text-sm text-white/60" style="font-family: 'Poppins', sans-serif">
+        <a href="/exposants" class="hover:text-white transition-colors">Exposants</a>
+        <a href="/sponsor" class="hover:text-white transition-colors">Sponsors</a>
+        <a href="https://instagram.com/woofday_charente" target="_blank" rel="noopener" class="hover:text-white transition-colors">Instagram</a>
+      </div>
+      <div class="text-xs text-white/40" style="font-family: 'Poppins', sans-serif">© 2026 Woof Day</div>
+    </div>
+  </footer>
+</Layout>
+
+<script>
+  // Countdown
+  function updateCountdown() {
+    const target = new Date('2026-09-13T10:00:00').getTime();
+    const diff = target - Date.now();
+    if (diff <= 0) return;
+    const d = Math.floor(diff / 86400000);
+    const h = Math.floor((diff % 86400000) / 3600000);
+    const m = Math.floor((diff % 3600000) / 60000);
+    const s = Math.floor((diff % 60000) / 1000);
+    const el = document.getElementById('countdown');
+    if (!el) return;
+    el.innerHTML = [
+      { val: d, lbl: 'Jours' }, { val: h, lbl: 'Heures' },
+      { val: m, lbl: 'Min' },   { val: s, lbl: 'Sec' },
+    ].map(({ val, lbl }) => `
+      <div style="background:#fff;border-radius:20px;padding:14px 12px 10px;min-width:72px;text-align:center;box-shadow:0 8px 24px rgba(0,0,0,.07);border:1.5px solid #e8e5a8">
+        <div style="font-family:'Fredoka',sans-serif;font-size:clamp(28px,5vw,42px);font-weight:700;color:#de6c49;line-height:1">${String(val).padStart(2,'0')}</div>
+        <div style="font-family:'Poppins',sans-serif;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:#69322d;opacity:.5;margin-top:4px">${lbl}</div>
+      </div>
+    `).join('');
+  }
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
+
+  // FAQ
+  document.querySelectorAll('.faq-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const item = btn.closest('.faq-item') as HTMLElement;
+      const body = item.querySelector('.faq-body') as HTMLElement;
+      const icon = item.querySelector('.faq-icon') as HTMLElement;
+      const isOpen = !body.classList.contains('hidden');
+      body.classList.toggle('hidden', isOpen);
+      icon.style.transform = isOpen ? '' : 'rotate(180deg)';
+      item.style.borderColor = isOpen ? '' : '#de6c49';
+    });
+  });
+</script>
