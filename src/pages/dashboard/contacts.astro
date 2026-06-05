@@ -2,7 +2,7 @@
 import DashboardLayout from '../../layouts/DashboardLayout.astro';
 import { getContacts } from '../../lib/data';
 
-const contacts = getContacts();
+const contacts = await getContacts();
 
 const reasonLabels: Record<string, string> = {
   venir: '🎉 Venir à l\'événement',

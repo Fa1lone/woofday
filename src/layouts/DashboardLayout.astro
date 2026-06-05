@@ -1,16 +1,17 @@
 ---
 interface Props {
   title?: string;
-  activeTab?: 'exposants' | 'sponsors' | 'activities' | 'contacts' | 'settings';
+  activeTab?: 'exposants' | 'sponsors' | 'activities' | 'scores' | 'contacts' | 'settings';
 }
 const { title = 'Dashboard', activeTab = 'exposants' } = Astro.props;
 
 const tabs = [
-  { id: 'exposants', label: '🏪 Exposants', href: '/dashboard' },
-  { id: 'sponsors',  label: '🤝 Sponsors',  href: '/dashboard/sponsors' },
-  { id: 'activities', label: '🏆 Activités', href: '/dashboard/activities' },
-  { id: 'contacts',  label: '📬 Contacts',  href: '/dashboard/contacts' },
-  { id: 'settings',  label: '⚙️ Réglages',  href: '/dashboard/settings' },
+  { id: 'exposants',  label: '📩 Candidatures Expo',  href: '/dashboard' },
+  { id: 'sponsors',   label: '📩 Candidatures Spon',  href: '/dashboard/sponsors' },
+  { id: 'activities', label: '🎭 Fiches publiques',    href: '/dashboard/activities' },
+  { id: 'scores',     label: '🗺️ Zones & Stands',     href: '/dashboard/scores' },
+  { id: 'contacts',   label: '📬 Contacts',            href: '/dashboard/contacts' },
+  { id: 'settings',   label: '⚙️ Réglages',           href: '/dashboard/settings' },
 ];
 ---
 

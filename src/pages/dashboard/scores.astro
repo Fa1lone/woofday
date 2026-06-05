@@ -1,0 +1,42 @@
+---
+import DashboardLayout from '../../layouts/DashboardLayout.astro';
+import { ScoresTable } from '../../components/dashboard/ScoresTable';
+import { getZonesStands } from '../../lib/data';
+
+const zonesStands = await getZonesStands();
+const libres = zonesStands.filter(z => z.statut === 'libre');
+const reserves = zonesStands.filter(z => z.statut === 'reserve');
+---
+
+<DashboardLayout title="Zones & Stands" activeTab="scores">
+  <div style="background:white;border-radius:20px;padding:24px;border:1.5px solid #e8e5a8;margin-bottom:24px">
+    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px">
+      <div>
+        <h2 style="font-family:'Fredoka',sans-serif;margin:0;font-size:20px">Zones & Stands</h2>
+        <p style="font-size:13px;opacity:.6;margin:4px 0 0">Gérez la disponibilité et l'attribution aux sponsors.</p>
+      </div>
+      <div style="display:flex;gap:20px">
+        <div style="text-align:center">
+          <div style="font-family:'Fredoka',sans-serif;font-size:28px;font-weight:700;color:#26422b">{libres.length}</div>
+          <div style="font-size:11px;opacity:.6">Libres</div>
+        </div>
+        <div style="text-align:center">
+          <div style="font-family:'Fredoka',sans-serif;font-size:28px;font-weight:700;color:#de6c49">{reserves.length}</div>
+          <div style="font-size:11px;opacity:.6">Réservés</div>
+        </div>
+        <div style="text-align:center">
+          <div style="font-family:'Fredoka',sans-serif;font-size:28px;font-weight:700;color:#91acda">{zonesStands.length}</div>
+          <div style="font-size:11px;opacity:.6">Total</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-bottom:20px">
+    <a href="/api/export?type=zones" download="zones-stands.csv" style="display:inline-flex;align-items:center;gap:8px;background:#fff;border:1.5px solid #e8e5a8;border-radius:10px;padding:8px 16px;font-family:'Poppins',sans-serif;font-size:13px;font-weight:600;color:#69322d;text-decoration:none">
+      📥 Export CSV zones
+    </a>
+  </div>
+
+  <ScoresTable initialData={zonesStands} client:load />
+</DashboardLayout>

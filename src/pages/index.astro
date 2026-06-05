@@ -2,18 +2,18 @@
 import Layout from '../layouts/Layout.astro';
 import DoodleMark from '../components/DoodleMark.astro';
 import LogoTicker from '../components/LogoTicker.astro';
-import { getInterestCount, getActivities, getExposants } from '../lib/data';
-const count = getInterestCount();
-const activities = getActivities().sort((a, b) => a.order - b.order);
-const allExposants = getExposants();
-const confirmedExposants = allExposants.filter(e => e.status === 'confirmed');
+import { ContactForm } from '../components/ContactForm';
+import { getInterestCount, getZonesStands, getFiches } from '../lib/data';
+const count = await getInterestCount();
+const activities = (await getZonesStands({ onlyVisible: true })).sort((a, b) => a.displayOrder - b.displayOrder);
+const fiches = await getFiches({ onlyVisible: true, exposants: true });
 
-// On affiche soit les vrais exposants confirmés, soit les fictifs s'il n'y en a pas encore
-const exposantsToShow = confirmedExposants.length > 0 ? confirmedExposants.slice(0, 6) : [
-  { structure: 'Caninéo Santé', pole: 'Alimentation & Friandises', imageUrl: 'https://images.unsplash.com/photo-1601758228041-f3b2795255f1?w=120&h=120&q=80&fit=crop', description: 'Alimentation naturelle et locale pour chiens.', instagram: '@cadineo_sante', color: '#de6c49', emoji: '🦴' },
-  { structure: 'Doggy Toys 16', pole: 'Créateur Accessoires', imageUrl: 'https://images.unsplash.com/photo-1548199973-03cce0bbc87b?w=120&h=120&q=80&fit=crop', description: 'Accessoires, laisses et jouets éco-responsables.', instagram: '@doggytoys16', color: '#26422b', emoji: '🧶' },
-  { structure: 'Aqua Dog Charente', pole: 'Activités Sportives', imageUrl: 'https://images.unsplash.com/photo-1518717758536-85ae29035b6d?w=120&h=120&q=80&fit=crop', description: 'Spécialistes des activités aquatiques canines.', instagram: '@aquadog_charente', color: '#91acda', emoji: '🌊' },
+const FALLBACK_EXPOSANTS = [
+  { nom: 'Caninéo Santé', descriptionCourte: 'Alimentation naturelle et locale pour chiens.', visuelUrl: 'https://images.unsplash.com/photo-1601758228041-f3b2795255f1?w=120&h=120&q=80&fit=crop', instagram: '@cadineo_sante', color: '#de6c49', emoji: '🦴', pole: 'Alimentation & Friandises' },
+  { nom: 'Doggy Toys 16', descriptionCourte: 'Accessoires, laisses et jouets éco-responsables.', visuelUrl: 'https://images.unsplash.com/photo-1548199973-03cce0bbc87b?w=120&h=120&q=80&fit=crop', instagram: '@doggytoys16', color: '#26422b', emoji: '🧶', pole: 'Créateur Accessoires' },
+  { nom: 'Aqua Dog Charente', descriptionCourte: 'Spécialistes des activités aquatiques canines.', visuelUrl: 'https://images.unsplash.com/photo-1518717758536-85ae29035b6d?w=120&h=120&q=80&fit=crop', instagram: '@aquadog_charente', color: '#91acda', emoji: '🌊', pole: 'Activités Sportives' },
 ];
+const exposantsToShow = fiches.length > 0 ? fiches.slice(0, 6) : FALLBACK_EXPOSANTS;
 
 const gcalUrl = "https://calendar.google.com/calendar/render?action=TEMPLATE&text=Woof+Day+2026&dates=20260913T080000Z/20260913T160000Z&details=La+grande+f%C3%AAte+canine+de+Charente+%E2%80%94+Entr%C3%A9e+gratuite+%F0%9F%90%BE&location=Amb%C3%A9rac%2C+Charente+(16)&sf=true&output=xml";
 
@@ -442,12 +442,12 @@ const waText = encodeURIComponent("Woof Day 2026 — Dimanche 13 sept à Ambéra
           style={`background:#fff;border:2px solid var(--creme-dark);border-radius:var(--r-xl);padding:24px;text-align:left;cursor:pointer;transition:transform .25s,box-shadow .25s;`}
           onmouseover="this.style.transform='translateY(-4px)';this.style.boxShadow='0 12px 32px rgba(105,50,45,.12)'"
           onmouseout="this.style.transform='';this.style.boxShadow=''">
-          <div style={`width:64px;height:64px;border-radius:var(--r-md);background:${e.color ?? 'var(--terre)'};overflow:hidden;margin-bottom:14px;flex-shrink:0`}>
-            <img src={e.imageUrl} alt={e.structure} style="width:100%;height:100%;object-fit:cover" loading="lazy" onerror={`this.style.display='none';this.parentElement.innerHTML='${e.emoji ?? '🐾'}';this.parentElement.style.display='flex';this.parentElement.style.alignItems='center';this.parentElement.style.justifyContent='center';this.parentElement.style.fontSize='28px'`} />
+          <div style={`width:64px;height:64px;border-radius:var(--r-md);background:${(e as any).color ?? 'var(--terre)'};overflow:hidden;margin-bottom:14px;flex-shrink:0`}>
+            <img src={(e as any).visuelUrl} alt={(e as any).nom} style="width:100%;height:100%;object-fit:cover" loading="lazy" onerror={`this.style.display='none';this.parentElement.innerHTML='${(e as any).emoji ?? '🐾'}';this.parentElement.style.display='flex';this.parentElement.style.alignItems='center';this.parentElement.style.justifyContent='center';this.parentElement.style.fontSize='28px'`} />
           </div>
-          <span style={`font-family:var(--f-body);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:${e.color ?? 'var(--terre)'};display:block;margin-bottom:6px`}>{e.pole}</span>
-          <h3 style="font-family:var(--f-head);font-size:22px;font-weight:700;color:var(--truffe);margin-bottom:8px">{e.structure}</h3>
-          <p style="font-family:var(--f-body);font-size:13px;line-height:1.65;color:var(--truffe);opacity:.7;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden">{e.description}</p>
+          <span style={`font-family:var(--f-body);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:${(e as any).color ?? 'var(--terre)'};display:block;margin-bottom:6px`}>{(e as any).pole ?? ''}</span>
+          <h3 style="font-family:var(--f-head);font-size:22px;font-weight:700;color:var(--truffe);margin-bottom:8px">{(e as any).nom}</h3>
+          <p style="font-family:var(--f-body);font-size:13px;line-height:1.65;color:var(--truffe);opacity:.7;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden">{(e as any).descriptionCourte}</p>
           <div style="margin-top:14px;font-family:var(--f-body);font-size:12px;font-weight:600;color:var(--terre)">Voir la fiche →</div>
         </button>
       ))}
@@ -592,6 +592,8 @@ const waText = encodeURIComponent("Woof Day 2026 — Dimanche 13 sept à Ambéra
         { icon: '🕙', label: 'Horaires', val: '10h – 18h',              bg: 'var(--vert)',  color: '#fff' },
         { icon: '📍', label: 'Lieu',     val: 'Ambérac, Charente (16)', bg: 'var(--creme)', color: 'var(--truffe)' },
         { icon: '🎫', label: 'Tarif',    val: 'Entrée gratuite',        bg: 'var(--truffe)',color: '#fff' },
+        { icon: '🐾', label: 'Chiens',   val: 'Bienvenus, en laisse',   bg: 'var(--bleu)',  color: 'var(--truffe)' },
+        { icon: '⛺', label: 'Stands',   val: '50+ exposants',          bg: 'var(--creme)', color: 'var(--truffe)' },
       ].map((info, i) => (
         <div data-reveal data-delay={String(i + 1)} style={`background:${info.bg};color:${info.color};border-radius:var(--r-lg);padding:28px 24px;`}>
           <div style="font-size:32px;margin-bottom:8px">{info.icon}</div>
@@ -640,6 +642,51 @@ const waText = encodeURIComponent("Woof Day 2026 — Dimanche 13 sept à Ambéra
 </section>
 
 
+<!-- ═══════════════════════════════════════════ ESPACE PROS ══ -->
+<section id="professionnels" class="sec" style="background:var(--bg)">
+  <div class="inner">
+    <div data-reveal style="background:var(--truffe);border-radius:48px;padding:clamp(40px,7vw,68px);position:relative;overflow:hidden">
+      <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none">
+        <span style="font-size:clamp(120px,20vw,240px);opacity:.05;line-height:1">🐾</span>
+      </div>
+      <div style="text-align:center;margin-bottom:clamp(28px,5vw,48px);position:relative;z-index:1">
+        <span class="chip chip-terre" style="margin-bottom:16px">Espace Professionnels</span>
+        <h2 style="font-family:var(--f-head);font-size:clamp(32px,5vw,52px);color:#fff;margin-bottom:12px">Rejoignez l'aventure Woof Day</h2>
+        <p style="font-family:var(--f-body);font-size:16px;color:rgba(255,255,255,.75);max-width:50ch;margin:0 auto">Visibilité locale exceptionnelle au service d'une belle cause.</p>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:22px;position:relative;z-index:1" class="pros-grid">
+        <!-- Card Exposant -->
+        <div style="background:rgba(222,108,73,.12);border:1.5px solid rgba(222,108,73,.4);border-radius:28px;padding:clamp(24px,4vw,36px)">
+          <div style="font-size:36px;margin-bottom:14px">⛺</div>
+          <h3 style="font-family:var(--f-head);font-size:26px;font-weight:700;color:#fff;margin-bottom:16px">Devenir Exposant</h3>
+          <ul style="list-style:none;padding:0;margin:0 0 24px;display:flex;flex-direction:column;gap:10px">
+            {['Public cible de passionnés (800+ visiteurs)', 'Vendez et faites tester vos produits', 'Développez votre réseau local'].map(t => (
+              <li style="display:flex;gap:10px;align-items:flex-start;font-family:var(--f-body);font-size:14px;color:rgba(255,255,255,.85)">
+                <span style="color:var(--terre);font-weight:700;flex-shrink:0">✓</span>{t}
+              </li>
+            ))}
+          </ul>
+          <a href="/exposants" class="btn btn-terre">Candidater comme exposant →</a>
+        </div>
+        <!-- Card Sponsor -->
+        <div style="background:rgba(243,241,199,.08);border:1.5px solid rgba(243,241,199,.25);border-radius:28px;padding:clamp(24px,4vw,36px);position:relative">
+          <div style="position:absolute;top:16px;right:16px;background:rgba(145,172,218,.25);border:1.5px solid rgba(145,172,218,.4);border-radius:9999px;padding:4px 12px;font-family:var(--f-body);font-size:11px;font-weight:700;color:var(--bleu);letter-spacing:.08em">Impact RSE fort</div>
+          <div style="font-size:36px;margin-bottom:14px">🤝</div>
+          <h3 style="font-family:var(--f-head);font-size:26px;font-weight:700;color:var(--creme);margin-bottom:16px">Devenir Sponsor</h3>
+          <ul style="list-style:none;padding:0;margin:0 0 24px;display:flex;flex-direction:column;gap:10px">
+            {['Logo sur affiches, flyers, site & réseaux', 'Image associée à un événement solidaire', 'Impact RSE local et concret'].map(t => (
+              <li style="display:flex;gap:10px;align-items:flex-start;font-family:var(--f-body);font-size:14px;color:rgba(243,241,199,.85)">
+                <span style="color:var(--creme);font-weight:700;flex-shrink:0">✓</span>{t}
+              </li>
+            ))}
+          </ul>
+          <a href="/sponsor" class="btn btn-creme">Devenir sponsor →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ══════════════════════════════════════════════════════ FAQ ══ -->
 <section id="faq" class="sec" style="background:var(--vert);color:#fff;position:relative;overflow:hidden">
   <div class="inner-sm" style="position:relative;z-index:2">
@@ -669,31 +716,9 @@ const waText = encodeURIComponent("Woof Day 2026 — Dimanche 13 sept à Ambéra
       <h2 data-reveal data-delay="1" style="font-size:clamp(36px,5vw,52px);color:var(--truffe)">Restons en contact !</h2>
       <p data-reveal data-delay="2" style="font-family:var(--f-body);font-size:16px;color:var(--truffe);opacity:.7;margin-top:10px">Vous souhaitez venir, aider, proposer une idée ? On vous répond vite.</p>
     </div>
-    <form id="contact-form" data-reveal data-delay="2" style="background:#fff;border-radius:var(--r-xl);padding:clamp(24px,5vw,48px);box-shadow:0 8px 40px rgba(105,50,45,.1);border:1.5px solid var(--creme-dark)">
-      <div style="display:grid;gap:14px">
-        <div>
-          <label style="display:block;font-family:var(--f-body);font-size:13px;font-weight:600;color:var(--truffe);margin-bottom:6px">Je souhaite…</label>
-          <select name="reason" required class="field" style="background:var(--bg)">
-            <option value="">Choisir une raison…</option>
-            <option value="venir">Venir à l'événement</option>
-            <option value="benevole">Être bénévole</option>
-            <option value="idee">Proposer une idée</option>
-            <option value="info">Être tenu informé</option>
-            <option value="affiche">Demander des affiches</option>
-            <option value="pro">Devenir Exposant / Sponsor</option>
-          </select>
-        </div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
-          <input name="nom" placeholder="Votre nom" required class="field" />
-          <input name="email" type="email" placeholder="Email" required class="field" />
-        </div>
-        <textarea name="message" placeholder="Votre message (optionnel)" rows="3" class="field" style="resize:none"></textarea>
-        <button type="submit" class="btn btn-terre" style="width:100%;font-size:18px;padding:16px">Envoyer 🐾</button>
-        <div id="contact-success" style="display:none;text-align:center;padding:16px;background:var(--vert);color:#fff;border-radius:var(--r-md);font-family:var(--f-head);font-size:17px;font-weight:600">
-          ✅ Message envoyé ! On vous répond sous 48h.
-        </div>
-      </div>
-    </form>
+    <div data-reveal data-delay="2" style="background:#fff;border-radius:var(--r-xl);padding:clamp(24px,5vw,48px);box-shadow:0 8px 40px rgba(105,50,45,.1);border:1.5px solid var(--creme-dark)">
+      <ContactForm client:load />
+    </div>
   </div>
 </section>
 
@@ -895,14 +920,14 @@ const waText = encodeURIComponent("Woof Day 2026 — Dimanche 13 sept à Ambéra
     const avatar = document.getElementById('exp-avatar');
     if (avatar) {
       avatar.style.background = e.color ?? 'var(--terre)';
-      avatar.innerHTML = `<img src="${e.imageUrl}" alt="${e.structure}" style="width:100%;height:100%;object-fit:cover" onerror="this.style.display='none';this.parentElement.innerHTML='${e.emoji ?? '🐾'}';this.parentElement.style.display='flex';this.parentElement.style.alignItems='center';this.parentElement.style.justifyContent='center';this.parentElement.style.fontSize='36px'" />`;
+      avatar.innerHTML = `<img src="${e.visuelUrl}" alt="${e.nom}" style="width:100%;height:100%;object-fit:cover" onerror="this.style.display='none';this.parentElement.innerHTML='${e.emoji ?? '🐾'}';this.parentElement.style.display='flex';this.parentElement.style.alignItems='center';this.parentElement.style.justifyContent='center';this.parentElement.style.fontSize='36px'" />`;
     }
     const badge = document.getElementById('exp-badge');
-    if (badge) badge.textContent = e.pole;
+    if (badge) badge.textContent = e.pole ?? '';
     const nom = document.getElementById('exp-nom');
-    if (nom) nom.textContent = e.structure;
+    if (nom) nom.textContent = e.nom;
     const desc = document.getElementById('exp-desc');
-    if (desc) desc.textContent = e.description;
+    if (desc) desc.textContent = e.descriptionCourte ?? '';
     const links = document.getElementById('exp-links');
     if (links) {
       links.innerHTML = '';
@@ -915,9 +940,9 @@ const waText = encodeURIComponent("Woof Day 2026 — Dimanche 13 sept à Ambéra
         a.textContent = '📸 ' + e.instagram;
         links.appendChild(a);
       }
-      if (e.lienWeb) {
+      if (e.siteWeb) {
         const a = document.createElement('a');
-        a.href = e.lienWeb;
+        a.href = e.siteWeb;
         a.target = '_blank'; a.rel = 'noopener';
         a.className = 'btn btn-outline-t';
         a.style.fontSize = '13px'; a.style.padding = '8px 18px';
