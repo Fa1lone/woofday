@@ -106,12 +106,16 @@ export function SponsorsTable({ initialData }: { initialData: Sponsor[] }) {
                     <div style={{ fontFamily: "'Fredoka', sans-serif", fontWeight: 700, fontSize: 16, color: '#69322d' }}>{s.entreprise}</div>
                     <div style={{ fontSize: 13, color: '#69322d', opacity: .7 }}>{s.contact}</div>
                     {s.pack && <div style={{ fontSize: 12, color: '#26422b', fontWeight: 600, marginTop: 4 }}>{PACK_LABELS[s.pack] ?? s.pack}</div>}
+                    <div style={{ fontSize: 12, color: '#de6c49', marginTop: 4 }}>
+                        {s.zone && <span>📍 {s.zone}</span>}
+                        {s.stand && <span> · 🏠 {s.stand}</span>}
+                    </div>
                     <div style={{ display: 'flex', gap: 12, marginTop: 8 }}>
                       {s.lienWeb && <a href={s.lienWeb} target="_blank" style={{ fontSize: 11, color: '#de6c49', textDecoration: 'none', fontWeight: 600 }}>🌐 Site Web</a>}
                       {s.instagram && <a href={`https://instagram.com/${s.instagram.replace('@','')}`} target="_blank" style={{ fontSize: 11, color: '#de6c49', textDecoration: 'none', fontWeight: 600 }}>📸 Instagram</a>}
                     </div>
                   </div>
-                  <div style={{ text-align: 'right' }}>
+                  <div style={{ textAlign: 'right' }}>
                     <span style={{ padding: '3px 10px', borderRadius: 9999, fontSize: 12, fontWeight: 600, background: STATUS_COLORS[s.status], color: '#69322d', display: 'inline-block', marginBottom: 8 }}>
                       {STATUS_LABELS[s.status]}
                     </span>
@@ -154,6 +158,14 @@ function SponsorForm({ form, onChange, onSave, onCancel }: any) {
       <div>
         <label style={{ display: 'block', fontSize: 11, fontWeight: 700, marginBottom: 4 }}>INSTAGRAM</label>
         <input style={inputStyle} value={form.instagram || ''} onChange={ev => onChange({...form, instagram: ev.target.value})} placeholder="@compte" />
+      </div>
+      <div>
+        <label style={{ display: 'block', fontSize: 11, fontWeight: 700, marginBottom: 4 }}>ZONE</label>
+        <input style={inputStyle} value={form.zone || ''} onChange={ev => onChange({...form, zone: ev.target.value})} placeholder="ex: Scène Centrale" />
+      </div>
+      <div>
+        <label style={{ display: 'block', fontSize: 11, fontWeight: 700, marginBottom: 4 }}>STAND</label>
+        <input style={inputStyle} value={form.stand || ''} onChange={ev => onChange({...form, stand: ev.target.value})} placeholder="ex: Stand A1" />
       </div>
       <div style={{ gridColumn: 'span 2' }}>
         <label style={{ display: 'block', fontSize: 11, fontWeight: 700, marginBottom: 4 }}>IMAGE URL (LOGO)</label>

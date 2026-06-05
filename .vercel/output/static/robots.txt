@@ -1,0 +1,5 @@
+User-agent: *
+Disallow: /dashboard/
+Disallow: /api/
+
+Sitemap: https://woofday.fr/sitemap.xml
