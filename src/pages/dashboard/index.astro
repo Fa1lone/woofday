@@ -1,46 +1,20 @@
 ---
 import DashboardLayout from '../../layouts/DashboardLayout.astro';
 import { ExposantsTable } from '../../components/dashboard/ExposantsTable';
+import { getExposants, getInterestCount } from '../../lib/data';
 
-// TODO: replace with real DB query
-const mockExposants = [
-  {
-    id: '1',
-    structure: 'La Patte Verte',
-    responsable: 'Marie Dupont',
-    email: 'marie@lapatteverte.fr',
-    telephone: '06 12 34 56 78',
-    ville: 'Angoulême',
-    pole: 'Alimentation & Nutrition',
-    description: 'Épicerie bio et naturelle pour chiens',
-    tailleStand: 'medium',
-    status: 'pending' as const,
-    createdAt: new Date().toISOString(),
-  },
-  {
-    id: '2',
-    structure: 'Canin Zen',
-    responsable: 'Pierre Martin',
-    email: 'pierre@caninzen.fr',
-    telephone: '07 98 76 54 32',
-    ville: 'Cognac',
-    pole: 'Bien-être & Santé naturelle',
-    description: 'Massages et soins énergétiques canins',
-    tailleStand: 'small',
-    status: 'confirmed' as const,
-    createdAt: new Date().toISOString(),
-  },
-];
+const exposants = getExposants();
+const interestCount = getInterestCount();
 ---
 
 <DashboardLayout title="Exposants" activeTab="exposants">
   <!-- Stats -->
   <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin-bottom:28px">
     {[
-      { val: mockExposants.length, label: 'Total' },
-      { val: mockExposants.filter(e => e.status === 'confirmed').length, label: 'Confirmés' },
-      { val: mockExposants.filter(e => e.status === 'pending').length, label: 'En attente' },
-      { val: mockExposants.filter(e => e.status === 'rejected').length, label: 'Refusés' },
+      { val: exposants.length, label: 'Total candidatures' },
+      { val: exposants.filter(e => e.status === 'confirmed').length, label: 'Confirmés' },
+      { val: exposants.filter(e => e.status === 'pending').length, label: 'En attente' },
+      { val: interestCount, label: '🐾 Intéressés' },
     ].map(s => (
       <div style="background:white;border-radius:16px;padding:16px;border:1.5px solid #e8e5a8;text-align:center">
         <div style="font-family:'Fredoka',sans-serif;font-size:28px;font-weight:700;color:#de6c49">{s.val}</div>
@@ -49,5 +23,5 @@ const mockExposants = [
     ))}
   </div>
 
-  <ExposantsTable initialData={mockExposants} client:load />
+  <ExposantsTable initialData={exposants} client:load />
 </DashboardLayout>

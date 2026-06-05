@@ -1,5 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { getInterestCount } from '../lib/data';
+const interestCount = getInterestCount();
 
 const zones = [
   { emoji: '🌊', nom: 'Zone Aquatique', desc: 'Baignade & jeux d\'eau pour chiens' },
@@ -65,13 +67,27 @@ const stats = [
       <!-- Countdown -->
       <div id="countdown" class="flex justify-center gap-3 mb-10 flex-wrap"></div>
 
-      <div class="flex flex-col sm:flex-row gap-3 justify-center">
-        <a href="#contact" class="bg-[#de6c49] text-white px-8 py-4 rounded-full font-bold text-lg shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all" style="font-family: 'Fredoka', sans-serif">
-          Je veux venir ! 🐾
-        </a>
+      <!-- Boutons -->
+      <div class="flex flex-col sm:flex-row gap-3 justify-center mb-10">
+        <button id="btn-participe" class="bg-[#de6c49] text-white px-8 py-4 rounded-full font-bold text-lg shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all" style="font-family: 'Fredoka', sans-serif">
+          Je participe ! 🐾
+        </button>
         <a href="/exposants" class="border-2 border-[#69322d] text-[#69322d] px-8 py-4 rounded-full font-bold text-lg hover:bg-[#69322d] hover:text-white transition-all" style="font-family: 'Fredoka', sans-serif">
           Devenir exposant
         </a>
+      </div>
+
+      <!-- Compteur intéressés -->
+      <div id="interest-block" class="inline-flex items-center gap-3 bg-white/70 backdrop-blur rounded-2xl px-6 py-4 shadow-sm border border-[#e8e5a8]">
+        <div class="flex -space-x-2">
+          {['🐕','🐩','🦮','🐕‍🦺'].map(d => (
+            <span class="w-8 h-8 rounded-full bg-[#f3f1c7] flex items-center justify-center text-base border-2 border-white">{d}</span>
+          ))}
+        </div>
+        <div style="font-family:'Poppins',sans-serif">
+          <span id="interest-count" class="font-bold text-[#de6c49] text-xl" style="font-family:'Fredoka',sans-serif">{interestCount}</span>
+          <span class="text-sm text-[#69322d]/70"> personnes intéressées</span>
+        </div>
       </div>
 
       <!-- Info bar -->
@@ -274,7 +290,9 @@ const stats = [
 </Layout>
 
 <script>
-  // Countdown
+  import confetti from 'canvas-confetti';
+
+  // ── Countdown ──────────────────────────────────────────────────────────────
   function updateCountdown() {
     const target = new Date('2026-09-13T10:00:00').getTime();
     const diff = target - Date.now();
@@ -298,7 +316,62 @@ const stats = [
   updateCountdown();
   setInterval(updateCountdown, 1000);
 
-  // FAQ
+  // ── Compteur animé ─────────────────────────────────────────────────────────
+  function animateCount(el: HTMLElement, from: number, to: number) {
+    const duration = 800;
+    const start = performance.now();
+    const update = (now: number) => {
+      const t = Math.min((now - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - t, 3);
+      el.textContent = Math.round(from + (to - from) * eased).toString();
+      if (t < 1) requestAnimationFrame(update);
+    };
+    requestAnimationFrame(update);
+  }
+
+  // ── Bouton Je participe ────────────────────────────────────────────────────
+  const btn = document.getElementById('btn-participe') as HTMLButtonElement;
+  const countEl = document.getElementById('interest-count') as HTMLElement;
+  let hasVoted = localStorage.getItem('wd_voted') === '1';
+
+  if (hasVoted) {
+    btn.textContent = '✅ Je participe !';
+    btn.style.background = '#26422b';
+  }
+
+  btn?.addEventListener('click', async () => {
+    if (hasVoted) {
+      // Scroll vers contact quand déjà voté
+      document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+      return;
+    }
+
+    // Confettis 🎉
+    const colors = ['#69322d', '#de6c49', '#26422b', '#91acda', '#f3f1c7'];
+    confetti({ particleCount: 80, spread: 70, origin: { y: 0.5 }, colors });
+    setTimeout(() => confetti({ particleCount: 40, angle: 60, spread: 55, origin: { x: 0 }, colors }), 150);
+    setTimeout(() => confetti({ particleCount: 40, angle: 120, spread: 55, origin: { x: 1 }, colors }), 250);
+
+    // Incrémenter le compteur
+    try {
+      const res = await fetch('/api/interest', { method: 'POST' });
+      const { count } = await res.json();
+      const prev = parseInt(countEl.textContent ?? '0');
+      animateCount(countEl, prev, count);
+      localStorage.setItem('wd_voted', '1');
+      hasVoted = true;
+      btn.textContent = '✅ Je participe !';
+      btn.style.background = '#26422b';
+      // Pulse animation on interest block
+      const block = document.getElementById('interest-block') as HTMLElement;
+      block.style.transform = 'scale(1.05)';
+      setTimeout(() => block.style.transform = '', 300);
+    } catch {
+      console.error('Erreur compteur');
+    }
+  });
+
+  // ── FAQ accordion ──────────────────────────────────────────────────────────
   document.querySelectorAll('.faq-btn').forEach(btn => {
     btn.addEventListener('click', () => {
       const item = btn.closest('.faq-item') as HTMLElement;
@@ -309,5 +382,26 @@ const stats = [
       icon.style.transform = isOpen ? '' : 'rotate(180deg)';
       item.style.borderColor = isOpen ? '' : '#de6c49';
     });
+  });
+
+  // ── Contact form ───────────────────────────────────────────────────────────
+  const contactForm = document.getElementById('contact-form') as HTMLFormElement;
+  contactForm?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const submitBtn = contactForm.querySelector('button[type=submit]') as HTMLButtonElement;
+    submitBtn.textContent = 'Envoi…';
+    submitBtn.disabled = true;
+    try {
+      const data = Object.fromEntries(new FormData(contactForm));
+      const res = await fetch('/api/contact', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) });
+      if (res.ok) {
+        submitBtn.textContent = '✅ Message envoyé !';
+        submitBtn.style.background = '#26422b';
+        contactForm.reset();
+      } else throw new Error();
+    } catch {
+      submitBtn.textContent = '❌ Erreur — Réessayez';
+      submitBtn.disabled = false;
+    }
   });
 </script>
