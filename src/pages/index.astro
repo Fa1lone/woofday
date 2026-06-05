@@ -4,9 +4,21 @@ import DoodleMark from '../components/DoodleMark.astro';
 import LogoTicker from '../components/LogoTicker.astro';
 import { ContactForm } from '../components/ContactForm';
 import { getInterestCount, getZonesStands, getFiches } from '../lib/data';
-const count = await getInterestCount();
-const activities = (await getZonesStands({ onlyVisible: true })).sort((a, b) => a.displayOrder - b.displayOrder);
-const fiches = await getFiches({ onlyVisible: true, exposants: true });
+
+let count = 413;
+let activities: Awaited<ReturnType<typeof getZonesStands>> = [];
+let fiches: Awaited<ReturnType<typeof getFiches>> = [];
+
+try {
+  [count, activities, fiches] = await Promise.all([
+    getInterestCount(),
+    getZonesStands({ onlyVisible: true }),
+    getFiches({ onlyVisible: true, exposants: true }),
+  ]);
+  activities = activities.sort((a, b) => a.displayOrder - b.displayOrder);
+} catch (e) {
+  console.error('[index] DB unavailable, using fallbacks:', e);
+}
 
 const FALLBACK_EXPOSANTS = [
   { nom: 'Caninéo Santé', descriptionCourte: 'Alimentation naturelle et locale pour chiens.', visuelUrl: 'https://images.unsplash.com/photo-1601758228041-f3b2795255f1?w=120&h=120&q=80&fit=crop', instagram: '@cadineo_sante', color: '#de6c49', emoji: '🦴', pole: 'Alimentation & Friandises' },
