@@ -61,15 +61,16 @@ const poles = [
     <div data-reveal style="margin-bottom:20px">
       <span style="background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.3);border-radius:var(--r-pill);padding:6px 16px;font-family:var(--f-body);font-size:12px;font-weight:600">Édition 2 · 13 sept. 2026</span>
     </div>
-    <!-- Paper card heading — style POSTINSTA01 (crème card sur fond terre) -->
-    <div data-reveal data-delay="1" style="margin-bottom:20px;display:inline-block;transform:rotate(-1.5deg)">
-      <h1 style="
-        font-family:var(--f-head);font-size:clamp(36px,7vw,72px);font-weight:700;line-height:1.1;
-        background:var(--creme);color:var(--terre);
-        padding:20px 36px;
-        box-shadow:5px 7px 0px rgba(0,0,0,.2);
-        display:inline-block;
-      ">DEVENIR<br/>EXPOSANT !</h1>
+    <!-- Brushstroke heading — POSTINSTA01 exact (coup de pinceau gris-bleu, texte terre) -->
+    <div data-reveal data-delay="1" style="margin-bottom:24px;display:inline-block;position:relative;transform:rotate(-1.2deg)">
+      <!-- SVG brushstroke organique en fond — s'étire en preserveAspectRatio none -->
+      <svg style="position:absolute;inset:-6px -4px;width:calc(100% + 8px);height:calc(100% + 12px);z-index:0;filter:drop-shadow(5px 6px 0px rgba(0,0,0,.22))"
+           viewBox="0 0 320 124" preserveAspectRatio="none" aria-hidden="true">
+        <path d="M16,20 C8,10 10,3 22,2 L298,1 C310,0 317,6 316,18 C318,36 315,60 317,79 C319,97 313,110 300,112 L20,115 C7,116 1,109 2,97 C1,79 4,54 3,38 Z" fill="#9fc0cb"/>
+      </svg>
+      <h1 style="position:relative;z-index:1;font-family:var(--f-head);font-size:clamp(36px,7vw,72px);font-weight:700;line-height:1.1;color:var(--terre);text-align:center;padding:20px 44px;display:inline-block">
+        DEVENIR<br/>EXPOSANT !
+      </h1>
     </div>
     <p data-reveal data-delay="2" style="font-family:var(--f-body);font-size:clamp(16px,2.5vw,20px);opacity:.85;max-width:50ch;margin:0 auto 28px;line-height:1.65">
       Réservez votre stand au Woof Day et rencontrez des centaines d'amoureux des chiens en Charente.
@@ -145,7 +146,11 @@ const poles = [
 </section>
 
 <!-- POURQUOI EXPOSER -->
-<section id="pourquoi-exposer" class="sec" style="background:var(--creme)">
+<section id="pourquoi-exposer" class="sec" style="background:var(--creme);position:relative;overflow:hidden">
+  <!-- Visuels déco — pattes + chien peeking -->
+  <div class="paw-mark-bold" style="right:-5%;bottom:-8%;transform:rotate(18deg)">🐾</div>
+  <div class="paw-mark-bold" style="left:-3%;top:10%;transform:rotate(-22deg);opacity:.16">🐾</div>
+  <img src="/images/dog-terrier-face-truffe.png" alt="" aria-hidden="true" style="position:absolute;bottom:-60px;right:-40px;width:clamp(160px,22vw,300px);opacity:.18;pointer-events:none;filter:drop-shadow(0 0 0 transparent);transform:scaleX(-1)" />
   <div class="inner">
     <div style="text-align:center;margin-bottom:clamp(28px,4vw,48px)">
       <div data-reveal style="margin-bottom:16px"><span class="chip chip-truffe">Pourquoi venir</span></div>
@@ -170,7 +175,11 @@ const poles = [
 </section>
 
 <!-- NOUVEAUTÉS 2026 -->
-<section class="sec" style="background:var(--vert);color:#fff">
+<section class="sec" style="background:var(--vert);color:#fff;position:relative;overflow:hidden">
+  <div class="paw-mark" style="left:-4%;bottom:-5%;transform:rotate(-10deg)">🐾</div>
+  <div class="paw-mark" style="right:-3%;top:-8%;transform:rotate(25deg)">🐾</div>
+  <!-- Golden peeking depuis la gauche -->
+  <img src="/images/dog-golden-vert.png" alt="" aria-hidden="true" style="position:absolute;left:-80px;bottom:-30px;width:clamp(200px,26vw,360px);opacity:.22;pointer-events:none;transform:scaleX(-1)" />
   <div class="inner">
     <div style="text-align:center;margin-bottom:clamp(28px,4vw,48px)">
       <div data-reveal style="margin-bottom:16px"><span class="chip chip-white">Nouveautés</span></div>
@@ -224,7 +233,11 @@ const poles = [
 </section>
 
 <!-- AVANTAGES -->
-<section id="concept" class="sec" style="background:var(--creme)">
+<section id="concept" class="sec" style="background:var(--creme);position:relative;overflow:hidden">
+  <div class="paw-mark-bold" style="left:-2%;top:5%;transform:rotate(-18deg)">🐾</div>
+  <div class="paw-mark-bold" style="right:-4%;bottom:0%;transform:rotate(12deg);opacity:.2">🐾</div>
+  <!-- Dachshund face peeking top right -->
+  <img src="/images/dog-dachshund-face-bleu.png" alt="" aria-hidden="true" style="position:absolute;top:-20px;right:-30px;width:clamp(130px,18vw,220px);opacity:.2;pointer-events:none;transform:rotate(-8deg)" />
   <div class="inner">
     <div style="text-align:center;margin-bottom:clamp(28px,4vw,48px)">
       <div data-reveal style="margin-bottom:16px"><span class="chip chip-vert">Organisation</span></div>
@@ -244,7 +257,10 @@ const poles = [
 </section>
 
 <!-- LOGISTIQUE -->
-<section id="logistique" class="sec" style="background:var(--bg)">
+<section id="logistique" class="sec" style="background:var(--bg);position:relative;overflow:hidden">
+  <div class="paw-mark" style="right:-3%;top:0%;transform:rotate(20deg);opacity:.08">🐾</div>
+  <!-- Vizsla peeking bottom left -->
+  <img src="/images/dog-vizsla-debout-bleu.png" alt="" aria-hidden="true" style="position:absolute;bottom:-40px;left:-50px;width:clamp(140px,18vw,240px);opacity:.12;pointer-events:none" />
   <div class="inner">
     <div style="text-align:center;margin-bottom:clamp(28px,4vw,48px)">
       <div data-reveal style="margin-bottom:16px"><span class="chip chip-terre">Organisation</span></div>

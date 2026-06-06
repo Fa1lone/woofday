@@ -123,20 +123,33 @@ const goodies = [
 
   <!-- Contenu centré -->
   <div style="position:relative;z-index:3;max-width:700px;margin:0 auto">
-    <!-- Paper card avec coins de scotch — style POSTINSTA03 exact -->
+    <!-- Torn paper heading avec scotch — POSTINSTA03 exact -->
     <div data-reveal data-delay="1" style="margin-bottom:28px;display:inline-block;position:relative;transform:rotate(-1.2deg)">
       <!-- Scotch haut gauche -->
-      <div style="position:absolute;top:-12px;left:32px;width:52px;height:24px;background:rgba(255,220,40,.62);transform:rotate(-5deg);border-radius:2px;z-index:2;box-shadow:0 1px 3px rgba(0,0,0,.12)"></div>
+      <div style="position:absolute;top:-13px;left:28px;width:54px;height:25px;background:rgba(255,220,40,.64);transform:rotate(-5deg);border-radius:2px;z-index:3;box-shadow:0 1px 4px rgba(0,0,0,.14)"></div>
       <!-- Scotch haut droite -->
-      <div style="position:absolute;top:-12px;right:32px;width:52px;height:24px;background:rgba(255,220,40,.62);transform:rotate(4deg);border-radius:2px;z-index:2;box-shadow:0 1px 3px rgba(0,0,0,.12)"></div>
-      <!-- Paper card -->
-      <div style="
-        background:var(--creme);
-        padding:28px 44px 24px;
-        box-shadow:6px 8px 0px rgba(0,0,0,.22);
-        position:relative;
-      ">
-        <h1 style="font-family:var(--f-head);font-size:clamp(28px,5.5vw,58px);font-weight:700;line-height:1.1;color:var(--truffe);text-align:center">
+      <div style="position:absolute;top:-13px;right:28px;width:54px;height:25px;background:rgba(255,220,40,.64);transform:rotate(4deg);border-radius:2px;z-index:3;box-shadow:0 1px 4px rgba(0,0,0,.14)"></div>
+      <!-- SVG torn paper — bord bas arraché, fond crème -->
+      <svg style="display:block;filter:drop-shadow(5px 7px 0px rgba(0,0,0,.22))"
+           viewBox="0 0 460 160" width="100%" preserveAspectRatio="none" aria-hidden="true">
+        <!-- Forme principale avec bord bas déchiré -->
+        <path fill="#f5f2d0" d="
+          M0,0 L460,0 L460,118
+          L449,124 L440,116 L431,126 L422,118 L413,128 L404,119
+          L395,129 L386,120 L377,130 L368,121 L359,131 L350,122
+          L341,132 L332,123 L323,133 L314,124 L305,134 L296,125
+          L287,135 L278,126 L269,136 L260,127 L251,137 L242,128
+          L233,138 L224,129 L215,139 L206,130 L197,140 L188,131
+          L179,141 L170,132 L161,142 L152,133 L143,141 L134,132
+          L125,140 L116,131 L107,139 L98,130 L89,138 L80,129
+          L71,137 L62,128 L53,136 L44,127 L35,135 L26,126
+          L17,134 L8,124 L0,130 Z
+        "/>
+        <!-- Texte positionné en SVG foreignObject -->
+      </svg>
+      <!-- Heading positionné dessus -->
+      <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:24px 44px 40px">
+        <h1 style="font-family:var(--f-head);font-size:clamp(26px,5vw,52px);font-weight:700;line-height:1.15;color:var(--truffe);text-align:center">
           CÉLÉBREZ LE CHIEN<br/>et les humains qui l'aiment.
         </h1>
       </div>
@@ -210,7 +223,11 @@ const goodies = [
 </section>
 
 <!-- LEVIERS PSYCHOLOGIQUES -->
-<section id="marketing" class="sec" style="background:var(--creme)">
+<section id="marketing" class="sec" style="background:var(--creme);position:relative;overflow:hidden">
+  <div class="paw-mark-bold" style="left:-4%;top:5%;transform:rotate(-20deg)">🐾</div>
+  <div class="paw-mark-bold" style="right:-3%;bottom:-5%;transform:rotate(15deg);opacity:.18">🐾</div>
+  <!-- Golden assis regardant depuis la droite -->
+  <img src="/images/dog-golden-assis2-vert.png" alt="" aria-hidden="true" style="position:absolute;bottom:-30px;right:-60px;width:clamp(170px,23vw,320px);opacity:.2;pointer-events:none;transform:scaleX(-1)" />
   <div class="inner">
     <div style="text-align:center;margin-bottom:clamp(28px,4vw,48px)">
       <div data-reveal style="margin-bottom:16px"><span class="chip chip-truffe">Pourquoi ça marche</span></div>
@@ -293,7 +310,11 @@ const goodies = [
 </section>
 
 <!-- 6 PACKS -->
-<section id="packs" class="sec" style="background:var(--bg)">
+<section id="packs" class="sec" style="background:var(--bg);position:relative;overflow:hidden">
+  <div class="paw-mark" style="left:-4%;bottom:-5%;transform:rotate(-12deg);opacity:.09">🐾</div>
+  <div class="paw-mark" style="right:-3%;top:0%;transform:rotate(22deg);opacity:.08">🐾</div>
+  <!-- Border collie face truffe peeking top left -->
+  <img src="/images/dog-border-collie-face-terre.png" alt="" aria-hidden="true" style="position:absolute;top:-10px;left:-50px;width:clamp(150px,19vw,260px);opacity:.14;pointer-events:none;transform:rotate(8deg)" />
   <div class="inner">
     <div style="text-align:center;margin-bottom:clamp(28px,4vw,56px)">
       <div data-reveal style="margin-bottom:16px"><span class="chip chip-terre">Nos offres</span></div>
@@ -347,7 +368,10 @@ const goodies = [
 </section>
 
 <!-- ZONES & STANDS -->
-<section class="sec" style="background:var(--creme)">
+<section class="sec" style="background:var(--creme);position:relative;overflow:hidden">
+  <div class="paw-mark-bold" style="right:-3%;top:8%;transform:rotate(18deg)">🐾</div>
+  <!-- Terrier truffe peeking from bottom right -->
+  <img src="/images/dog-terrier-assis-truffe.png" alt="" aria-hidden="true" style="position:absolute;bottom:-50px;right:-40px;width:clamp(160px,21vw,290px);opacity:.18;pointer-events:none" />
   <div class="inner">
     <div style="text-align:center;margin-bottom:clamp(28px,4vw,48px)">
       <div data-reveal style="margin-bottom:16px"><span class="chip chip-vert">Naming exclusif</span></div>
@@ -382,7 +406,10 @@ const goodies = [
 </section>
 
 <!-- PARTENARIAT EN NATURE + GOODIES -->
-<section class="sec" style="background:var(--bg)">
+<section class="sec" style="background:var(--bg);position:relative;overflow:hidden">
+  <div class="paw-mark" style="left:-3%;top:5%;transform:rotate(-15deg);opacity:.07">🐾</div>
+  <!-- Vizsla peeking bottom right -->
+  <img src="/images/dog-vizsla-bleu.png" alt="" aria-hidden="true" style="position:absolute;bottom:-20px;right:-60px;width:clamp(140px,18vw,240px);opacity:.13;pointer-events:none;transform:scaleX(-1)" />
   <div class="inner" style="display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,4vw,48px)">
     <div data-reveal>
       <div style="margin-bottom:16px"><span class="chip chip-terre">Alternative</span></div>
