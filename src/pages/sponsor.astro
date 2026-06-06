@@ -109,7 +109,7 @@ const goodies = [
 
 <!-- HERO -->
 <section style="
-  min-height:80svh;padding:120px clamp(20px,5vw,40px) clamp(120px,20vw,200px);
+  min-height:88svh;padding:120px clamp(20px,5vw,40px) clamp(160px,24vw,260px);
   background:var(--vert);color:#fff;text-align:center;
   position:relative;overflow:hidden;
 ">
@@ -192,30 +192,68 @@ const goodies = [
 <LogoTicker />
 
 <!-- MANIFESTE -->
-<section id="esprit" class="sec" style="background:var(--bg)">
-  <div class="inner-sm">
-    <div style="text-align:center;margin-bottom:clamp(24px,4vw,40px)">
-      <div data-reveal style="margin-bottom:16px"><span class="chip chip-vert">Notre histoire</span></div>
-      <h2 data-reveal data-delay="1" style="font-size:clamp(28px,4vw,44px);color:var(--truffe)">Pourquoi c'est sérieux</h2>
-    </div>
-    <div data-reveal style="background:#fff;border-radius:var(--r-xl);padding:clamp(24px,4vw,40px);border:1.5px solid var(--creme-dark)">
-      <div style="display:grid;gap:16px">
-        {[
-          { titre: 'Édition 1 — La preuve', content: '"Pluie battante. Zéro expérience. 800 visiteurs. La preuve qu\'il y a une vraie demande locale pour ce type d\'événement."' },
-          { titre: 'Édition 2 — La montée en puissance', content: 'Nouveau site en Charente, activités aquatiques, campagne de communication structurée. Objectif 1 200+ visiteurs. Votre marque sur une fusée en phase d\'accélération.' },
-        ].map(s => (
-          <div style="padding-bottom:16px;border-bottom:1px solid var(--creme-dark)">
-            <h3 style="font-family:var(--f-head);font-size:16px;font-weight:700;color:var(--truffe);margin-bottom:8px">{s.titre}</h3>
-            <p style="font-family:var(--f-body);font-size:15px;line-height:1.75;color:var(--truffe);opacity:.8">{s.content}</p>
-          </div>
-        ))}
-        <button id="toggle-manifeste" style="background:none;border:2px solid var(--creme-dark);border-radius:var(--r-pill);padding:10px 20px;font-family:var(--f-body);font-size:13px;font-weight:600;color:var(--truffe);cursor:pointer;transition:all .2s;align-self:flex-start" onmouseover="this.style.background='var(--creme)'" onmouseout="this.style.background=''">
-          Notre charte éthique ▾
-        </button>
-        <div id="manifeste-content" style="display:none">
-          <p style="font-family:var(--f-body);font-size:14px;line-height:1.75;color:var(--truffe);opacity:.8;padding:16px;background:var(--creme);border-radius:var(--r-md)">
-            Le Woof Day est un événement engagé : <strong>éducation positive uniquement</strong>, pas de méthodes coercitives, pas de produits dangereux. Sponsoriser le Woof Day, c'est s'associer à des valeurs concrètes sur le bien-être animal — pas juste un logo sur une bâche.
+<section id="esprit" class="sec" style="background:var(--bg);position:relative;overflow:hidden">
+  <div class="paw-mark" style="right:-4%;top:-5%;transform:rotate(22deg);opacity:.06">🐾</div>
+  <div class="inner">
+    <!-- Grille 2 colonnes : citation + stats -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:clamp(20px,4vw,48px);align-items:stretch">
+
+      <!-- Colonne gauche : citation édition 1 + charte -->
+      <div data-reveal style="display:flex;flex-direction:column;gap:16px">
+        <div data-reveal style="margin-bottom:4px"><span class="chip chip-vert">Notre histoire</span></div>
+        <h2 style="font-family:var(--f-head);font-size:clamp(26px,3.5vw,40px);font-weight:700;color:var(--truffe);line-height:1.15">Pourquoi<br/>c'est sérieux</h2>
+        <!-- Grande citation Éd.1 -->
+        <blockquote style="background:var(--truffe);color:#fff;border-radius:var(--r-xl);padding:clamp(20px,3vw,32px);position:relative;overflow:hidden;flex:1">
+          <div style="font-family:var(--f-head);font-size:80px;line-height:.8;opacity:.15;position:absolute;top:8px;left:16px">"</div>
+          <p style="font-family:var(--f-hand);font-size:clamp(17px,2.2vw,22px);line-height:1.6;position:relative;z-index:1;margin-bottom:16px">
+            Pluie battante. Zéro expérience. 800 visiteurs quand même.
           </p>
+          <p style="font-family:var(--f-body);font-size:13px;opacity:.7;position:relative;z-index:1">
+            La preuve qu'il y a une vraie demande locale pour ce type d'événement.
+          </p>
+          <div style="margin-top:16px;font-family:var(--f-body);font-size:12px;font-weight:700;opacity:.55;text-transform:uppercase;letter-spacing:.1em;position:relative;z-index:1">— Édition 1, septembre 2024</div>
+        </blockquote>
+        <!-- Charte toggle -->
+        <div style="background:#fff;border-radius:var(--r-lg);padding:16px 20px;border:1.5px solid var(--creme-dark)">
+          <button id="toggle-manifeste" style="background:none;border:none;font-family:var(--f-body);font-size:13px;font-weight:600;color:var(--truffe);cursor:pointer;display:flex;align-items:center;gap:8px;width:100%;text-align:left">
+            <span style="background:var(--vert);color:#fff;border-radius:6px;padding:3px 8px;font-size:11px">✓</span>
+            Notre charte éthique ▾
+          </button>
+          <div id="manifeste-content" style="display:none;margin-top:12px">
+            <p style="font-family:var(--f-body);font-size:13px;line-height:1.75;color:var(--truffe);opacity:.8">
+              Éducation positive uniquement. Pas de méthodes coercitives, pas de produits dangereux. Sponsoriser le Woof Day, c'est s'associer à des valeurs concrètes — pas juste un logo sur une bâche.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Colonne droite : stats Éd.2 + preuve -->
+      <div data-reveal data-delay="2" style="display:flex;flex-direction:column;gap:12px">
+        <!-- Stats numériques -->
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+          {[
+            { val: '800',   label: 'visiteurs Éd.1',  bg: 'var(--terre)',  color: '#fff' },
+            { val: '1200+', label: 'objectif Éd.2',   bg: 'var(--bleu)',   color: 'var(--truffe)' },
+            { val: '50–60', label: 'exposants',        bg: 'var(--creme)', color: 'var(--truffe)' },
+            { val: '100%',  label: 'don au Refuge',   bg: 'var(--vert)',   color: '#fff' },
+          ].map(s => (
+            <div style={`background:${s.bg};color:${s.color};border-radius:var(--r-lg);padding:20px;text-align:center`}>
+              <div style="font-family:var(--f-head);font-size:clamp(28px,4vw,40px);font-weight:700;line-height:1">{s.val}</div>
+              <div style="font-family:var(--f-body);font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;opacity:.75;margin-top:5px">{s.label}</div>
+            </div>
+          ))}
+        </div>
+        <!-- Éd.2 pitch -->
+        <div style="background:var(--vert);color:#fff;border-radius:var(--r-xl);padding:clamp(20px,3vw,28px);flex:1;display:flex;flex-direction:column;justify-content:center;gap:10px">
+          <div style="font-family:var(--f-body);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.12em;opacity:.7">Édition 2 — La montée en puissance</div>
+          <p style="font-family:var(--f-body);font-size:14px;line-height:1.75;opacity:.9">
+            Nouveau site en Charente, activités aquatiques, campagne structurée. Votre marque sur une fusée en phase d'accélération.
+          </p>
+          <div style="display:flex;gap:8px;flex-wrap:wrap">
+            {['Nouveau lieu', 'Zone aquatique', 'Comm. renforcée', '13 sept. 2026'].map(t => (
+              <span style="background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.25);border-radius:var(--r-pill);padding:4px 10px;font-family:var(--f-body);font-size:11px;font-weight:600">{t}</span>
+            ))}
+          </div>
         </div>
       </div>
     </div>
@@ -264,7 +302,7 @@ const goodies = [
     <div data-reveal style="background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:var(--r-xl);padding:clamp(24px,4vw,40px)">
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:20px">
         <div>
-          <h3 style="font-family:var(--f-head);font-size:18px;font-weight:700;margin-bottom:14px;opacity:.9">📤 Dépenses événement</h3>
+          <h3 style="font-family:var(--f-head);font-size:18px;font-weight:700;margin-bottom:14px;opacity:.9">↑ Dépenses événement</h3>
           {[
             ['Panneaux & affiches', '800€'],
             ['Publicité réseaux', '400€'],
@@ -284,7 +322,7 @@ const goodies = [
           </div>
         </div>
         <div>
-          <h3 style="font-family:var(--f-head);font-size:18px;font-weight:700;margin-bottom:14px;opacity:.9">📥 Recettes événement</h3>
+          <h3 style="font-family:var(--f-head);font-size:18px;font-weight:700;margin-bottom:14px;opacity:.9">↓ Recettes événement</h3>
           {[
             ['Exposants', '1 500€'],
             ['Tombola', '1 200€'],

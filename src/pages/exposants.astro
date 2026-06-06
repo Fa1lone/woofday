@@ -4,12 +4,12 @@ import DoodleMark from '../components/DoodleMark.astro';
 import LogoTicker from '../components/LogoTicker.astro';
 
 const poles = [
-  { icon: '🎓', nom: 'Éducation & Relation',     desc: 'Éducateurs, comportementalistes, agility, obéissance positive.' },
-  { icon: '💚', nom: 'Santé & Bien-être',         desc: 'Vétérinaires, ostéopathes, physiothérapie, relaxation, spa.' },
-  { icon: '🥣', nom: 'Nutrition & Alimentation',  desc: 'Alimentation naturelle, croquettes artisanales, friandises, barf.' },
-  { icon: '🏃', nom: 'Activités & Fun',           desc: 'Sport canin, aquatique, randonnée, jeux, photography.' },
-  { icon: '🧶', nom: 'Artisanat & Accessoires',   desc: 'Créateurs de colliers, laisses, vêtements, bijoux, artisanat.' },
-  { icon: '❤️', nom: 'Associations & Solidarité', desc: 'Refuges, associations, bénévolat, adoption, protection animale.' },
+  { icon: '🎓', nom: 'Éducation & Relation',     desc: 'Éducateurs, comportementalistes, agility, obéissance positive.', bg: 'var(--terre)', color: '#fff' },
+  { icon: '💚', nom: 'Santé & Bien-être',         desc: 'Vétérinaires, ostéopathes, physiothérapie, relaxation, spa.', bg: 'var(--vert)', color: '#fff' },
+  { icon: '🥣', nom: 'Nutrition & Alimentation',  desc: 'Alimentation naturelle, croquettes artisanales, friandises, barf.', bg: 'var(--creme)', color: 'var(--truffe)' },
+  { icon: '🏃', nom: 'Activités & Fun',           desc: 'Sport canin, aquatique, randonnée, jeux, photography.', bg: 'var(--bleu)', color: 'var(--truffe)' },
+  { icon: '🧶', nom: 'Artisanat & Accessoires',   desc: 'Créateurs de colliers, laisses, vêtements, bijoux, artisanat.', bg: 'var(--truffe)', color: '#fff' },
+  { icon: '❤️', nom: 'Associations & Solidarité', desc: 'Refuges, associations, bénévolat, adoption, protection animale.', bg: '#4a7c59', color: '#fff' },
 ];
 ---
 
@@ -47,7 +47,7 @@ const poles = [
 
 <!-- HERO -->
 <section style="
-  min-height:80svh;padding:120px clamp(20px,5vw,40px) clamp(120px,20vw,200px);
+  min-height:88svh;padding:120px clamp(20px,5vw,40px) clamp(160px,24vw,260px);
   background:var(--terre);color:#fff;text-align:center;
   position:relative;overflow:hidden;
 ">
@@ -118,15 +118,16 @@ const poles = [
       <h2 data-reveal data-delay="1" style="font-size:clamp(28px,4vw,44px);color:var(--truffe)">La preuve que ça marche</h2>
     </div>
     <!-- Stats -->
-    <div data-reveal style="display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:12px;margin-bottom:32px">
+    <div data-reveal style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin-bottom:32px">
       {[
-        { val: '800', label: 'visiteurs Éd.1', bg: 'var(--truffe)', color: '#fff' },
-        { val: '1200+', label: 'objectif Éd.2', bg: 'var(--terre)', color: '#fff' },
-        { val: '30+', label: 'exposants pionniers', bg: 'var(--vert)', color: '#fff' },
+        { val: '800',  label: 'visiteurs Éd.1',       sub: 'malgré la pluie', bg: 'var(--truffe)', color: '#fff' },
+        { val: '1200+', label: 'objectif Éd.2',       sub: '13 sept. 2026',   bg: 'var(--terre)', color: '#fff' },
+        { val: '30+',  label: 'exposants pionniers',  sub: 'Éd.1 complète',   bg: 'var(--vert)', color: '#fff' },
       ].map(s => (
-        <div style={`background:${s.bg};color:${s.color};border-radius:var(--r-lg);padding:28px;text-align:center`}>
-          <div style="font-family:var(--f-head);font-size:clamp(36px,5vw,54px);font-weight:700;line-height:1">{s.val}</div>
-          <div style="font-family:var(--f-body);font-size:13px;opacity:.75;margin-top:6px;text-transform:uppercase;letter-spacing:.08em;font-weight:600">{s.label}</div>
+        <div style={`background:${s.bg};color:${s.color};border-radius:var(--r-lg);padding:28px 20px;text-align:center`}>
+          <div style="font-family:var(--f-head);font-size:clamp(40px,5.5vw,60px);font-weight:700;line-height:1">{s.val}</div>
+          <div style="font-family:var(--f-body);font-size:13px;opacity:.85;margin-top:6px;text-transform:uppercase;letter-spacing:.08em;font-weight:700">{s.label}</div>
+          <div style="font-family:var(--f-hand);font-size:12px;opacity:.6;margin-top:4px">{s.sub}</div>
         </div>
       ))}
     </div>
@@ -246,10 +247,11 @@ const poles = [
     </div>
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px">
       {poles.map((p, i) => (
-        <div data-reveal data-delay={String((i % 3) + 1)} style="background:#fff;border-radius:var(--r-lg);padding:24px;border:1.5px solid var(--creme-dark)">
-          <div style="font-size:32px;margin-bottom:10px">{p.icon}</div>
-          <h3 style="font-family:var(--f-head);font-size:18px;font-weight:700;color:var(--truffe);margin-bottom:6px">{p.nom}</h3>
-          <p style="font-family:var(--f-body);font-size:13px;line-height:1.65;color:var(--truffe);opacity:.7">{p.desc}</p>
+        <div data-reveal data-delay={String((i % 3) + 1)} style={`background:${p.bg};border-radius:var(--r-lg);padding:24px;position:relative;overflow:hidden`}>
+          <div style={`font-family:var(--f-head);font-size:56px;font-weight:700;opacity:.1;position:absolute;top:-4px;right:10px;line-height:1;pointer-events:none;color:${p.color}`}>{String(i+1).padStart(2,'0')}</div>
+          <div style="font-size:32px;margin-bottom:10px;position:relative;z-index:1">{p.icon}</div>
+          <h3 style={`font-family:var(--f-head);font-size:18px;font-weight:700;color:${p.color};margin-bottom:6px;position:relative;z-index:1`}>{p.nom}</h3>
+          <p style={`font-family:var(--f-body);font-size:13px;line-height:1.65;color:${p.color};opacity:.82;position:relative;z-index:1`}>{p.desc}</p>
         </div>
       ))}
     </div>
@@ -286,16 +288,19 @@ const poles = [
       <div data-reveal data-delay="2" style="background:var(--creme);border-radius:var(--r-xl);padding:28px">
         <h3 style="font-family:var(--f-head);font-size:20px;font-weight:700;color:var(--truffe);margin-bottom:16px">📐 Formats de stand</h3>
         {[
-          ['Petit', '3 m²', 'Artisanat, asso, créateurs'],
-          ['Standard', '6 m²', 'Professionnels, services'],
-          ['Grand', '9 m²+', 'Marques, démonstrations'],
-        ].map(([nom, surface, cible]) => (
+          ['Petit',    '3 m²',  'Artisanat, asso, créateurs',  '~80–120€'],
+          ['Standard', '6 m²',  'Professionnels, services',     '~150–200€'],
+          ['Grand',    '9 m²+', 'Marques, démonstrations',      'Sur devis'],
+        ].map(([nom, surface, cible, prix]) => (
           <div style="padding:12px 0;border-bottom:1px solid var(--creme-dark)">
             <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:3px">
               <span style="font-family:var(--f-head);font-size:16px;font-weight:700;color:var(--truffe)">{nom}</span>
               <span style="font-family:var(--f-body);font-size:13px;font-weight:600;color:var(--terre)">{surface}</span>
             </div>
-            <p style="font-family:var(--f-body);font-size:12px;color:var(--truffe);opacity:.65">{cible}</p>
+            <div style="display:flex;justify-content:space-between;align-items:center">
+              <p style="font-family:var(--f-body);font-size:12px;color:var(--truffe);opacity:.65">{cible}</p>
+              <span style="font-family:var(--f-head);font-size:13px;font-weight:700;color:var(--vert)">{prix}</span>
+            </div>
           </div>
         ))}
       </div>
