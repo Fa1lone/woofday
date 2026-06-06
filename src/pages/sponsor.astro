@@ -506,6 +506,35 @@ const goodies = [
   </div>
 </section>
 
+<!-- FAQ SPONSOR -->
+<section id="faq" class="sec" style="background:var(--bg)">
+  <div class="inner-sm">
+    <div style="text-align:center;margin-bottom:clamp(24px,4vw,40px)">
+      <div data-reveal style="margin-bottom:16px"><span class="chip chip-vert">Questions fréquentes</span></div>
+      <h2 data-reveal data-delay="1" style="font-size:clamp(28px,4vw,44px);color:var(--truffe)">Tout ce qu'il faut savoir</h2>
+    </div>
+    <div data-reveal style="display:flex;flex-direction:column;gap:12px">
+      {[
+        { q: "Quand faut-il s'engager pour figurer sur les affiches imprimées ?", a: "Le Pack Or (et supérieurs) inclut l'impression de votre logo sur les affiches. Pour y figurer, votre engagement doit être confirmé avant l'impression — nous vous précisons la date limite lors de notre échange sous 48h." },
+        { q: "Comment se passe le paiement ?", a: "Après votre demande, nous vous envoyons un bon de commande sous 48h. Le règlement s'effectue par virement bancaire, à réception de la facture de l'association." },
+        { q: "Est-ce que je peux sponsoriser en nature (produits, prestations) ?", a: "Oui ! Si vous n'avez pas de budget cash, vous pouvez contribuer avec des lots pour la tombola, du matériel, de l'impression ou des compétences (photo, graphisme, com). Précisez-le dans votre demande." },
+        { q: "Je suis une petite entreprise locale — est-ce fait pour moi ?", a: "Absolument. Le Pack Bronze (50€) est conçu pour les petites structures locales. C'est une façon concrète d'être visible auprès de 800 à 1 200 amoureux des chiens en Charente tout en soutenant le Refuge de l'Angoumois." },
+        { q: "Que se passe-t-il si l'événement est annulé ?", a: "En cas d'annulation définitive de l'événement, votre sponsoring vous est remboursé intégralement. En cas de report, votre pack est automatiquement valable pour la nouvelle date." },
+      ].map((f, i) => (
+        <div style="background:#fff;border-radius:var(--r-lg);border:1.5px solid var(--creme-dark);overflow:hidden">
+          <button class="faq-btn-sp" style="width:100%;text-align:left;padding:20px 24px;background:none;border:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:16px">
+            <span style="font-family:var(--f-head);font-size:16px;font-weight:700;color:var(--truffe)">{f.q}</span>
+            <span style="font-size:18px;color:var(--vert);flex-shrink:0">+</span>
+          </button>
+          <div class="faq-content-sp" style="display:none;padding:0 24px 20px;font-family:var(--f-body);font-size:14px;line-height:1.7;color:var(--truffe);opacity:.8">
+            {f.a}
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
 <!-- FOOTER -->
 <footer style="background:var(--truffe);color:#fff;padding:clamp(32px,5vw,48px) clamp(20px,5vw,40px);text-align:center">
   <div style="display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap">
@@ -575,5 +604,19 @@ const goodies = [
       btn.textContent = '❌ Erreur — Réessayez';
       btn.disabled = false;
     }
+  });
+
+  // FAQ sponsor toggle
+  document.querySelectorAll('.faq-btn-sp').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const content = btn.nextElementSibling;
+      const open = content.style.display !== 'none';
+      document.querySelectorAll('.faq-content-sp').forEach(c => c.style.display = 'none');
+      document.querySelectorAll('.faq-btn-sp span:last-child').forEach(s => s.textContent = '+');
+      if (!open) {
+        content.style.display = 'block';
+        btn.querySelector('span:last-child').textContent = '−';
+      }
+    });
   });
 </script>

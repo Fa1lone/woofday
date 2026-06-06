@@ -37,6 +37,8 @@ const faqs = [
   { q: "Est-ce réservé aux passionnés ?",      a: "Non. Le Woof Day est ouvert à tous — avec ou sans chien." },
   { q: "Y aura-t-il des activités ?",          a: "Oui : 50+ exposants, animations, concours, tombola, activités aquatiques." },
   { q: "Le Woof Day soutient-il une cause ?",  a: "Oui. 100% des bénéfices nets reversés au Refuge de l'Angoumois." },
+  { q: "Y aura-t-il de quoi manger ?",         a: "Oui, une buvette est ouverte sur place toute la journée. Boissons et petite restauration disponibles." },
+  { q: "Y a-t-il un parking ?",                a: "Oui, le parking est gratuit et accessible sur place, directement à Ambérac." },
   { q: "Où suivre les annonces ?",             a: "Sur Instagram @woofday_charente et sur ce site." },
 ];
 
@@ -130,10 +132,10 @@ const waText = encodeURIComponent("Woof Day 2026 — Dimanche 13 sept à Ambéra
       <img src="/logos/logo-couleur.svg" alt="Woof Day" style="height:clamp(80px,16vw,160px);filter:brightness(0) invert(1);drop-shadow:0 4px 24px rgba(0,0,0,.2)" />
     </div>
 
-    <p data-reveal data-delay="1" style="
+    <h1 data-reveal data-delay="1" style="
       font-family:var(--f-head); font-size:clamp(22px,4vw,34px); font-weight:500;
       opacity:.9; margin-bottom:24px; line-height:1.25;
-    ">La grande fête canine de Charente</p>
+    ">La grande fête canine de Charente</h1>
 
     <!-- Proof pills -->
     <div data-reveal data-delay="1" style="display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-bottom:28px">
@@ -600,12 +602,14 @@ const waText = encodeURIComponent("Woof Day 2026 — Dimanche 13 sept à Ambéra
 
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin-bottom:32px">
       {[
-        { icon: '📅', label: 'Date',     val: 'Dimanche 13 sept. 2026', bg: 'var(--terre)', color: '#fff' },
-        { icon: '🕙', label: 'Horaires', val: '10h – 18h',              bg: 'var(--vert)',  color: '#fff' },
-        { icon: '📍', label: 'Lieu',     val: 'Ambérac, Charente (16)', bg: 'var(--creme)', color: 'var(--truffe)' },
-        { icon: '🎫', label: 'Tarif',    val: 'Entrée gratuite',        bg: 'var(--truffe)',color: '#fff' },
-        { icon: '🐾', label: 'Chiens',   val: 'Bienvenus, en laisse',   bg: 'var(--bleu)',  color: 'var(--truffe)' },
-        { icon: '⛺', label: 'Stands',   val: '50+ exposants',          bg: 'var(--creme)', color: 'var(--truffe)' },
+        { icon: '📅', label: 'Date',      val: 'Dimanche 13 sept. 2026',  bg: 'var(--terre)', color: '#fff' },
+        { icon: '🕙', label: 'Horaires',  val: '10h – 18h',               bg: 'var(--vert)',  color: '#fff' },
+        { icon: '📍', label: 'Lieu',      val: 'Ambérac, Charente (16)',  bg: 'var(--creme)', color: 'var(--truffe)' },
+        { icon: '🎫', label: 'Tarif',     val: 'Entrée gratuite',         bg: 'var(--truffe)',color: '#fff' },
+        { icon: '🐾', label: 'Chiens',    val: 'Bienvenus, en laisse',    bg: 'var(--bleu)',  color: 'var(--truffe)' },
+        { icon: '⛺', label: 'Stands',    val: '50+ exposants',           bg: 'var(--creme)', color: 'var(--truffe)' },
+        { icon: '🚗', label: 'Parking',   val: 'Gratuit sur place',       bg: 'var(--vert)',  color: '#fff' },
+        { icon: '🍔', label: 'Buvette',   val: 'Sur place toute la journée', bg: 'var(--terre)', color: '#fff' },
       ].map((info, i) => (
         <div data-reveal data-delay={String(i + 1)} style={`background:${info.bg};color:${info.color};border-radius:var(--r-lg);padding:28px 24px;`}>
           <div style="font-size:32px;margin-bottom:8px">{info.icon}</div>
