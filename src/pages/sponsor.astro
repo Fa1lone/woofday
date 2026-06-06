@@ -103,9 +103,30 @@ const goodies = [
       ))}
     </div>
     <a href="/exposants" class="nav-links" style="font-family:var(--f-body);font-size:12px;font-weight:700;color:var(--terre);text-decoration:none;background:rgba(222,108,73,.1);border:1.5px solid rgba(222,108,73,.35);border-radius:var(--r-pill);padding:6px 12px;white-space:nowrap">Devenir exposant 🏪</a>
-    <a href="#form-sponsor" class="btn btn-vert" style="font-size:13px;padding:8px 18px;white-space:nowrap">Je suis intéressé 🐾</a>
+    <a href="#form-sponsor" class="btn btn-vert nav-cta-hide" style="font-size:13px;padding:8px 18px;white-space:nowrap">Je suis intéressé 🐾</a>
+    <button id="menu-toggle" class="nav-burger" aria-label="Menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
   </div>
 </nav>
+
+<!-- ═══════════════════════════════════════════════ MENU MOBILE ══ -->
+<div id="mobile-nav" role="dialog" aria-label="Navigation" style="
+  position:fixed;top:72px;left:16px;right:16px;z-index:98;
+  background:rgba(243,241,199,.97);backdrop-filter:blur(14px);
+  border:1.5px solid var(--creme-dark);border-radius:var(--r-lg);
+  padding:16px;box-shadow:0 8px 32px rgba(105,50,45,.18);
+  flex-direction:column;gap:2px;
+">
+  <a href="/" class="mobile-nav-link">← Retour au site</a>
+  <div class="mobile-nav-sep"></div>
+  <a href="/#pourquoi" class="mobile-nav-link" style="font-size:14px;opacity:.8">🐾 Le Woof Day</a>
+  <a href="/#zones" class="mobile-nav-link" style="font-size:14px;opacity:.8">📅 Programme</a>
+  <a href="/#infos" class="mobile-nav-link" style="font-size:14px;opacity:.8">📍 Infos pratiques</a>
+  <a href="/exposants" class="mobile-nav-link" style="font-size:14px;opacity:.8">🏪 Devenir exposant</a>
+  <div class="mobile-nav-sep"></div>
+  <a href="#form-sponsor" class="btn btn-vert" style="text-align:center;margin-top:4px">Déposer ma demande 🤝</a>
+</div>
 
 <!-- HERO -->
 <section style="
@@ -193,7 +214,7 @@ const goodies = [
   <div class="paw-mark" style="right:-4%;top:-5%;transform:rotate(22deg);opacity:.06">🐾</div>
   <div class="inner">
     <!-- Grille 2 colonnes : citation + stats -->
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:clamp(20px,4vw,48px);align-items:stretch">
+    <div class="resp-2col" style="display:grid;grid-template-columns:1fr 1fr;gap:clamp(20px,4vw,48px);align-items:stretch">
 
       <!-- Colonne gauche : citation édition 1 + charte -->
       <div data-reveal style="display:flex;flex-direction:column;gap:16px">
@@ -297,7 +318,7 @@ const goodies = [
       </p>
     </div>
     <div data-reveal style="background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:var(--r-xl);padding:clamp(24px,4vw,40px)">
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:20px">
+      <div class="resp-2col" style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:20px">
         <div>
           <h3 style="font-family:var(--f-head);font-size:18px;font-weight:700;margin-bottom:14px;opacity:.9">↑ Dépenses événement</h3>
           {[
@@ -413,7 +434,7 @@ const goodies = [
       <h2 data-reveal data-delay="1" style="font-size:clamp(28px,4vw,44px);color:var(--truffe)">Donnez votre nom à une zone</h2>
       <p data-reveal data-delay="2" style="font-family:var(--f-body);font-size:15px;color:var(--truffe);opacity:.7;margin-top:10px">Disponible à partir du pack Or. Une zone ou un stand porte votre nom toute la journée.</p>
     </div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+    <div class="resp-2col" style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
       <div data-reveal style="background:#fff;border-radius:var(--r-xl);padding:28px;border:1.5px solid var(--creme-dark)">
         <h3 style="font-family:var(--f-head);font-size:20px;font-weight:700;color:var(--truffe);margin-bottom:16px">🗺️ Zones disponibles</h3>
         <div style="display:flex;flex-direction:column;gap:6px">
@@ -445,7 +466,7 @@ const goodies = [
   <div class="paw-mark" style="left:-3%;top:5%;transform:rotate(-15deg);opacity:.07">🐾</div>
   <!-- Vizsla peeking bottom right -->
   <img src="/images/dog-vizsla-bleu.png" alt="" aria-hidden="true" style="position:absolute;bottom:-20px;right:-60px;width:clamp(140px,18vw,240px);opacity:.13;pointer-events:none;transform:scaleX(-1)" />
-  <div class="inner" style="display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,4vw,48px)">
+  <div class="inner resp-2col" style="display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,4vw,48px)">
     <div data-reveal>
       <div style="margin-bottom:16px"><span class="chip chip-terre">Alternative</span></div>
       <h2 style="font-family:var(--f-head);font-size:clamp(24px,3.5vw,36px);font-weight:700;color:var(--truffe);margin-bottom:12px">Partenariat en nature</h2>
@@ -505,7 +526,7 @@ const goodies = [
           </div>
         </div>
 
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+        <div class="resp-2col" style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
           <div>
             <label style="display:block;font-family:var(--f-body);font-size:13px;font-weight:600;color:var(--truffe);margin-bottom:6px">Entreprise *</label>
             <input name="entreprise" required placeholder="Ma Marque" class="field" />
@@ -515,7 +536,7 @@ const goodies = [
             <input name="contact" required placeholder="Prénom Nom" class="field" />
           </div>
         </div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+        <div class="resp-2col" style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
           <div>
             <label style="display:block;font-family:var(--f-body);font-size:13px;font-weight:600;color:var(--truffe);margin-bottom:6px">Email *</label>
             <input name="email" type="email" required placeholder="contact@marque.fr" class="field" />
@@ -538,7 +559,7 @@ const goodies = [
           <input type="hidden" name="panneaux" id="panneaux-input" value="0" />
         </div>
 
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+        <div class="resp-2col" style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
           <div>
             <label style="display:block;font-family:var(--f-body);font-size:13px;font-weight:600;color:var(--truffe);margin-bottom:6px">Zone souhaitée</label>
             <select name="zone" class="field" style="background:#fff">
@@ -618,6 +639,35 @@ const goodies = [
 </Layout>
 
 <script>
+  // Mobile menu
+  const menuToggle = document.getElementById('menu-toggle');
+  const mobileNav  = document.getElementById('mobile-nav');
+  menuToggle?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const open = mobileNav.style.display === 'flex';
+    mobileNav.style.display = open ? 'none' : 'flex';
+    menuToggle.setAttribute('aria-expanded', String(!open));
+    const lines = menuToggle.querySelectorAll('span');
+    if (open) {
+      lines[0].style.transform = ''; lines[1].style.opacity = '1'; lines[2].style.transform = '';
+    } else {
+      lines[0].style.transform = 'translateY(6px) rotate(45deg)';
+      lines[1].style.opacity = '0';
+      lines[2].style.transform = 'translateY(-6px) rotate(-45deg)';
+    }
+  });
+  mobileNav?.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    mobileNav.style.display = 'none';
+    menuToggle?.setAttribute('aria-expanded', 'false');
+    const lines = menuToggle?.querySelectorAll('span');
+    if (lines) { lines[0].style.transform=''; lines[1].style.opacity='1'; lines[2].style.transform=''; }
+  }));
+  document.addEventListener('click', (e) => {
+    if (!menuToggle?.contains(e.target) && !mobileNav?.contains(e.target)) {
+      if (mobileNav) mobileNav.style.display = 'none';
+    }
+  });
+
   // Manifeste toggle
   document.getElementById('toggle-manifeste')?.addEventListener('click', function() {
     const c = document.getElementById('manifeste-content');
