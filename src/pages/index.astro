@@ -25,7 +25,17 @@ const FALLBACK_EXPOSANTS = [
   { nom: 'Doggy Toys 16', descriptionCourte: 'Accessoires, laisses et jouets éco-responsables.', visuelUrl: 'https://images.unsplash.com/photo-1548199973-03cce0bbc87b?w=120&h=120&q=80&fit=crop', instagram: '@doggytoys16', color: '#26422b', emoji: '🧶', pole: 'Créateur Accessoires' },
   { nom: 'Aqua Dog Charente', descriptionCourte: 'Spécialistes des activités aquatiques canines.', visuelUrl: 'https://images.unsplash.com/photo-1518717758536-85ae29035b6d?w=120&h=120&q=80&fit=crop', instagram: '@aquadog_charente', color: '#91acda', emoji: '🌊', pole: 'Activités Sportives' },
 ];
+
+const FALLBACK_ACTIVITIES = [
+  { id: 'z1', nom: 'Éducation & Relation', emoji: '🎓', description: 'Éducateurs, comportementalistes, agility et obéissance positive.', displayOrder: 1 },
+  { id: 'z2', nom: 'Santé & Bien-être', emoji: '💚', description: 'Vétérinaires, ostéopathes, physiothérapie, relaxation et spa canin.', displayOrder: 2 },
+  { id: 'z3', nom: 'Nutrition & Alimentation', emoji: '🥣', description: 'Alimentation naturelle, croquettes artisanales, BARF et friandises.', displayOrder: 3 },
+  { id: 'z4', nom: 'Activités & Fun', emoji: '🏃', description: 'Sport canin, zone aquatique, randonnée, jeux et compétitions.', displayOrder: 4 },
+  { id: 'z5', nom: 'Artisanat & Accessoires', emoji: '🧶', description: 'Colliers artisanaux, laisses, vêtements, bijoux et créations uniques.', displayOrder: 5 },
+  { id: 'z6', nom: 'Associations & Solidarité', emoji: '❤️', description: 'Refuges, associations, adoption, bénévolat et protection animale.', displayOrder: 6 },
+];
 const exposantsToShow = fiches.length > 0 ? fiches.slice(0, 6) : FALLBACK_EXPOSANTS;
+const activitiesToShow = activities.length > 0 ? activities : FALLBACK_ACTIVITIES;
 
 const gcalUrl = "https://calendar.google.com/calendar/render?action=TEMPLATE&text=Woof+Day+2026&dates=20260913T080000Z/20260913T160000Z&details=La+grande+f%C3%AAte+canine+de+Charente+%E2%80%94+Entr%C3%A9e+gratuite+%F0%9F%90%BE&location=Amb%C3%A9rac%2C+Charente+(16)&sf=true&output=xml";
 
@@ -90,12 +100,10 @@ const waText = encodeURIComponent("Woof Day 2026 — Dimanche 13 sept à Ambéra
     pointer-events: none; user-select: none;
   "/>
 
-  <!-- Pattes flottantes -->
-  <div class="paw-float" style="--paw-dur:7s;--paw-delay:0s;top:15%;left:8%;font-size:28px;color:rgba(255,255,255,.12);transform:rotate(-15deg)">🐾</div>
-  <div class="paw-float" style="--paw-dur:9s;--paw-delay:1.5s;top:25%;right:7%;font-size:20px;color:rgba(255,255,255,.1);transform:rotate(20deg)">🐾</div>
-  <div class="paw-float" style="--paw-dur:8s;--paw-delay:0.8s;top:60%;left:12%;font-size:22px;color:rgba(255,255,255,.09);transform:rotate(-8deg)">🐾</div>
-  <div class="paw-float" style="--paw-dur:6s;--paw-delay:2s;top:72%;right:11%;font-size:18px;color:rgba(255,255,255,.08);transform:rotate(12deg)">🐾</div>
-  <div class="paw-float" style="--paw-dur:10s;--paw-delay:3s;top:42%;left:4%;font-size:16px;color:rgba(255,255,255,.08);transform:rotate(-20deg)">🐾</div>
+  <!-- Grandes pattes style PostInsta — bien visibles sur fond terre -->
+  <div class="paw-float" style="--paw-dur:9s;--paw-delay:0s;top:-5%;left:-4%;font-size:clamp(180px,28vw,360px);color:rgba(255,255,255,.18);transform:rotate(-15deg);line-height:1">🐾</div>
+  <div class="paw-float" style="--paw-dur:11s;--paw-delay:2s;bottom:10%;right:-6%;font-size:clamp(140px,22vw,300px);color:rgba(255,255,255,.14);transform:rotate(22deg);line-height:1">🐾</div>
+  <div class="paw-float" style="--paw-dur:13s;--paw-delay:1s;top:50%;left:2%;font-size:clamp(80px,12vw,160px);color:rgba(255,255,255,.10);transform:rotate(-8deg);line-height:1">🐾</div>
 
   <!-- Logo chien en fond, grand, visible -->
   <img src="/logos/logo-chien-blanc.svg" alt="" aria-hidden="true" style="
@@ -228,8 +236,10 @@ const waText = encodeURIComponent("Woof Day 2026 — Dimanche 13 sept à Ambéra
 <LogoTicker />
 
 <!-- ══════════════════════════════════════════ POURQUOI VENIR ══ -->
-<section id="pourquoi" class="sec" style="background:var(--bg)">
-  <div class="inner">
+<section id="pourquoi" class="sec" style="background:var(--bg);position:relative;overflow:hidden">
+  <div class="paw-mark" style="right:-5%;top:-10%;color:var(--terre);transform:rotate(18deg)">🐾</div>
+  <div class="paw-mark" style="left:-6%;bottom:-15%;color:var(--truffe);transform:rotate(-12deg);opacity:.09">🐾</div>
+  <div class="inner" style="position:relative;z-index:2">
     <div style="text-align:center;margin-bottom:clamp(32px,5vw,56px)">
       <div data-reveal style="margin-bottom:16px"><span class="chip chip-terre">Le Woof Day</span></div>
       <h2 data-reveal data-delay="1" style="font-size:clamp(36px,5vw,58px);color:var(--truffe)">Plus qu'une fête,<br/>un état d'esprit</h2>
@@ -238,14 +248,15 @@ const waText = encodeURIComponent("Woof Day 2026 — Dimanche 13 sept à Ambéra
     <!-- 3 Pillars -->
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px;margin-bottom:64px">
       {[
-        { t: 'Bienveillance', d: 'Une ambiance chaleureuse, respectueuse et positive pour tous les chiens et leurs humains.', e: '🧡' },
-        { t: 'Prévention', d: 'Des rencontres avec des professionnels pour mieux comprendre et soigner nos compagnons.', e: '🩺' },
-        { t: 'Respect du vivant', d: 'Célébrer le chien dans sa juste nature, avec conscience et respect de ses besoins.', e: '🌿' },
+        { t: 'Bienveillance', d: 'Une ambiance chaleureuse, respectueuse et positive pour tous les chiens et leurs humains.', e: '🧡', bg: 'var(--terre)', color: '#fff' },
+        { t: 'Prévention', d: 'Des rencontres avec des professionnels pour mieux comprendre et soigner nos compagnons.', e: '🩺', bg: 'var(--truffe)', color: '#fff' },
+        { t: 'Respect du vivant', d: 'Célébrer le chien dans sa juste nature, avec conscience et respect de ses besoins.', e: '🌿', bg: 'var(--vert)', color: '#fff' },
       ].map((v, i) => (
-        <div data-reveal data-delay={String(i + 1)} style="background:#fff;padding:32px;border-radius:var(--r-lg);border:1.5px solid var(--creme-dark)">
-          <div style="font-size:40px;margin-bottom:16px">{v.e}</div>
-          <h3 style="font-family:var(--f-head);font-size:24px;font-weight:700;color:var(--truffe);margin-bottom:12px">{v.t}</h3>
-          <p style="font-family:var(--f-body);font-size:15px;line-height:1.7;opacity:.8;color:var(--truffe)">{v.d}</p>
+        <div data-reveal data-delay={String(i + 1)} style={`background:${v.bg};color:${v.color};padding:36px 32px;border-radius:var(--r-xl);position:relative;overflow:hidden`}>
+          <div style={`font-family:var(--f-head);font-size:88px;font-weight:700;opacity:.1;position:absolute;top:-10px;right:12px;line-height:1;pointer-events:none`}>{String(i+1).padStart(2,'0')}</div>
+          <div style="font-size:40px;margin-bottom:20px;position:relative;z-index:1">{v.e}</div>
+          <h3 style="font-family:var(--f-head);font-size:24px;font-weight:700;margin-bottom:12px;position:relative;z-index:1">{v.t}</h3>
+          <p style={`font-family:var(--f-body);font-size:15px;line-height:1.7;opacity:.85;position:relative;z-index:1`}>{v.d}</p>
         </div>
       ))}
     </div>
@@ -280,6 +291,8 @@ const waText = encodeURIComponent("Woof Day 2026 — Dimanche 13 sept à Ambéra
 
 <!-- ═══════════════════════════════════════════════ PROGRAMME ══ -->
 <section class="sec" style="background:var(--creme);position:relative;overflow:hidden">
+  <!-- Grande patte fond crème style PostInsta03 -->
+  <div class="paw-mark" style="left:-6%;top:-10%;color:var(--truffe);transform:rotate(-20deg)">🐾</div>
   <!-- Terrier assis truffe — bas droite -->
   <div class="dog-deco" style="position:absolute;bottom:0;right:-2%;width:fit-content;pointer-events:none;line-height:0;z-index:1">
     <img src="/images/dog-terrier-assis-truffe.png" alt="" aria-hidden="true"
@@ -336,14 +349,15 @@ const waText = encodeURIComponent("Woof Day 2026 — Dimanche 13 sept à Ambéra
     <img src="/images/dog-border-collie-portrait-terre.png" alt="" aria-hidden="true"
       style="width:clamp(230px,30vw,400px);display:block;filter:drop-shadow(-8px 0 24px rgba(0,0,0,.3))" />
   </div>
-  <!-- Paw watermarks fond -->
-  <div class="paw-mark" style="right:-4%;top:-5%">🐾</div>
-  <div class="paw-mark" style="left:-6%;bottom:-10%;transform:rotate(-25deg)">🐾</div>
+  <!-- Grandes pattes style PostInsta02 — fond vert, bien lisibles -->
+  <div class="paw-mark" style="right:-6%;top:-8%;transform:rotate(15deg)">🐾</div>
+  <div class="paw-mark" style="left:-8%;bottom:-12%;transform:rotate(-25deg)">🐾</div>
+  <div class="paw-mark" style="left:40%;top:-15%;font-size:clamp(120px,18vw,240px);opacity:.07;transform:rotate(-8deg)">🐾</div>
 
   <!-- Logo chien en fond droit — grand et visible comme brandbord -->
   <img src="/logos/logo-chien-blanc.svg" alt="" aria-hidden="true" style="
     position:absolute;right:-5%;top:50%;translate:0 -50%;
-    width:clamp(200px,35vw,420px);opacity:.07;
+    width:clamp(240px,40vw,520px);opacity:.11;
     pointer-events:none;user-select:none;
   "/>
 
@@ -425,7 +439,7 @@ const waText = encodeURIComponent("Woof Day 2026 — Dimanche 13 sept à Ambéra
 <!-- ═══════════════════════════════════════ EXPOSANTS TEASER ══ -->
 <section id="exposants-teaser" class="sec" style="background:var(--creme);position:relative;overflow:hidden">
   <!-- Paw watermark -->
-  <div class="paw-mark" style="left:-4%;bottom:-8%;opacity:.04;color:var(--truffe)">🐾</div>
+  <div class="paw-mark" style="left:-4%;bottom:-8%;color:var(--truffe)">🐾</div>
   <div class="inner" style="position:relative;z-index:2">
     <div style="display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:16px;margin-bottom:clamp(32px,5vw,48px)">
       <div>
@@ -565,8 +579,11 @@ const waText = encodeURIComponent("Woof Day 2026 — Dimanche 13 sept à Ambéra
 </section>
 
 <!-- ═══════════════════════════════════════════════════ ZONES ══ -->
-<section id="zones" class="sec slant-b" style="background:var(--vert);color:#fff;margin-bottom:0">
-  <div class="inner">
+<section id="zones" class="sec slant-b" style="background:var(--vert);color:#fff;margin-bottom:0;position:relative;overflow:hidden">
+  <!-- Grandes pattes fond vert -->
+  <div class="paw-mark" style="right:-5%;bottom:-10%;transform:rotate(20deg)">🐾</div>
+  <div class="paw-mark" style="left:-3%;top:-8%;transform:rotate(-10deg);opacity:.09">🐾</div>
+  <div class="inner" style="position:relative;z-index:2">
     <div style="display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:16px;margin-bottom:clamp(32px,5vw,56px)">
       <div>
         <div data-reveal style="margin-bottom:16px"><span class="chip chip-white">Programme</span></div>
@@ -575,7 +592,7 @@ const waText = encodeURIComponent("Woof Day 2026 — Dimanche 13 sept à Ambéra
       <p data-reveal data-delay="2" style="font-family:var(--f-hand);font-size:22px;opacity:.7;transform:rotate(-1.5deg);max-width:200px;text-align:right">une journée,<br/>6 mondes !</p>
     </div>
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px">
-      {activities.map((z, i) => (
+      {activitiesToShow.map((z, i) => (
         <div data-reveal data-delay={String(i % 3 + 1)} style="background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:var(--r-lg);padding:28px 24px;transition: background .25s, transform .25s" onmouseover="this.style.background='rgba(255,255,255,.14)';this.style.transform='translateY(-4px)'" onmouseout="this.style.background='rgba(255,255,255,.08)';this.style.transform=''">
           <div style="font-size:36px;margin-bottom:12px">{z.emoji}</div>
           <h3 style="font-family:var(--f-head);font-size:20px;font-weight:700;margin-bottom:6px">{z.nom}</h3>

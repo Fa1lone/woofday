@@ -211,15 +211,16 @@ const goodies = [
     </div>
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px">
       {[
-        { icon: '✨', titre: 'Effet Halo', desc: 'Votre marque hérite de l\'émotion positive de l\'événement. Les gens associent votre nom à une belle journée.' },
-        { icon: '👥', titre: 'Preuve Sociale', desc: 'Des centaines de photos de l\'événement circulent sur les réseaux. Votre logo y apparaît naturellement.' },
-        { icon: '🧠', titre: 'Mémorisation', desc: 'Une marque vue dans un contexte émotionnel fort (chiens, famille, soleil) se grave bien mieux en mémoire.' },
-        { icon: '🤝', titre: 'Réciprocité', desc: 'Le public sait que vous soutenez le Refuge. Il a une raison concrète de vous préférer à vos concurrents.' },
+        { icon: '✨', titre: 'Effet Halo', desc: 'Votre marque hérite de l\'émotion positive de l\'événement. Les gens associent votre nom à une belle journée.', bg: 'var(--truffe)', color: '#fff' },
+        { icon: '👥', titre: 'Preuve Sociale', desc: 'Des centaines de photos de l\'événement circulent sur les réseaux. Votre logo y apparaît naturellement.', bg: 'var(--bleu)', color: 'var(--truffe)' },
+        { icon: '🧠', titre: 'Mémorisation', desc: 'Une marque vue dans un contexte émotionnel fort (chiens, famille, soleil) se grave bien mieux en mémoire.', bg: 'var(--terre)', color: '#fff' },
+        { icon: '🤝', titre: 'Réciprocité', desc: 'Le public sait que vous soutenez le Refuge. Il a une raison concrète de vous préférer à vos concurrents.', bg: 'var(--vert)', color: '#fff' },
       ].map((l, i) => (
-        <div data-reveal data-delay={String(i + 1)} style="background:#fff;border-radius:var(--r-xl);padding:24px;border:1.5px solid var(--creme-dark)">
-          <div style="font-size:36px;margin-bottom:12px">{l.icon}</div>
-          <h3 style="font-family:var(--f-head);font-size:20px;font-weight:700;color:var(--truffe);margin-bottom:8px">{l.titre}</h3>
-          <p style="font-family:var(--f-body);font-size:13px;line-height:1.7;color:var(--truffe);opacity:.75">{l.desc}</p>
+        <div data-reveal data-delay={String(i + 1)} style={`background:${l.bg};color:${l.color};border-radius:var(--r-xl);padding:24px;position:relative;overflow:hidden`}>
+          <div style={`font-family:var(--f-head);font-size:72px;font-weight:700;opacity:.1;position:absolute;top:-8px;right:12px;line-height:1;pointer-events:none`}>{String(i+1).padStart(2,'0')}</div>
+          <div style="font-size:36px;margin-bottom:12px;position:relative;z-index:1">{l.icon}</div>
+          <h3 style="font-family:var(--f-head);font-size:20px;font-weight:700;margin-bottom:8px;position:relative;z-index:1">{l.titre}</h3>
+          <p style={`font-family:var(--f-body);font-size:13px;line-height:1.7;opacity:.85;position:relative;z-index:1`}>{l.desc}</p>
         </div>
       ))}
     </div>

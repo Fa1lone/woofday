@@ -149,15 +149,16 @@ const poles = [
     </div>
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px">
       {[
-        { icon: '👥', titre: 'Une audience qualifiée', desc: 'Des centaines de visiteurs passionnés par les chiens et le bien-être animal. Votre cœur de cible.' },
-        { icon: '📍', titre: 'Un emplacement premium', desc: 'Stand bien situé dans les zones thématiques. Plan de village pensé pour le flux visiteurs.' },
-        { icon: '📸', titre: 'Kit media offert', desc: 'Visuels Story, Post, Affiche PDF et Bannière email fournis gratuitement pour préparer votre communication.' },
-        { icon: '❤️', titre: 'Une cause commune', desc: 'L\'événement reverse 100% des bénéfices nets au Refuge. Un argument fort auprès de votre audience.' },
+        { icon: '👥', titre: 'Une audience qualifiée', desc: 'Des centaines de visiteurs passionnés par les chiens et le bien-être animal. Votre cœur de cible.', bg: 'var(--truffe)', color: '#fff' },
+        { icon: '📍', titre: 'Un emplacement premium', desc: 'Stand bien situé dans les zones thématiques. Plan de village pensé pour le flux visiteurs.', bg: 'var(--creme-dark)', color: 'var(--truffe)' },
+        { icon: '📸', titre: 'Kit media offert', desc: 'Visuels Story, Post, Affiche PDF et Bannière email fournis gratuitement pour préparer votre communication.', bg: 'var(--terre)', color: '#fff' },
+        { icon: '❤️', titre: 'Une cause commune', desc: 'L\'événement reverse 100% des bénéfices nets au Refuge. Un argument fort auprès de votre audience.', bg: 'var(--vert)', color: '#fff' },
       ].map((a, i) => (
-        <div data-reveal data-delay={String(i + 1)} style="background:#fff;border-radius:var(--r-xl);padding:28px;border:1.5px solid var(--creme-dark)">
-          <div style="font-size:36px;margin-bottom:12px">{a.icon}</div>
-          <h3 style="font-family:var(--f-head);font-size:20px;font-weight:700;color:var(--truffe);margin-bottom:8px">{a.titre}</h3>
-          <p style="font-family:var(--f-body);font-size:14px;line-height:1.7;color:var(--truffe);opacity:.75">{a.desc}</p>
+        <div data-reveal data-delay={String(i + 1)} style={`background:${a.bg};color:${a.color};border-radius:var(--r-xl);padding:28px;position:relative;overflow:hidden`}>
+          <div style={`font-family:var(--f-head);font-size:72px;font-weight:700;opacity:.1;position:absolute;top:-8px;right:12px;line-height:1;pointer-events:none`}>{String(i+1).padStart(2,'0')}</div>
+          <div style="font-size:36px;margin-bottom:12px;position:relative;z-index:1">{a.icon}</div>
+          <h3 style="font-family:var(--f-head);font-size:20px;font-weight:700;margin-bottom:8px;position:relative;z-index:1">{a.titre}</h3>
+          <p style={`font-family:var(--f-body);font-size:14px;line-height:1.7;opacity:.85;position:relative;z-index:1`}>{a.desc}</p>
         </div>
       ))}
     </div>
