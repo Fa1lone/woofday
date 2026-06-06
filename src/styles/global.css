@@ -286,17 +286,44 @@ h1, h2, h3, h4 { font-family: var(--f-head); line-height: 1.1; }
   pointer-events: none; line-height: 0; z-index: 1;
 }
 
+/* ── MOBILE NAV ──────────────────────────────────────────────────────────────── */
+.nav-burger {
+  display: none; align-items: center; justify-content: center; flex-direction: column;
+  gap: 4px; background: none; border: 2px solid rgba(105,50,45,.22); border-radius: 10px;
+  cursor: pointer; padding: 7px 9px; color: var(--truffe); flex-shrink: 0;
+  transition: border-color .2s, background .2s;
+}
+.nav-burger:hover { border-color: var(--truffe); background: rgba(105,50,45,.06); }
+.nav-burger span { display: block; width: 18px; height: 2px; background: currentColor; border-radius: 1px; transition: transform .25s, opacity .25s; }
+
+#mobile-nav { display: none; }
+.mobile-nav-link {
+  font-family: var(--f-head); font-size: 17px; font-weight: 600;
+  color: var(--truffe); text-decoration: none;
+  padding: 11px 16px; border-radius: var(--r-md); display: block; transition: background .15s;
+}
+.mobile-nav-link:hover, .mobile-nav-link:active { background: var(--creme-dark); }
+.mobile-nav-sep { height: 1px; background: var(--creme-dark); margin: 6px 0; }
+
 /* ── RESPONSIVE ──────────────────────────────────────────────────────────────── */
 @media (max-width: 768px) {
   .nav-links { display: none !important; }
   .nav-pro-links { display: none !important; }
+  .nav-burger { display: flex !important; }
+  #btn-viens, .nav-cta-hide { display: none !important; }
+  #mobile-nav { display: none; }
   .resp-2col { grid-template-columns: 1fr !important; }
+  .pros-grid { grid-template-columns: 1fr !important; }
   .dog-deco { display: none !important; opacity: 0; pointer-events: none; }
+  .arrow-deco { display: none !important; }
   .inner { max-width: 100%; padding-left: 0; padding-right: 0; }
 }
 @media (max-width: 480px) {
   .btn { font-size: 14px !important; padding: 12px 22px !important; }
   .sec { padding: clamp(40px, 8vw, 80px) clamp(16px, 4vw, 28px); }
+  #step-indicator { overflow-x: auto; flex-wrap: nowrap; justify-content: flex-start; padding-bottom: 4px; -webkit-overflow-scrolling: touch; }
+  .tape-label { font-size: 13px; padding: 8px 22px; }
+  .tape-label::before, .tape-label::after { width: 28px; }
 }
 
 /* ── DOG CUTOUT ──────────────────────────────────────────────────────────────── */

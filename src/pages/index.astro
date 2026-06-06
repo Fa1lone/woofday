@@ -82,8 +82,31 @@ const waText = encodeURIComponent("Woof Day 2026 — Dimanche 13 sept à Ambéra
       <a href="/sponsor" style="font-family:var(--f-body);font-size:13px;font-weight:700;color:var(--vert);text-decoration:none;background:rgba(38,66,43,.1);border:1.5px solid rgba(38,66,43,.3);border-radius:var(--r-pill);padding:7px 14px;transition:background .2s" onmouseover="this.style.background='rgba(38,66,43,.2)'" onmouseout="this.style.background='rgba(38,66,43,.1)'">Devenir sponsor 🤝</a>
     </div>
     <a href="#contact" id="btn-viens" class="btn btn-terre" style="font-size:14px;padding:10px 22px">Je suis intéressé 🐾</a>
+    <button id="menu-toggle" class="nav-burger" aria-label="Menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
   </div>
 </nav>
+
+<!-- ═══════════════════════════════════════════════ MENU MOBILE ══ -->
+<div id="mobile-nav" role="dialog" aria-label="Navigation" style="
+  position:fixed;top:72px;left:16px;right:16px;z-index:98;
+  background:rgba(243,241,199,.97);backdrop-filter:blur(14px);
+  border:1.5px solid var(--creme-dark);border-radius:var(--r-lg);
+  padding:16px;box-shadow:0 8px 32px rgba(105,50,45,.18);
+  flex-direction:column;gap:2px;
+">
+  <a href="#pourquoi" class="mobile-nav-link">🐾 Le Woof Day</a>
+  <a href="#zones" class="mobile-nav-link">📅 Programme</a>
+  <a href="#exposants-teaser" class="mobile-nav-link">🏪 Le Village</a>
+  <a href="#infos" class="mobile-nav-link">📍 Infos pratiques</a>
+  <a href="#faq" class="mobile-nav-link">💬 FAQ</a>
+  <div class="mobile-nav-sep"></div>
+  <a href="/exposants" class="mobile-nav-link" style="font-size:14px;opacity:.8">🏪 Devenir exposant</a>
+  <a href="/sponsor" class="mobile-nav-link" style="font-size:14px;opacity:.8">🤝 Devenir sponsor</a>
+  <div class="mobile-nav-sep"></div>
+  <a href="#contact" class="btn btn-terre" style="text-align:center;margin-top:4px">Je suis intéressé 🐾</a>
+</div>
 
 <!-- ═══════════════════════════════════════════════════ HERO ══ -->
 <section style="
@@ -299,7 +322,7 @@ const waText = encodeURIComponent("Woof Day 2026 — Dimanche 13 sept à Ambéra
       style="width:clamp(220px,28vw,400px);display:block;filter:drop-shadow(-6px 0 18px rgba(105,50,45,.2))" />
   </div>
   <div class="inner" style="position:relative;z-index:2">
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:clamp(32px,6vw,80px);align-items:start">
+    <div class="resp-2col" style="display:grid;grid-template-columns:1fr 1fr;gap:clamp(32px,6vw,80px);align-items:start">
       <div>
         <div data-reveal style="margin-bottom:20px"><span class="chip chip-vert">Programme</span></div>
         <h2 data-reveal data-delay="1" style="font-size:clamp(32px,5vw,52px);color:var(--truffe);margin-bottom:12px">Une édition<br/>encore plus grande</h2>
@@ -324,7 +347,7 @@ const waText = encodeURIComponent("Woof Day 2026 — Dimanche 13 sept à Ambéra
       </div>
 
       <!-- 4 micro-cards -->
-      <div data-reveal data-delay="2" style="display:grid;grid-template-columns:1fr 1fr;gap:12px;padding-top:60px">
+      <div data-reveal data-delay="2" style="display:grid;grid-template-columns:1fr 1fr;gap:12px;padding-top:clamp(0px,4vw,60px)">
         {[
           { icon: '⛺', val: '50+', label: 'Stands', bg: 'var(--truffe)', color: '#fff' },
           { icon: '🎁', val: '600+', label: 'Lots tombola', bg: 'var(--terre)', color: '#fff' },
@@ -361,7 +384,7 @@ const waText = encodeURIComponent("Woof Day 2026 — Dimanche 13 sept à Ambéra
     pointer-events:none;user-select:none;
   "/>
 
-  <div class="inner" style="display:grid;grid-template-columns:1fr 1fr;gap:clamp(32px,6vw,72px);align-items:center;position:relative;z-index:2">
+  <div class="inner resp-2col" style="display:grid;grid-template-columns:1fr 1fr;gap:clamp(32px,6vw,72px);align-items:center;position:relative;z-index:2">
     <div>
       <!-- Tape label décalé -->
       <div data-reveal style="margin-bottom:24px">
@@ -496,7 +519,7 @@ const waText = encodeURIComponent("Woof Day 2026 — Dimanche 13 sept à Ambéra
     </div>
 
     <!-- CTA cards exposant + sponsor -->
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+    <div class="resp-2col" style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
       <div data-reveal style="background:var(--truffe);border-radius:var(--r-xl);padding:clamp(24px,4vw,40px);color:#fff;position:relative;overflow:hidden">
         <img src="/logos/tete-chien.svg" alt="" aria-hidden="true" style="position:absolute;right:-10%;bottom:-15%;width:55%;opacity:.07;filter:brightness(0) invert(1);pointer-events:none"/>
         <div style="position:relative;z-index:1">
@@ -529,7 +552,7 @@ const waText = encodeURIComponent("Woof Day 2026 — Dimanche 13 sept à Ambéra
       style="width:clamp(200px,26vw,360px);display:block;filter:drop-shadow(6px 0 18px rgba(145,172,218,.3));transform:scaleX(-1)" />
   </div>
 
-  <div class="inner" style="display:grid;grid-template-columns:1fr 1fr;gap:clamp(32px,6vw,80px);align-items:center;position:relative;z-index:2">
+  <div class="inner resp-2col" style="display:grid;grid-template-columns:1fr 1fr;gap:clamp(32px,6vw,80px);align-items:center;position:relative;z-index:2">
 
     <!-- Gauche : photo Méline + Ulysse + stat cards -->
     <div data-reveal data-delay="1" style="display:flex;flex-direction:column;gap:14px">
@@ -661,7 +684,7 @@ const waText = encodeURIComponent("Woof Day 2026 — Dimanche 13 sept à Ambéra
 
 <!-- ═══════════════════════════════════════════════ BÉNÉVOLAT ══ -->
 <section class="sec" style="background:var(--terre);color:#fff;position:relative;overflow:hidden">
-  <div class="inner" style="display:grid;grid-template-columns:1fr 1fr;gap:clamp(32px,6vw,80px);align-items:center;position:relative;z-index:2">
+  <div class="inner resp-2col" style="display:grid;grid-template-columns:1fr 1fr;gap:clamp(32px,6vw,80px);align-items:center;position:relative;z-index:2">
     <div>
       <div data-reveal style="margin-bottom:20px"><span class="chip chip-white">Implication</span></div>
       <h2 data-reveal data-delay="1" style="font-size:clamp(32px,5vw,52px);margin-bottom:16px">Le Woof Day grandit,<br/>on a besoin de vous !</h2>
@@ -701,7 +724,7 @@ const waText = encodeURIComponent("Woof Day 2026 — Dimanche 13 sept à Ambéra
         <h2 style="font-family:var(--f-head);font-size:clamp(32px,5vw,52px);color:#fff;margin-bottom:12px">Rejoignez l'aventure Woof Day</h2>
         <p style="font-family:var(--f-body);font-size:16px;color:rgba(255,255,255,.75);max-width:50ch;margin:0 auto">Visibilité locale exceptionnelle au service d'une belle cause.</p>
       </div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:22px;position:relative;z-index:1" class="pros-grid">
+      <div class="pros-grid resp-2col" style="display:grid;grid-template-columns:1fr 1fr;gap:22px;position:relative;z-index:1">
         <!-- Card Exposant -->
         <div style="background:rgba(222,108,73,.12);border:1.5px solid rgba(222,108,73,.4);border-radius:28px;padding:clamp(24px,4vw,36px)">
           <div style="font-size:36px;margin-bottom:14px">⛺</div>
@@ -840,6 +863,36 @@ const waText = encodeURIComponent("Woof Day 2026 — Dimanche 13 sept à Ambéra
 </Layout>
 
 <script define:vars={{ exposantsToShow }}>
+  // Mobile menu
+  const menuToggle = document.getElementById('menu-toggle');
+  const mobileNav  = document.getElementById('mobile-nav');
+  menuToggle?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const open = mobileNav.style.display === 'flex';
+    mobileNav.style.display = open ? 'none' : 'flex';
+    menuToggle.setAttribute('aria-expanded', String(!open));
+    const lines = menuToggle.querySelectorAll('span');
+    if (open) {
+      lines[0].style.transform = ''; lines[1].style.opacity = '1'; lines[2].style.transform = '';
+    } else {
+      lines[0].style.transform = 'translateY(6px) rotate(45deg)';
+      lines[1].style.opacity = '0';
+      lines[2].style.transform = 'translateY(-6px) rotate(-45deg)';
+    }
+  });
+  mobileNav?.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    mobileNav.style.display = 'none';
+    menuToggle?.setAttribute('aria-expanded', 'false');
+    const lines = menuToggle?.querySelectorAll('span');
+    if (lines) { lines[0].style.transform=''; lines[1].style.opacity='1'; lines[2].style.transform=''; }
+  }));
+  document.addEventListener('click', (e) => {
+    if (!menuToggle?.contains(e.target) && !mobileNav?.contains(e.target)) {
+      if (mobileNav) mobileNav.style.display = 'none';
+      menuToggle?.setAttribute('aria-expanded', 'false');
+    }
+  });
+
   // Progress bar
   window.addEventListener('scroll', () => {
     const el = document.getElementById('pbar');
