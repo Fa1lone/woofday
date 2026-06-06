@@ -4,250 +4,121 @@ Source de vérité : analyse comparative directe Cynofeel (`woofday-landing.tsx`
 
 ---
 
-## GAPS CRITIQUES — manque vs Cynofeel
+## 🔴 GAPS CRITIQUES — manque vs Cynofeel (à faire avant launch)
 
-### 1. Section PROS (Espace Professionnels) — MANQUANTE
+### 1. Section PROS (Espace Professionnels) — HOME — MANQUANTE
 
 Section présente dans Cynofeel (id="professionnels") mais absente du site standalone.
 
-**À ajouter entre BÉNÉVOLAT et FAQ :**
+**À insérer entre BÉNÉVOLAT et FAQ dans `index.astro` :**
 
-- [ ] Fond sombre (`var(--truffe)` ou équivalent dark), border-radius xl, padding généreux
-- [ ] Chip "Espace Professionnels" centré + H2 "Rejoignez l'aventure Woof Day" + sous-titre
-- [ ] Grille 2 colonnes :
-  - **Card Exposant** (fond truffe clair / accent terre-cuite) :
-    - Icône stand + H3 "Devenir Exposant"
+- [ ] Fond sombre `var(--truffe)`, border-radius xl, padding généreux, overflow hidden
+- [ ] Watermark patte en fond (opacity .05)
+- [ ] Chip "Espace Professionnels" + H2 "Rejoignez l'aventure Woof Day" + sous-titre "Visibilité locale exceptionnelle au service d'une belle cause."
+- [ ] Grille 2 colonnes responsive :
+  - **Card Exposant** (bg `rgba(truffe,.12)`, border terre, accent terre) :
+    - Icône Stand + H3 "Devenir Exposant"
     - ✓ "Public cible de passionnés (800+ visiteurs)"
     - ✓ "Vendez et faites tester vos produits"
     - ✓ "Développez votre réseau local"
-    - CTA → `/exposants`
-  - **Card Sponsor** (fond crème / accent vert, badge "Impact RSE fort") :
-    - Icône handshake + H3 "Devenir Sponsor"
+    - CTA btn → `/exposants`
+  - **Card Sponsor** (bg `rgba(creme,.08)`, border creme, badge "Impact RSE fort" en coin) :
+    - Icône Handshake + H3 "Devenir Sponsor"
     - ✓ "Logo sur affiches, flyers, site & réseaux"
     - ✓ "Image associée à un événement solidaire"
     - ✓ "Impact RSE local et concret"
-    - CTA → `/sponsor`
+    - CTA btn → `/sponsor`
 
-### 2. Mode standby — MANQUANT
+### 2. Formulaire contact multi-étapes — HOME — MANQUANT
 
-Cynofeel a un `isStandby` mode : quand la page WoofDay est désactivée en back-office, seul un teaser s'affiche (sans les sections exposants, programme, etc.).
+Le formulaire actuel est un simple `<form>` (select + nom + email + message).
+Cynofeel a un formulaire React 2 étapes avec champs contextuels selon la raison.
 
-- [ ] Ajouter un flag `WOOFDAY_ACTIVE=true` en variable d'env
-- [ ] Si false : afficher uniquement HERO simplifié + compteur intéressés + formulaire "Tenir informé"
-- [ ] Si true : page complète actuelle
+**À remplacer dans `index.astro` section #contact :**
 
-### 3. Mobile sticky CTA bar — MANQUANT
+- [ ] **Étape 1 — Raison** : 6 boutons sélectionnables (style pill) :
+  - "Venir à l'événement"
+  - "Être bénévole"
+  - "Proposer une idée"
+  - "Être tenu informé"
+  - "Affiches (voiture / commerce)"
+  - "Devenir Exposant / Sponsor"
+- [ ] **Étape 2 — Champs contextuels selon raison** :
+  - **"venir"** → pills radio : seul / en famille / entre amis / avec mon chien
+  - **"benevole"** → checkboxes : accueil / installation / animation / buvette / logistique / autre
+  - **"idee"** → textarea "Ton idée / animation" (required)
+  - **"affiche"** → bloc info : "Précisez si voiture ou commerce dans le message"
+  - **"pro"** → bloc violet : "Précisez si exposant ou sponsor + nom de votre structure"
+  - Tous : nom, email, message optionnel, checkbox RGPD
+- [ ] Barre de progression 2 étapes visuelles (barres colorées)
+- [ ] Bouton "← Revenir" à l'étape 2
+- [ ] État de succès (overlay vert avec CheckCircle)
+- [ ] API `/api/contact` doit sauvegarder les champs `vienne`, `aideType`, `idee` (actuellement ignorés)
 
-Cynofeel a une barre fixe en bas sur mobile (z-index élevé) avec le CTA principal "Je participe 🐾".
+### 3. Mobile sticky CTA bar — HOME — MANQUANTE
 
-- [ ] Ajouter `<div>` fixed bottom sur mobile uniquement
+- [ ] `<div>` `position:fixed; bottom:0; left:0; right:0` visible seulement sur mobile (`display:none` sur desktop)
+- [ ] Visible après scroll > 350px (JS scroll listener)
+- [ ] Contenu : bouton Instagram (lien @woofday_charente) + bouton Share + bouton "Je suis intéressé" plein
 - [ ] Disparaît quand le hero est visible (IntersectionObserver sur `#btn-participe`)
-- [ ] CTA : "Je participe 🐾" → scroll vers #contact
+
+### 4. Partage natif mobile (Web Share API) — HOME — MANQUANT
+
+- [ ] Bouton "Partager" en hero qui appelle `navigator.share({ title, text, url })`
+- [ ] Fallback : `navigator.clipboard.writeText(url)` + toast "Lien copié !"
+- [ ] Identique à la sticky CTA bar share button
+
+### 5. Mode standby — MANQUANT
+
+- [ ] Variable d'env `WOOFDAY_ACTIVE=true` (ajouter dans `.env.example`)
+- [ ] Dans `index.astro` : si `false`, afficher teaser uniquement (hero simplifié + countdown + compteur intéressés)
+- [ ] Si `true` : page complète actuelle
+
+### 6. Infos pratiques — 2 cards manquantes
+
+La section `#infos` dans `index.astro` a 4 cards. Cynofeel en a 6.
+
+- [ ] Ajouter card **"Chiens"** : "Bienvenus, en laisse" (icône 🐾 ou PawPrint)
+- [ ] Ajouter card **"Stands"** : "50+ exposants" (icône ⛺ ou Tent)
+
+### 7. Contact API — champs contextuels non sauvegardés
+
+- [ ] Ajouter `vienne?: string`, `aideType?: string`, `idee?: string` dans le type `Contact` (`data.ts`)
+- [ ] Mettre à jour `addContact()` pour accepter ces champs optionnels
+- [ ] Mettre à jour `/api/contact.ts` pour les passer à `addContact()`
 
 ---
 
-## PAGE ACCUEIL
+## 🟡 NOTIFICATIONS EMAIL — MANQUANTES (exposant + sponsor)
 
-### Sections manquantes
+Actuellement seul `/api/contact.ts` envoie un email via Resend. Les candidatures exposant et sponsor n'envoient rien.
 
-- [x] **1.3 Pourquoi venir** — 4 cards numérotées 01/02/03/04
-  - 01 "Une vraie sortie du dimanche" — "Pas un événement figé. Une journée locale, joyeuse et vivante près d'Angoulême."
-  - 02 "De quoi faire toute la journée" — "Plus de 50 stands, animations et concours pour découvrir, rire, flâner et profiter."
-  - 03 "C'est accessible" — "Entrée gratuite, ambiance familiale, avec ou sans chien."
-  - 04 "Ça a du sens" — "100% des bénéfices nets reversés au Refuge de l'Angoumois."
-  - Callout jaune centré : "En gros : une sortie qui fait plaisir… et qui sert à quelque chose. 🐾"
-
-- [x] **1.4 Programme** — "Une édition encore plus grande"
-  - Description : "Après une première édition très appréciée, le Woof Day revient avec encore plus d'énergie, d'animations et de moments à vivre."
-  - Liste 5 items :
-    1. "Un grand village avec 50+ exposants et stands"
-    2. "Des animations, démos & jeux concours toute la journée"
-    3. "Des activités aquatiques pour les chiens"
-    4. "Une grande tombola à gain immédiat (600+ lots !)"
-    5. "De la convivialité, des rencontres et de belles surprises"
-  - 4 micro-cards : ⛺ 50+ Stands / 🎁 Tombola 600+ lots / 🏆 Concours & Animations / 🐕 Activités Aquatiques
-
-- [x] **1.5 Exposants teaser** — "Ils seront présents au Woof Day"
-  - Afficher 3 exposants (sur 6 total), bouton "Voir tous les exposants →"
-  - 6 exposants fictifs avec photos Unsplash + modal au clic
-
-- [x] **1.6 Solidarité** — fond vert forêt
-  - H2 : "Une journée fun… au profit d'une vraie cause"
-  - "Le Woof Day soutient le Refuge de l'Angoumois. 100% des bénéfices nets lui sont reversés."
-  - Callout blanc : "Vous passez une belle journée. Et en plus, vous aidez des animaux. 🐾"
-  - Logo Refuge de l'Angoumois (placeholder texte pour MVP)
-
-- [x] **1.8 Bénévolat & implication** — "Le Woof Day grandit, on a besoin de vous !"
-  - 3 formes d'aide : Venir bénévole le jour J / Coller des affiches / Partager sur les réseaux
-  - CTA : form contact avec raison "benevole"
-
-### Améliorations hero
-
-- [x] Badge preuves (5 pills) : ✓ Entrée gratuite / 🐕 Avec ou sans chien / ⛺ 50+ stands / 👥 1200+ visiteurs / ❤️ Solidaire
-- [x] Bouton **"Ajouter à l'agenda"** (Google Calendar URL + fichier .ics téléchargeable Apple/Outlook)
-- [x] Bouton **partage WhatsApp** : "Woof Day 2026 — 13 sept à Ambérac ! Entrée gratuite 🐾"
-- [x] Animations pattes flottantes (5 paw prints, positions et durées variées, CSS keyframes)
+- [ ] `/api/exposant.ts` : envoyer email Resend à `CONTACT_EMAIL` quand nouvelle candidature (nom structure, pôle, email, téléphone)
+- [ ] `/api/sponsor.ts` : envoyer email Resend à `CONTACT_EMAIL` quand nouveau sponsor (entreprise, pack choisi, contact)
+- [ ] Template HTML simple (pas besoin de React Email pour MVP)
+- [ ] Dépend de `RESEND_API_KEY` défini
 
 ---
 
-## PAGE EXPOSANTS
+## 🟡 TECHNIQUE
 
-- [x] **Hero enrichi**
-  - Stat pills : "Éd.1 : 800 visiteurs ✅" / "Éd.2 : 1200+ visés 🚀"
-  - Badge : "Places limitées par catégorie · Réponse sous 72h"
-  - Image hero : chien heureux (Unsplash)
-
-- [x] **Charte éthique expandable**
-  - Toggle "Voir ce qui est interdit"
-  - Contenu : colliers étrangleurs, électriques, méthodes coercitives, produits dangereux
-
-- [x] **Galerie Édition 1** — preuve sociale
-  - 3 stats : 800 visiteurs / 1200+ projetés / 30+ exposants pionniers
-  - Photos ambiance Unsplash (placeholders MVP)
-
-- [x] **Nouveautés 2026** — 4 features
-  - Organisation Fluide / Village Lisible / Zone Fraîcheur / Jeux & Concours
-
-- [x] **"Le Hack visibilité"** — mega-card orange
-  - Jeu concours Instagram : lot exposant → abonnés avant l'événement
-  - Tombola : gain immédiat, visiteur VIENT sur le stand pour récupérer le lot
-
-- [x] **6 Pôles** — cards avec descriptions
-  - Éducation & Relation / Santé & Bien-être / Nutrition & Alimentation / Activités & Fun / Artisanat & Accessoires / Associations & Solidarité
-
-- [x] **Logistique complète**
-  - Horaires installation : Veille 16h–19h / Jour J 7h–9h (tout prêt à 9h)
-  - Formats stands : Petit (artisanat/asso) / Standard (pro) / Grand (marque)
-  - Checklist : lestage barnum, TPE, sacs poubelle, eau pour chien
-
-- [x] **Kit média offert**
-  - 1 visuel "J'y serai" Story / 1 visuel Post carré / Affiche PDF / Bannière email
-
-- [x] **Formulaire 4 étapes** (remplace formulaire actuel)
-  - Étape 1 — Identité : structure, responsable, email, téléphone, ville
-  - Étape 2 — Activité : description courte, pôle, Instagram/site
-  - Étape 3 — Stand : taille (Petit/Standard/Grand), barnum (mien/louer), électricité (non/standard/forte)
-  - Étape 4 — Impact : lot tombola/concours, option panneaux co-brandés (35€, limité 10 places), checkbox sponsor officiel
-  - Submit : "Bloquer mon emplacement maintenant →"
-  - Success : "Candidature envoyée ! Nous revenons vers vous sous 72h."
+- [x] Créer `.env.example` avec : `DASHBOARD_PASSWORD`, `SESSION_SECRET`, `RESEND_API_KEY`, `CONTACT_EMAIL`, `WOOFDAY_ACTIVE` ✅
+- [ ] Google Analytics (G-XXXXXX) ou Plausible script dans `Layout.astro`
+- [ ] Passer `data/*.json` en vraie DB (SQLite/Drizzle ou Postgres/Prisma) avant prod
+- [ ] Variables Vercel à configurer : `DASHBOARD_PASSWORD`, `SESSION_SECRET`, `RESEND_API_KEY`
 
 ---
 
-## PAGE SPONSOR
+## 🟡 IMAGES / ASSETS
 
-- [x] **Hero enrichi**
-  - H1 : "CÉLÉBREZ LE CHIEN et les humains qui l'aiment."
-  - Stats pills : 800 visiteurs Éd.1 / 1200+ Éd.2 / 50-60 exposants
-
-- [x] **Manifeste expandable**
-  - Historique Éd.1 : "Pluie battante. Zéro expérience. 800 visiteurs. La preuve qu'il y a une demande."
-  - Éd.2 : "Nouveau site, activités aquatiques, campagne structurée. Objectif 1200+."
-  - Charte éthique : éducation positive uniquement
-
-- [x] **Budget transparent** — section fond sombre
-  - Objectif sponsoring : 4 000€
-  - Dépenses : Panneaux & affiches 800€ / Pub réseaux 400€ / Lieu & tivolis 850€ / Tenues 450€ / Site web 150€ / Achats 1000€ / Assurances 650€ = **4 300€**
-  - Recettes événement : Exposants 1500€ / Tombola 1200€ / Buvette 1000€ = **3 700€**
-
-- [x] **4 leviers psychologiques**
-  - Effet Halo / Preuve Sociale / Mémorisation / Réciprocité
-
-- [x] **6 Packs détaillés** (remplace packs actuels)
-  | Pack | Prix | Points clés |
-  |------|------|-------------|
-  | Bronze | 50€ | Remerciements, nom sur site, jeu concours |
-  | Argent | 150€ | + Logo site (lien actif), mention sur place, Stories dédiées |
-  | Or ⭐ | 300€ | + Logo affiches & flyers, naming d'un stand bénévole |
-  | Platine | 600€ | + Post dédié, Kakémono sur site, naming d'une zone |
-  | VIP 🔒×2 | 1000€ | + 5 Stories, logo tenues bénévoles, roll-up |
-  | Sponsor Principal ⭐×1 | 2000€ | "Présenté par…", naming zone majeure, 2 posts + 8-10 stories |
-  - Option panneaux co-brandés Vediaux : 65€/unité
-
-- [x] **Zones & stands à nommer** — état Disponible/Réservé
-  - 6 zones : Aquatique / Agility / Détente / Famille / Scène / Village
-  - 7 stands : Tombola / Buvette / Escape Game / Peinture / Photo / Spectacle / Accueil Refuge
-
-- [x] **Partenariat en nature**
-  - Dons de lots tombola / Compétences & matériel
-
-- [x] **Co-branding goodies**
-  - Gobelet 5€ / Tote bag 20€ / Bandana chien 8€ / Sacs 6€ / Pochette friandises 12€ / Jouet 10€
-
-- [x] **Formulaire enrichi** (remplace formulaire actuel)
-  - Sélecteur de pack (boutons visuels)
-  - Compteur panneaux ±1 (quantité × 65€)
-  - Select zone souhaitée, select stand souhaité
-  - Input lot jeu concours + textarea objectif
+- [ ] **Photos ambiance Édition 1** (4 photos réelles) — à demander aux organisateurs
+  - Foule (grande, pour col-span-2) / Enfant + chien / Stand exposant / Animation
+  - Remplacer `woofday-ambiance-01/02/04.webp` si ce sont des placeholders
+- [ ] **Meta OG image** (1200×630px) — logo Woof Day + date + lieu + fond terre cuite
 
 ---
 
-## FEATURES TRANSVERSALES
-
-- [x] **Banderole logos Woof Day sous les héros**
-  - Composant partagé sur accueil, exposants et sponsor
-  - Une seule ligne horizontale, logos variants qui défilent
-
-- [x] **Annotations visuelles façon posts Instagram**
-  - Cercles manuscrits, petits traits d'attention et flèches SVG locales
-  - Utilisées pour souligner les CTA/messages importants sans masquer le texte
-
-- [x] **Bouton "Ajouter à l'agenda"**
-  - Google Calendar : URL avec paramètres date/lieu/titre
-  - Apple / Outlook : fichier `.ics` téléchargeable
-
-- [x] **Partage WhatsApp**
-  - URL : `https://wa.me/?text=Woof+Day+2026+—+13+sept+à+Ambérac+!+Entrée+gratuite+🐾`
-  - Bouton présent en hero + section infos
-
-- [x] **Animations pattes flottantes** — hero
-  - 5 paw prints SVG, positions absolues variées
-  - CSS keyframes float (translate + rotate), durées 6s-10s
-
-- [x] **Toast notifications** — remplacer success states inline
-  - "Message envoyé ✅", "Candidature reçue ✅", etc.
-
-- [x] **Modal galerie exposants** — page accueil section 1.5
-  - Photo, nom, pôle, description longue, lien Instagram
-
-- [ ] **Partage natif mobile**
-  - Web Share API avec fallback clipboard
-
----
-
-## DASHBOARD ADMIN
-
-- [x] Vue sponsors enrichie (statut, pack choisi, zone/stand nommés)
-- [x] Bouton export CSV (exposants + sponsors + contacts)
-- [x] Bouton déconnexion dans sidebar
-- [x] Compteur intéressés visible en grand sur la home dashboard
-- [x] Lien "← Voir le site public" dans sidebar
-- [x] Lien "Admin ↗" discret dans le footer du site public
-
----
-
-## IMAGES À CRÉER / SOURCER
-
-- [x] **Photos chiens Unsplash** — 6 portraits pour fiches exposants (Unsplash CDN)
-- [ ] **Photos ambiance Édition 1** (4 photos) — à demander aux organisateurs
-  - Foule (col-span-2) / Enfant + chien / Stand exposant / Animation
-- [ ] **Logo Refuge de l'Angoumois** — à récupérer auprès du refuge
-- [ ] **Meta OG image** (1200×630px avec logo + date + lieu) — à créer
-
----
-
-## TECHNIQUE
-
-- [ ] Passer `data/*.json` en vraie DB (SQLite/Drizzle ou Postgres/Prisma) avant mise en prod
-- [ ] Intégrer Resend pour emails de confirmation (exposant, sponsor, contact)
-- [ ] Variables Vercel : `DASHBOARD_PASSWORD`, `SESSION_SECRET`, `RESEND_API_KEY`
-- [ ] Changer le mot de passe dashboard par défaut avant mise en prod
-- [ ] Google Analytics ou Plausible
-- [x] Robots.txt + sitemap.xml
-- [x] Fichier `.ics` calendrier dans `/public/`
-
----
-
-## DÉJÀ FAIT ✅
+## ✅ DÉJÀ FAIT
 
 - [x] Repo GitHub : https://github.com/Fa1lone/woofday
 - [x] Astro 6.4 SSR + Node adapter + Tailwind 4 + React islands
@@ -268,3 +139,23 @@ Cynofeel a une barre fixe en bas sur mobile (z-index élevé) avec le CTA princi
 - [x] Modal exposants avec photo Unsplash + fallback emoji
 - [x] Floating paw animations avec CSS translate (sans conflit transform)
 - [x] Dashboard accessible via lien Admin ↗ dans footer public
+- [x] Section POURQUOI VENIR — 3 piliers + 4 cards numérotées + callout
+- [x] Section PROGRAMME — texte + 4 micro-cards (50+ / 600+ / Animations / Aqua)
+- [x] Section EXPOSANTS TEASER — grid 3 cards + CTA Exposant + Sponsor
+- [x] Section SOLIDARITÉ — photo Méline/Ulysse + logo refuge + stats + callout vert
+- [x] Section ZONES — 6 zones dynamiques depuis data/activities.json
+- [x] Section BÉNÉVOLAT — 2 colonnes, 3 modes d'aide
+- [x] Section INFOS PRATIQUES — 4 cards + carte Google Maps
+- [x] Section FAQ — 8 questions, accordion JS
+- [x] Footer complet — nav + pros + Instagram
+- [x] Banderole logos défilants (LogoTicker)
+- [x] Annotations hand-drawn (DoodleMark SVG, Rough Notation)
+- [x] Bouton "Ajouter à l'agenda" (Google Cal + .ics)
+- [x] Bouton partage WhatsApp
+- [x] Robots.txt + sitemap.xml
+- [x] data/activities.json créé (6 zones par défaut)
+- [x] API exposant : champ instagram sauvegardé ✅ (fix 2026-06-05)
+- [x] API sponsor : champs lienWeb + instagram sauvegardés ✅ (fix 2026-06-05)
+- [x] API contact : email destination via CONTACT_EMAIL env ✅ (fix 2026-06-05)
+- [x] Dashboard login : mot de passe par défaut retiré du HTML ✅ (fix 2026-06-05)
+- [x] exposant/create.ts + sponsor/create.ts : dynamic imports nettoyés ✅ (fix 2026-06-05)
