@@ -4,12 +4,12 @@ import DoodleMark from '../components/DoodleMark.astro';
 import LogoTicker from '../components/LogoTicker.astro';
 
 const poles = [
-  { icon: '🎓', nom: 'Éducation & Relation',     desc: 'Éducateurs, comportementalistes, agility, obéissance positive.' },
-  { icon: '💚', nom: 'Santé & Bien-être',         desc: 'Vétérinaires, ostéopathes, physiothérapie, relaxation, spa.' },
-  { icon: '🥣', nom: 'Nutrition & Alimentation',  desc: 'Alimentation naturelle, croquettes artisanales, friandises, barf.' },
-  { icon: '🏃', nom: 'Activités & Fun',           desc: 'Sport canin, aquatique, randonnée, jeux, photography.' },
-  { icon: '🧶', nom: 'Artisanat & Accessoires',   desc: 'Créateurs de colliers, laisses, vêtements, bijoux, artisanat.' },
-  { icon: '❤️', nom: 'Associations & Solidarité', desc: 'Refuges, associations, bénévolat, adoption, protection animale.' },
+  { icon: '🎓', nom: 'Éducation & Relation',     desc: 'Éducateurs, comportementalistes, agility, obéissance positive.', bg: 'var(--terre)', color: '#fff' },
+  { icon: '💚', nom: 'Santé & Bien-être',         desc: 'Vétérinaires, ostéopathes, physiothérapie, relaxation, spa.', bg: 'var(--vert)', color: '#fff' },
+  { icon: '🥣', nom: 'Nutrition & Alimentation',  desc: 'Alimentation naturelle, croquettes artisanales, friandises, barf.', bg: 'var(--creme)', color: 'var(--truffe)' },
+  { icon: '🏃', nom: 'Activités & Fun',           desc: 'Sport canin, aquatique, randonnée, jeux, photography.', bg: 'var(--bleu)', color: 'var(--truffe)' },
+  { icon: '🧶', nom: 'Artisanat & Accessoires',   desc: 'Créateurs de colliers, laisses, vêtements, bijoux, artisanat.', bg: 'var(--truffe)', color: '#fff' },
+  { icon: '❤️', nom: 'Associations & Solidarité', desc: 'Refuges, associations, bénévolat, adoption, protection animale.', bg: '#4a7c59', color: '#fff' },
 ];
 ---
 
@@ -47,26 +47,31 @@ const poles = [
 
 <!-- HERO -->
 <section style="
-  min-height:80svh;padding:120px clamp(20px,5vw,40px) clamp(120px,20vw,200px);
+  min-height:88svh;padding:120px clamp(20px,5vw,40px) clamp(160px,24vw,260px);
   background:var(--terre);color:#fff;text-align:center;
   position:relative;overflow:hidden;
 ">
-  <!-- Paw watermarks grands — fond -->
-  <div class="paw-mark" style="left:-6%;top:-8%;transform:rotate(-15deg);opacity:.12">🐾</div>
-  <div class="paw-mark" style="right:-4%;top:10%;transform:rotate(20deg);opacity:.1">🐾</div>
-  <div class="paw-mark" style="left:5%;bottom:10%;transform:rotate(-5deg);opacity:.07">🐾</div>
-
-  <!-- Floating paws -->
-  <div class="paw-float" style="--paw-dur:8s;--paw-delay:0s;top:15%;left:8%;font-size:28px;color:rgba(255,255,255,.14);transform:rotate(-12deg)">🐾</div>
-  <div class="paw-float" style="--paw-dur:7s;--paw-delay:2s;top:55%;right:10%;font-size:22px;color:rgba(255,255,255,.1);transform:rotate(15deg)">🐾</div>
-  <div class="paw-float" style="--paw-dur:9s;--paw-delay:1s;top:35%;left:3%;font-size:16px;color:rgba(255,255,255,.08);transform:rotate(-20deg)">🐾</div>
+  <!-- Grandes pattes fond — style POSTINSTA01 (truffe sur terre) -->
+  <div class="paw-mark" style="left:-6%;top:-8%;transform:rotate(-15deg)">🐾</div>
+  <div class="paw-mark" style="right:-4%;top:5%;transform:rotate(20deg)">🐾</div>
+  <div class="paw-mark" style="left:38%;bottom:-12%;transform:rotate(-5deg);font-size:clamp(120px,18vw,260px);opacity:.09">🐾</div>
 
   <!-- Contenu centré -->
   <div style="position:relative;z-index:3;max-width:700px;margin:0 auto">
     <div data-reveal style="margin-bottom:20px">
       <span style="background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.3);border-radius:var(--r-pill);padding:6px 16px;font-family:var(--f-body);font-size:12px;font-weight:600">Édition 2 · 13 sept. 2026</span>
     </div>
-    <h1 data-reveal data-delay="1" style="font-family:var(--f-head);font-size:clamp(44px,8vw,80px);font-weight:700;margin-bottom:16px;line-height:1.0">Devenir Exposant</h1>
+    <!-- Brushstroke heading — POSTINSTA01 exact (coup de pinceau gris-bleu, texte terre) -->
+    <div data-reveal data-delay="1" style="margin-bottom:24px;display:inline-block;position:relative;transform:rotate(-1.2deg)">
+      <!-- SVG brushstroke organique en fond — s'étire en preserveAspectRatio none -->
+      <svg style="position:absolute;inset:-6px -4px;width:calc(100% + 8px);height:calc(100% + 12px);z-index:0;filter:drop-shadow(5px 6px 0px rgba(0,0,0,.22))"
+           viewBox="0 0 320 124" preserveAspectRatio="none" aria-hidden="true">
+        <path d="M16,20 C8,10 10,3 22,2 L298,1 C310,0 317,6 316,18 C318,36 315,60 317,79 C319,97 313,110 300,112 L20,115 C7,116 1,109 2,97 C1,79 4,54 3,38 Z" fill="#9fc0cb"/>
+      </svg>
+      <h1 style="position:relative;z-index:1;font-family:var(--f-head);font-size:clamp(36px,7vw,72px);font-weight:700;line-height:1.1;color:var(--terre);text-align:center;padding:20px 44px;display:inline-block">
+        DEVENIR<br/>EXPOSANT !
+      </h1>
+    </div>
     <p data-reveal data-delay="2" style="font-family:var(--f-body);font-size:clamp(16px,2.5vw,20px);opacity:.85;max-width:50ch;margin:0 auto 28px;line-height:1.65">
       Réservez votre stand au Woof Day et rencontrez des centaines d'amoureux des chiens en Charente.
     </p>
@@ -113,15 +118,16 @@ const poles = [
       <h2 data-reveal data-delay="1" style="font-size:clamp(28px,4vw,44px);color:var(--truffe)">La preuve que ça marche</h2>
     </div>
     <!-- Stats -->
-    <div data-reveal style="display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:12px;margin-bottom:32px">
+    <div data-reveal style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin-bottom:32px">
       {[
-        { val: '800', label: 'visiteurs Éd.1', bg: 'var(--truffe)', color: '#fff' },
-        { val: '1200+', label: 'objectif Éd.2', bg: 'var(--terre)', color: '#fff' },
-        { val: '30+', label: 'exposants pionniers', bg: 'var(--vert)', color: '#fff' },
+        { val: '800',  label: 'visiteurs Éd.1',       sub: 'malgré la pluie', bg: 'var(--truffe)', color: '#fff' },
+        { val: '1200+', label: 'objectif Éd.2',       sub: '13 sept. 2026',   bg: 'var(--terre)', color: '#fff' },
+        { val: '30+',  label: 'exposants pionniers',  sub: 'Éd.1 complète',   bg: 'var(--vert)', color: '#fff' },
       ].map(s => (
-        <div style={`background:${s.bg};color:${s.color};border-radius:var(--r-lg);padding:28px;text-align:center`}>
-          <div style="font-family:var(--f-head);font-size:clamp(36px,5vw,54px);font-weight:700;line-height:1">{s.val}</div>
-          <div style="font-family:var(--f-body);font-size:13px;opacity:.75;margin-top:6px;text-transform:uppercase;letter-spacing:.08em;font-weight:600">{s.label}</div>
+        <div style={`background:${s.bg};color:${s.color};border-radius:var(--r-lg);padding:28px 20px;text-align:center`}>
+          <div style="font-family:var(--f-head);font-size:clamp(40px,5.5vw,60px);font-weight:700;line-height:1">{s.val}</div>
+          <div style="font-family:var(--f-body);font-size:13px;opacity:.85;margin-top:6px;text-transform:uppercase;letter-spacing:.08em;font-weight:700">{s.label}</div>
+          <div style="font-family:var(--f-hand);font-size:12px;opacity:.6;margin-top:4px">{s.sub}</div>
         </div>
       ))}
     </div>
@@ -141,7 +147,11 @@ const poles = [
 </section>
 
 <!-- POURQUOI EXPOSER -->
-<section id="pourquoi-exposer" class="sec" style="background:var(--creme)">
+<section id="pourquoi-exposer" class="sec" style="background:var(--creme);position:relative;overflow:hidden">
+  <!-- Visuels déco — pattes + chien peeking -->
+  <div class="paw-mark-bold" style="right:-5%;bottom:-8%;transform:rotate(18deg)">🐾</div>
+  <div class="paw-mark-bold" style="left:-3%;top:10%;transform:rotate(-22deg);opacity:.16">🐾</div>
+  <img src="/images/dog-terrier-face-truffe.png" alt="" aria-hidden="true" style="position:absolute;bottom:-60px;right:-40px;width:clamp(160px,22vw,300px);opacity:.18;pointer-events:none;filter:drop-shadow(0 0 0 transparent);transform:scaleX(-1)" />
   <div class="inner">
     <div style="text-align:center;margin-bottom:clamp(28px,4vw,48px)">
       <div data-reveal style="margin-bottom:16px"><span class="chip chip-truffe">Pourquoi venir</span></div>
@@ -149,15 +159,16 @@ const poles = [
     </div>
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px">
       {[
-        { icon: '👥', titre: 'Une audience qualifiée', desc: 'Des centaines de visiteurs passionnés par les chiens et le bien-être animal. Votre cœur de cible.' },
-        { icon: '📍', titre: 'Un emplacement premium', desc: 'Stand bien situé dans les zones thématiques. Plan de village pensé pour le flux visiteurs.' },
-        { icon: '📸', titre: 'Kit media offert', desc: 'Visuels Story, Post, Affiche PDF et Bannière email fournis gratuitement pour préparer votre communication.' },
-        { icon: '❤️', titre: 'Une cause commune', desc: 'L\'événement reverse 100% des bénéfices nets au Refuge. Un argument fort auprès de votre audience.' },
+        { icon: '👥', titre: 'Une audience qualifiée', desc: 'Des centaines de visiteurs passionnés par les chiens et le bien-être animal. Votre cœur de cible.', bg: 'var(--truffe)', color: '#fff' },
+        { icon: '📍', titre: 'Un emplacement premium', desc: 'Stand bien situé dans les zones thématiques. Plan de village pensé pour le flux visiteurs.', bg: 'var(--creme-dark)', color: 'var(--truffe)' },
+        { icon: '📸', titre: 'Kit media offert', desc: 'Visuels Story, Post, Affiche PDF et Bannière email fournis gratuitement pour préparer votre communication.', bg: 'var(--terre)', color: '#fff' },
+        { icon: '❤️', titre: 'Une cause commune', desc: 'L\'événement reverse 100% des bénéfices nets au Refuge. Un argument fort auprès de votre audience.', bg: 'var(--vert)', color: '#fff' },
       ].map((a, i) => (
-        <div data-reveal data-delay={String(i + 1)} style="background:#fff;border-radius:var(--r-xl);padding:28px;border:1.5px solid var(--creme-dark)">
-          <div style="font-size:36px;margin-bottom:12px">{a.icon}</div>
-          <h3 style="font-family:var(--f-head);font-size:20px;font-weight:700;color:var(--truffe);margin-bottom:8px">{a.titre}</h3>
-          <p style="font-family:var(--f-body);font-size:14px;line-height:1.7;color:var(--truffe);opacity:.75">{a.desc}</p>
+        <div data-reveal data-delay={String(i + 1)} style={`background:${a.bg};color:${a.color};border-radius:var(--r-xl);padding:28px;position:relative;overflow:hidden`}>
+          <div style={`font-family:var(--f-head);font-size:72px;font-weight:700;opacity:.1;position:absolute;top:-8px;right:12px;line-height:1;pointer-events:none`}>{String(i+1).padStart(2,'0')}</div>
+          <div style="font-size:36px;margin-bottom:12px;position:relative;z-index:1">{a.icon}</div>
+          <h3 style="font-family:var(--f-head);font-size:20px;font-weight:700;margin-bottom:8px;position:relative;z-index:1">{a.titre}</h3>
+          <p style={`font-family:var(--f-body);font-size:14px;line-height:1.7;opacity:.85;position:relative;z-index:1`}>{a.desc}</p>
         </div>
       ))}
     </div>
@@ -165,7 +176,11 @@ const poles = [
 </section>
 
 <!-- NOUVEAUTÉS 2026 -->
-<section class="sec" style="background:var(--vert);color:#fff">
+<section class="sec" style="background:var(--vert);color:#fff;position:relative;overflow:hidden">
+  <div class="paw-mark" style="left:-4%;bottom:-5%;transform:rotate(-10deg)">🐾</div>
+  <div class="paw-mark" style="right:-3%;top:-8%;transform:rotate(25deg)">🐾</div>
+  <!-- Golden peeking depuis la gauche -->
+  <img src="/images/dog-golden-vert.png" alt="" aria-hidden="true" style="position:absolute;left:-80px;bottom:-30px;width:clamp(200px,26vw,360px);opacity:.22;pointer-events:none;transform:scaleX(-1)" />
   <div class="inner">
     <div style="text-align:center;margin-bottom:clamp(28px,4vw,48px)">
       <div data-reveal style="margin-bottom:16px"><span class="chip chip-white">Nouveautés</span></div>
@@ -219,7 +234,11 @@ const poles = [
 </section>
 
 <!-- AVANTAGES -->
-<section id="concept" class="sec" style="background:var(--creme)">
+<section id="concept" class="sec" style="background:var(--creme);position:relative;overflow:hidden">
+  <div class="paw-mark-bold" style="left:-2%;top:5%;transform:rotate(-18deg)">🐾</div>
+  <div class="paw-mark-bold" style="right:-4%;bottom:0%;transform:rotate(12deg);opacity:.2">🐾</div>
+  <!-- Dachshund face peeking top right -->
+  <img src="/images/dog-dachshund-face-bleu.png" alt="" aria-hidden="true" style="position:absolute;top:-20px;right:-30px;width:clamp(130px,18vw,220px);opacity:.2;pointer-events:none;transform:rotate(-8deg)" />
   <div class="inner">
     <div style="text-align:center;margin-bottom:clamp(28px,4vw,48px)">
       <div data-reveal style="margin-bottom:16px"><span class="chip chip-vert">Organisation</span></div>
@@ -228,10 +247,11 @@ const poles = [
     </div>
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px">
       {poles.map((p, i) => (
-        <div data-reveal data-delay={String((i % 3) + 1)} style="background:#fff;border-radius:var(--r-lg);padding:24px;border:1.5px solid var(--creme-dark)">
-          <div style="font-size:32px;margin-bottom:10px">{p.icon}</div>
-          <h3 style="font-family:var(--f-head);font-size:18px;font-weight:700;color:var(--truffe);margin-bottom:6px">{p.nom}</h3>
-          <p style="font-family:var(--f-body);font-size:13px;line-height:1.65;color:var(--truffe);opacity:.7">{p.desc}</p>
+        <div data-reveal data-delay={String((i % 3) + 1)} style={`background:${p.bg};border-radius:var(--r-lg);padding:24px;position:relative;overflow:hidden`}>
+          <div style={`font-family:var(--f-head);font-size:56px;font-weight:700;opacity:.1;position:absolute;top:-4px;right:10px;line-height:1;pointer-events:none;color:${p.color}`}>{String(i+1).padStart(2,'0')}</div>
+          <div style="font-size:32px;margin-bottom:10px;position:relative;z-index:1">{p.icon}</div>
+          <h3 style={`font-family:var(--f-head);font-size:18px;font-weight:700;color:${p.color};margin-bottom:6px;position:relative;z-index:1`}>{p.nom}</h3>
+          <p style={`font-family:var(--f-body);font-size:13px;line-height:1.65;color:${p.color};opacity:.82;position:relative;z-index:1`}>{p.desc}</p>
         </div>
       ))}
     </div>
@@ -239,7 +259,10 @@ const poles = [
 </section>
 
 <!-- LOGISTIQUE -->
-<section id="logistique" class="sec" style="background:var(--bg)">
+<section id="logistique" class="sec" style="background:var(--bg);position:relative;overflow:hidden">
+  <div class="paw-mark" style="right:-3%;top:0%;transform:rotate(20deg);opacity:.08">🐾</div>
+  <!-- Vizsla peeking bottom left -->
+  <img src="/images/dog-vizsla-debout-bleu.png" alt="" aria-hidden="true" style="position:absolute;bottom:-40px;left:-50px;width:clamp(140px,18vw,240px);opacity:.12;pointer-events:none" />
   <div class="inner">
     <div style="text-align:center;margin-bottom:clamp(28px,4vw,48px)">
       <div data-reveal style="margin-bottom:16px"><span class="chip chip-terre">Organisation</span></div>
@@ -265,16 +288,19 @@ const poles = [
       <div data-reveal data-delay="2" style="background:var(--creme);border-radius:var(--r-xl);padding:28px">
         <h3 style="font-family:var(--f-head);font-size:20px;font-weight:700;color:var(--truffe);margin-bottom:16px">📐 Formats de stand</h3>
         {[
-          ['Petit', '3 m²', 'Artisanat, asso, créateurs'],
-          ['Standard', '6 m²', 'Professionnels, services'],
-          ['Grand', '9 m²+', 'Marques, démonstrations'],
-        ].map(([nom, surface, cible]) => (
+          ['Petit',    '3 m²',  'Artisanat, asso, créateurs',  '~80–120€'],
+          ['Standard', '6 m²',  'Professionnels, services',     '~150–200€'],
+          ['Grand',    '9 m²+', 'Marques, démonstrations',      'Sur devis'],
+        ].map(([nom, surface, cible, prix]) => (
           <div style="padding:12px 0;border-bottom:1px solid var(--creme-dark)">
             <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:3px">
               <span style="font-family:var(--f-head);font-size:16px;font-weight:700;color:var(--truffe)">{nom}</span>
               <span style="font-family:var(--f-body);font-size:13px;font-weight:600;color:var(--terre)">{surface}</span>
             </div>
-            <p style="font-family:var(--f-body);font-size:12px;color:var(--truffe);opacity:.65">{cible}</p>
+            <div style="display:flex;justify-content:space-between;align-items:center">
+              <p style="font-family:var(--f-body);font-size:12px;color:var(--truffe);opacity:.65">{cible}</p>
+              <span style="font-family:var(--f-head);font-size:13px;font-weight:700;color:var(--vert)">{prix}</span>
+            </div>
           </div>
         ))}
       </div>
