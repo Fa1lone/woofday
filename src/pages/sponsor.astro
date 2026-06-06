@@ -124,35 +124,32 @@ const goodies = [
   <!-- Contenu centré -->
   <div style="position:relative;z-index:3;max-width:700px;margin:0 auto">
     <!-- Torn paper heading avec scotch — POSTINSTA03 exact -->
-    <div data-reveal data-delay="1" style="margin-bottom:28px;display:inline-block;position:relative;transform:rotate(-1.2deg)">
-      <!-- Scotch haut gauche -->
-      <div style="position:absolute;top:-13px;left:28px;width:54px;height:25px;background:rgba(255,220,40,.64);transform:rotate(-5deg);border-radius:2px;z-index:3;box-shadow:0 1px 4px rgba(0,0,0,.14)"></div>
-      <!-- Scotch haut droite -->
-      <div style="position:absolute;top:-13px;right:28px;width:54px;height:25px;background:rgba(255,220,40,.64);transform:rotate(4deg);border-radius:2px;z-index:3;box-shadow:0 1px 4px rgba(0,0,0,.14)"></div>
-      <!-- SVG torn paper — bord bas arraché, fond crème -->
-      <svg style="display:block;filter:drop-shadow(5px 7px 0px rgba(0,0,0,.22))"
-           viewBox="0 0 460 160" width="100%" preserveAspectRatio="none" aria-hidden="true">
-        <!-- Forme principale avec bord bas déchiré -->
+    <!-- Le div définit la taille, le SVG s'étire derrière via position:absolute -->
+    <div data-reveal data-delay="1" style="margin-bottom:28px;display:inline-block;position:relative;transform:rotate(-1.2deg);padding:22px 56px 44px">
+      <!-- SVG torn paper — s'adapte à la taille du texte (preserveAspectRatio none) -->
+      <svg style="position:absolute;inset:0;width:100%;height:100%;display:block;filter:drop-shadow(5px 7px 0px rgba(0,0,0,.22))"
+           viewBox="0 0 460 180" preserveAspectRatio="none" aria-hidden="true">
         <path fill="#f5f2d0" d="
-          M0,0 L460,0 L460,118
-          L449,124 L440,116 L431,126 L422,118 L413,128 L404,119
-          L395,129 L386,120 L377,130 L368,121 L359,131 L350,122
-          L341,132 L332,123 L323,133 L314,124 L305,134 L296,125
-          L287,135 L278,126 L269,136 L260,127 L251,137 L242,128
-          L233,138 L224,129 L215,139 L206,130 L197,140 L188,131
-          L179,141 L170,132 L161,142 L152,133 L143,141 L134,132
-          L125,140 L116,131 L107,139 L98,130 L89,138 L80,129
-          L71,137 L62,128 L53,136 L44,127 L35,135 L26,126
-          L17,134 L8,124 L0,130 Z
+          M0,0 L460,0 L460,138
+          L449,144 L440,136 L431,146 L422,137 L413,147 L404,138
+          L395,148 L386,139 L377,149 L368,140 L359,150 L350,141
+          L341,151 L332,142 L323,152 L314,143 L305,153 L296,144
+          L287,154 L278,145 L269,155 L260,146 L251,156 L242,147
+          L233,157 L224,148 L215,158 L206,149 L197,159 L188,150
+          L179,160 L170,151 L161,161 L152,152 L143,160 L134,151
+          L125,159 L116,150 L107,158 L98,149 L89,157 L80,148
+          L71,156 L62,147 L53,155 L44,146 L35,154 L26,145
+          L17,153 L8,143 L0,150 Z
         "/>
-        <!-- Texte positionné en SVG foreignObject -->
       </svg>
-      <!-- Heading positionné dessus -->
-      <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:24px 44px 40px">
-        <h1 style="font-family:var(--f-head);font-size:clamp(26px,5vw,52px);font-weight:700;line-height:1.15;color:var(--truffe);text-align:center">
-          CÉLÉBREZ LE CHIEN<br/>et les humains qui l'aiment.
-        </h1>
-      </div>
+      <!-- Scotch haut gauche -->
+      <div style="position:absolute;top:-13px;left:32px;width:54px;height:25px;background:rgba(255,220,40,.68);transform:rotate(-5deg);border-radius:2px;z-index:3;box-shadow:0 1px 4px rgba(0,0,0,.14)"></div>
+      <!-- Scotch haut droite -->
+      <div style="position:absolute;top:-13px;right:32px;width:54px;height:25px;background:rgba(255,220,40,.68);transform:rotate(4deg);border-radius:2px;z-index:3;box-shadow:0 1px 4px rgba(0,0,0,.14)"></div>
+      <!-- Heading -->
+      <h1 style="position:relative;z-index:1;font-family:var(--f-head);font-size:clamp(36px,7vw,72px);font-weight:700;line-height:1.05;color:var(--truffe);text-align:center;display:inline-block">
+        DEVENIR<br/>SPONSOR !
+      </h1>
     </div>
     <p data-reveal data-delay="2" style="font-family:var(--f-body);font-size:clamp(15px,2.5vw,19px);opacity:.85;max-width:52ch;margin:0 auto 28px;line-height:1.65">
       Associez votre marque à la grande fête canine de Charente. Un événement ancré, solidaire, et mémorable.
