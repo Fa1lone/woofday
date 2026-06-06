@@ -291,8 +291,8 @@ const waText = encodeURIComponent("Woof Day 2026 — Dimanche 13 sept à Ambéra
 
 <!-- ═══════════════════════════════════════════════ PROGRAMME ══ -->
 <section class="sec" style="background:var(--creme);position:relative;overflow:hidden">
-  <!-- Grande patte fond crème style PostInsta03 -->
-  <div class="paw-mark" style="left:-6%;top:-10%;color:var(--truffe);transform:rotate(-20deg)">🐾</div>
+  <!-- Grande patte fond crème style PostInsta03 — haute opacité -->
+  <div class="paw-mark-bold" style="left:-6%;top:-10%;color:var(--truffe);transform:rotate(-20deg)">🐾</div>
   <!-- Terrier assis truffe — bas droite -->
   <div class="dog-deco" style="position:absolute;bottom:0;right:-2%;width:fit-content;pointer-events:none;line-height:0;z-index:1">
     <img src="/images/dog-terrier-assis-truffe.png" alt="" aria-hidden="true"
@@ -369,11 +369,25 @@ const waText = encodeURIComponent("Woof Day 2026 — Dimanche 13 sept à Ambéra
       </div>
 
       <!-- Titre avec décos sparkle style POSTINSTA02 -->
-      <h2 data-reveal data-delay="1" style="font-size:clamp(34px,5vw,56px);margin-bottom:28px;line-height:1.1">
-        <span style="font-size:.6em;opacity:.7;margin-right:6px">→</span>
-        Qu'est-ce que<br/>le <span style="color:var(--creme)">Woof Day ?</span>
-        <span style="font-size:.6em;opacity:.7;margin-left:6px">←</span>
-      </h2>
+      <!-- Titre avec sparks POSTINSTA02 — flanquant le premier mot -->
+      <div data-reveal data-delay="1" style="margin-bottom:28px">
+        <div style="display:flex;align-items:center;gap:14px;margin-bottom:4px">
+          <!-- Sparks gauche → pointent à gauche -->
+          <div style="display:flex;gap:4px;align-items:center">
+            <svg width="14" height="20" viewBox="0 0 14 20" fill="var(--terre)"><polygon points="14,0 0,10 14,20"/></svg>
+            <svg width="14" height="20" viewBox="0 0 14 20" fill="var(--terre)" style="opacity:.6"><polygon points="14,0 0,10 14,20"/></svg>
+          </div>
+          <span style="font-family:var(--f-head);font-size:clamp(34px,5vw,56px);font-weight:700;line-height:1;color:#fff">Qu'est-ce que</span>
+          <!-- Sparks droite → pointent à droite -->
+          <div style="display:flex;gap:4px;align-items:center">
+            <svg width="14" height="20" viewBox="0 0 14 20" fill="var(--terre)" style="opacity:.6"><polygon points="0,0 14,10 0,20"/></svg>
+            <svg width="14" height="20" viewBox="0 0 14 20" fill="var(--terre)"><polygon points="0,0 14,10 0,20"/></svg>
+          </div>
+        </div>
+        <h2 style="font-size:clamp(34px,5vw,56px);line-height:1.1">
+          le <span style="color:var(--creme)">Woof Day ?</span>
+        </h2>
+      </div>
 
       <!-- Pills style POSTINSTA02 -->
       <div data-reveal data-delay="2" style="display:flex;flex-direction:column;gap:10px;margin-bottom:32px">
@@ -438,8 +452,8 @@ const waText = encodeURIComponent("Woof Day 2026 — Dimanche 13 sept à Ambéra
 
 <!-- ═══════════════════════════════════════ EXPOSANTS TEASER ══ -->
 <section id="exposants-teaser" class="sec" style="background:var(--creme);position:relative;overflow:hidden">
-  <!-- Paw watermark -->
-  <div class="paw-mark" style="left:-4%;bottom:-8%;color:var(--truffe)">🐾</div>
+  <!-- Paw watermark bold — fond crème haute opacité -->
+  <div class="paw-mark-bold" style="left:-4%;bottom:-8%;color:var(--truffe)">🐾</div>
   <div class="inner" style="position:relative;z-index:2">
     <div style="display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:16px;margin-bottom:clamp(32px,5vw,48px)">
       <div>

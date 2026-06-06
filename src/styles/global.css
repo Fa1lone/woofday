@@ -81,11 +81,12 @@ h1, h2, h3, h4 { font-family: var(--f-head); line-height: 1.1; }
   display: inline-flex; align-items: center; justify-content: center; gap: 8px;
   font-family: var(--f-head); font-weight: 600; font-size: clamp(15px, 2vw, 18px);
   padding: 14px 32px; border-radius: var(--r-pill); border: none;
-  cursor: pointer; transition: transform .2s ease, box-shadow .2s ease; white-space: nowrap;
-  text-decoration: none;
+  cursor: pointer;
+  transition: transform 200ms cubic-bezier(0.23, 1, 0.32, 1), box-shadow 200ms cubic-bezier(0.23, 1, 0.32, 1);
+  white-space: nowrap; text-decoration: none;
 }
 .btn:hover  { transform: translateY(-2px); }
-.btn:active { transform: translateY(0); }
+.btn:active { transform: scale(0.97) translateY(0); }
 .btn-terre  { background: var(--terre);  color: #fff; box-shadow: 0 6px 24px rgba(222,108,73,.35); }
 .btn-vert   { background: var(--vert);   color: #fff; box-shadow: 0 6px 24px rgba(38,66,43,.3); }
 .btn-truffe { background: var(--truffe); color: #fff; box-shadow: 0 6px 24px rgba(105,50,45,.3); }
@@ -307,6 +308,47 @@ h1, h2, h3, h4 { font-family: var(--f-head); line-height: 1.1; }
 /* ── PAW PATTERN BG ──────────────────────────────────────────────────────────── */
 .paw-pattern {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'%3E%3Ctext x='10' y='55' font-size='36' opacity='.05'%3E🐾%3C/text%3E%3C/svg%3E");
+}
+
+/* ── PAPER CARD (heading box style POSTINSTA01) ───────────────────────────────── */
+.paper-card {
+  display: inline-block;
+  background: var(--creme); color: var(--terre);
+  font-family: var(--f-head); font-weight: 700;
+  padding: 20px 36px;
+  box-shadow: 4px 6px 0px rgba(0,0,0,.18);
+  transform: rotate(-1.5deg);
+  line-height: 1.1;
+}
+
+/* ── SPARK ACCENT (style POSTINSTA02 flèches oranges) ────────────────────────── */
+.spark-accent {
+  display: inline-flex; align-items: center; gap: 8px;
+}
+.spark-accent::before {
+  content: '';
+  display: inline-block;
+  width: 0; height: 0;
+  border-style: solid;
+  border-width: 6px 10px 6px 0;
+  border-color: transparent var(--terre) transparent transparent;
+  filter: drop-shadow(2px 0 0 var(--terre));
+}
+.spark-accent::after {
+  content: '';
+  display: inline-block;
+  width: 0; height: 0;
+  border-style: solid;
+  border-width: 6px 0 6px 10px;
+  border-color: transparent transparent transparent var(--terre);
+  filter: drop-shadow(-2px 0 0 var(--terre));
+}
+
+/* ── PAW MARK SUR FOND CLAIR (opacité plus haute) ───────────────────────────── */
+.paw-mark-bold {
+  position: absolute; font-size: clamp(200px, 32vw, 450px);
+  opacity: .28; pointer-events: none; user-select: none;
+  line-height: 1; z-index: 0;
 }
 
 /* ── HIGHLIGHT MARKER ─────────────────────────────────────────────────────────── */
