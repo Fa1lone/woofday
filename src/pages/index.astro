@@ -105,7 +105,7 @@ const waText = encodeURIComponent("Woof Day 2026 — Dimanche 13 sept à Ambéra
   <a href="/exposants" class="mobile-nav-link" style="font-size:14px;opacity:.8">🏪 Devenir exposant</a>
   <a href="/sponsor" class="mobile-nav-link" style="font-size:14px;opacity:.8">🤝 Devenir sponsor</a>
   <div class="mobile-nav-sep"></div>
-  <a href="#contact" class="btn btn-terre" style="text-align:center;margin-top:4px">Je suis intéressé 🐾</a>
+  <a href="#contact" id="btn-viens-mobile" class="btn btn-terre" style="text-align:center;margin-top:4px">Je suis intéressé 🐾</a>
 </div>
 
 <!-- ═══════════════════════════════════════════════════ HERO ══ -->
@@ -937,7 +937,13 @@ const waText = encodeURIComponent("Woof Day 2026 — Dimanche 13 sept à Ambéra
   const btn = document.getElementById('btn-participe');
   const countEl = document.getElementById('interest-count');
   let voted = localStorage.getItem('wd_v') === '1';
-  if (voted) { if (btn) { btn.textContent = '✅ Je participe !'; btn.style.background = '#26422b'; } }
+  if (voted) {
+    if (btn) { btn.textContent = '✅ Je participe !'; btn.style.background = '#26422b'; }
+    const btnViens = document.getElementById('btn-viens') as HTMLAnchorElement | null;
+    if (btnViens) { btnViens.textContent = '✅ Je participe !'; }
+    const btnViensMobile = document.getElementById('btn-viens-mobile') as HTMLAnchorElement | null;
+    if (btnViensMobile) { btnViensMobile.textContent = '✅ Je participe !'; }
+  }
 
   btn?.addEventListener('click', async () => {
     if (voted) { document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' }); return; }
@@ -962,8 +968,8 @@ const waText = encodeURIComponent("Woof Day 2026 — Dimanche 13 sept à Ambéra
     } catch {}
   });
 
-  // "Je viens" nav button — also increments counter
-  document.getElementById('btn-viens')?.addEventListener('click', async () => {
+  // "Je viens" nav buttons — also increment counter
+  const incrementFromNav = async () => {
     if (voted) return;
     try {
       const res = await fetch('/api/interest', { method: 'POST' });
@@ -972,8 +978,13 @@ const waText = encodeURIComponent("Woof Day 2026 — Dimanche 13 sept à Ambéra
       localStorage.setItem('wd_v', '1');
       voted = true;
       if (btn) { btn.textContent = '✅ Je participe !'; btn.style.background = '#26422b'; }
+      const btnViensMobile = document.getElementById('btn-viens-mobile') as HTMLAnchorElement | null;
+      if (btnViensMobile) { btnViensMobile.textContent = '✅ Je participe !'; }
     } catch {}
-  });
+  };
+
+  document.getElementById('btn-viens')?.addEventListener('click', incrementFromNav);
+  document.getElementById('btn-viens-mobile')?.addEventListener('click', incrementFromNav);
 
   // Agenda dropdown
   const agendaBtn = document.getElementById('agenda-btn');
