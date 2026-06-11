@@ -177,14 +177,14 @@ const waText = encodeURIComponent("Woof Day 2026 — Dimanche 13 sept à Ambéra
 
     <!-- Date band -->
     <div data-reveal data-delay="2" style="
-      display:inline-flex; align-items:center; gap:20px; flex-wrap:wrap; justify-content:center;
-      background:rgba(0,0,0,.18); border-radius:var(--r-md); padding:14px 28px; margin-bottom:36px;
+      display:inline-flex; align-items:center; gap:14px; flex-wrap:wrap; justify-content:center;
+      background:rgba(0,0,0,.18); border-radius:var(--r-md); padding:12px 20px; margin-bottom:36px;
       font-family:var(--f-body); font-size:14px; font-weight:600; opacity:.95;
     ">
       <span id="rn-date">📅 Dimanche 13 septembre 2026</span>
-      <span style="opacity:.4">|</span>
+      <span class="date-sep" style="opacity:.4">|</span>
       <span>🕙 10h – 18h</span>
-      <span style="opacity:.4">|</span>
+      <span class="date-sep" style="opacity:.4">|</span>
       <span>📍 Ambérac, Charente (16)</span>
     </div>
 
@@ -809,7 +809,7 @@ const waText = encodeURIComponent("Woof Day 2026 — Dimanche 13 sept à Ambéra
         </p>
       </div>
 
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:40px">
+      <div class="resp-2col" style="display:grid;grid-template-columns:1fr 1fr;gap:40px">
         <div>
           <h4 style="font-family:var(--f-head);font-size:18px;font-weight:700;margin-bottom:20px">Navigation</h4>
           <nav style="display:flex;flex-direction:column;gap:12px">
@@ -987,21 +987,21 @@ const waText = encodeURIComponent("Woof Day 2026 — Dimanche 13 sept à Ambéra
   // FAQ
   document.querySelectorAll('.faq-btn').forEach(b => {
     b.addEventListener('click', () => {
-      const item = b.closest('.faq-item') as HTMLElement;
-      const body = item.querySelector('.faq-body') as HTMLElement;
-      const chev = item.querySelector('.faq-chevron') as HTMLElement;
-      const open = body.style.display !== 'none';
-      body.style.display = open ? 'none' : 'block';
-      chev.style.transform = open ? '' : 'rotate(180deg)';
-      item.style.background = open ? 'rgba(255,255,255,.08)' : 'rgba(255,255,255,.14)';
+      const item = b.closest('.faq-item');
+      const body = item?.querySelector('.faq-body');
+      const chev = item?.querySelector('.faq-chevron');
+      const open = body?.style.display !== 'none';
+      if (body) body.style.display = open ? 'none' : 'block';
+      if (chev) chev.style.transform = open ? '' : 'rotate(180deg)';
+      if (item) item.style.background = open ? 'rgba(255,255,255,.08)' : 'rgba(255,255,255,.14)';
     });
   });
 
   // Contact form
-  const form = document.getElementById('contact-form') as HTMLFormElement;
+  const form = document.getElementById('contact-form');
   form?.addEventListener('submit', async (e) => {
     e.preventDefault();
-    const submitBtn = form.querySelector('button[type=submit]') as HTMLButtonElement;
+    const submitBtn = form.querySelector('button[type=submit]');
     submitBtn.textContent = 'Envoi…'; submitBtn.disabled = true;
     try {
       const res = await fetch('/api/contact', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(Object.fromEntries(new FormData(form))) });

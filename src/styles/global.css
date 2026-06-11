@@ -316,7 +316,14 @@ h1, h2, h3, h4 { font-family: var(--f-head); line-height: 1.1; }
   .pros-grid { grid-template-columns: 1fr !important; }
   .dog-deco { display: none !important; opacity: 0; pointer-events: none; }
   .arrow-deco { display: none !important; }
-  .inner { max-width: 100%; padding-left: 0; padding-right: 0; }
+  .inner { max-width: 100%; }
+  .date-sep { display: none; }
+
+  /* Hero */
+  section#hero-cta { flex-direction: column; }
+
+  /* Footer */
+  footer .inner > div:first-child { grid-template-columns: 1fr !important; gap: 40px !important; }
 }
 @media (max-width: 480px) {
   .btn { font-size: 14px !important; padding: 12px 22px !important; }
