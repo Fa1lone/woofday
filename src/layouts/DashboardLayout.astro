@@ -27,15 +27,27 @@ const tabs = [
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
   </head>
   <body style="margin:0;background:#f8f5f0;font-family:'Poppins',sans-serif;color:#69322d">
+    <!-- Mobile top bar -->
+    <div id="dash-topbar" style="display:none;position:fixed;top:0;left:0;right:0;z-index:20;background:#69322d;color:#fff;padding:12px 16px;align-items:center;justify-content:space-between">
+      <div style="display:flex;align-items:center;gap:10px">
+        <img src="/logos/logo-chien-blanc.svg" alt="Woof Day" style="height:28px" />
+        <span style="font-family:'Fredoka',sans-serif;font-weight:700;font-size:16px">Woof Day Admin</span>
+      </div>
+      <button id="dash-menu-btn" aria-label="Menu" style="background:rgba(255,255,255,.15);border:none;border-radius:8px;padding:8px 10px;cursor:pointer;color:#fff;font-size:18px;line-height:1">☰</button>
+    </div>
+
+    <!-- Sidebar overlay on mobile -->
+    <div id="dash-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:18"></div>
+
     <!-- Sidebar -->
     <div style="display:flex;min-height:100vh">
-      <aside style="width:240px;background:#69322d;color:white;display:flex;flex-direction:column;flex-shrink:0;position:fixed;top:0;left:0;height:100vh;z-index:10">
+      <aside id="dash-sidebar" style="width:240px;background:#69322d;color:white;display:flex;flex-direction:column;flex-shrink:0;position:fixed;top:0;left:0;height:100vh;z-index:19;transition:transform .25s">
         <div style="padding:24px 20px 16px">
           <img src="/logos/logo-chien-blanc.svg" alt="Woof Day" style="height:40px;margin-bottom:12px" />
           <div style="font-family:'Fredoka',sans-serif;font-weight:700;font-size:18px">Woof Day Admin</div>
           <div style="font-size:11px;opacity:.5;margin-top:2px">13 sept. 2026 · Ambérac</div>
         </div>
-        <nav style="flex:1;padding:8px 12px">
+        <nav style="flex:1;padding:8px 12px;overflow-y:auto">
           {tabs.map(tab => (
             <a
               href={tab.href}
@@ -52,13 +64,59 @@ const tabs = [
       </aside>
 
       <!-- Main -->
-      <main style="margin-left:240px;flex:1;padding:32px;min-height:100vh">
+      <main id="dash-main" style="margin-left:240px;flex:1;padding:32px;min-height:100vh">
         <div style="margin-bottom:24px">
           <h1 style="font-family:'Fredoka',sans-serif;font-size:28px;font-weight:700;margin:0">{title}</h1>
         </div>
         <slot />
       </main>
     </div>
+
+    <script>
+      function initDashResponsive() {
+        const topbar = document.getElementById('dash-topbar');
+        const sidebar = document.getElementById('dash-sidebar');
+        const overlay = document.getElementById('dash-overlay');
+        const main = document.getElementById('dash-main');
+        const menuBtn = document.getElementById('dash-menu-btn');
+
+        function applyLayout() {
+          const isMobile = window.innerWidth < 768;
+          if (topbar) topbar.style.display = isMobile ? 'flex' : 'none';
+          if (sidebar) {
+            sidebar.style.transform = isMobile ? 'translateX(-100%)' : 'translateX(0)';
+          }
+          if (main) {
+            main.style.marginLeft = isMobile ? '0' : '240px';
+            main.style.paddingTop = isMobile ? '64px' : '32px';
+          }
+        }
+
+        function openSidebar() {
+          if (sidebar) sidebar.style.transform = 'translateX(0)';
+          if (overlay) overlay.style.display = 'block';
+        }
+
+        function closeSidebar() {
+          if (window.innerWidth < 768) {
+            if (sidebar) sidebar.style.transform = 'translateX(-100%)';
+          }
+          if (overlay) overlay.style.display = 'none';
+        }
+
+        menuBtn?.addEventListener('click', (e) => { e.stopPropagation(); openSidebar(); });
+        overlay?.addEventListener('click', closeSidebar);
+
+        applyLayout();
+        window.addEventListener('resize', applyLayout);
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initDashResponsive);
+      } else {
+        initDashResponsive();
+      }
+    </script>
   </body>
 </html>
 
