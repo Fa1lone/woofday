@@ -933,19 +933,23 @@ const waText = encodeURIComponent("Woof Day 2026 — Dimanche 13 sept à Ambéra
     requestAnimationFrame(run);
   }
 
-  // "Je participe" button
-  const btn = document.getElementById('btn-participe');
+  // Shared "Je participe" logic — hero + header (desktop + mobile)
+  const btn = document.getElementById('btn-participe') as HTMLButtonElement | null;
+  const btnViens = document.getElementById('btn-viens') as HTMLAnchorElement | null;
+  const btnViensMobile = document.getElementById('btn-viens-mobile') as HTMLAnchorElement | null;
   const countEl = document.getElementById('interest-count');
   let voted = localStorage.getItem('wd_v') === '1';
-  if (voted) {
-    if (btn) { btn.textContent = '✅ Je participe !'; btn.style.background = '#26422b'; }
-    const btnViens = document.getElementById('btn-viens') as HTMLAnchorElement | null;
-    if (btnViens) { btnViens.textContent = '✅ Je participe !'; }
-    const btnViensMobile = document.getElementById('btn-viens-mobile') as HTMLAnchorElement | null;
-    if (btnViensMobile) { btnViensMobile.textContent = '✅ Je participe !'; }
-  }
 
-  btn?.addEventListener('click', async () => {
+  const markAllVoted = () => {
+    if (btn) { btn.textContent = '✅ Je participe !'; btn.style.background = '#26422b'; }
+    if (btnViens) { btnViens.textContent = '✅ Je participe !'; }
+    if (btnViensMobile) { btnViensMobile.textContent = '✅ Je participe !'; }
+  };
+
+  if (voted) markAllVoted();
+
+  const fireParticipe = async (e?: Event) => {
+    e?.preventDefault();
     if (voted) { document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' }); return; }
     const { default: confetti } = await import('canvas-confetti');
     const colors = ['#69322d','#de6c49','#26422b','#91acda','#f3f1c7'];
@@ -958,7 +962,7 @@ const waText = encodeURIComponent("Woof Day 2026 — Dimanche 13 sept à Ambéra
       if (countEl) animCount(countEl, parseInt(countEl.textContent ?? '0'), count);
       localStorage.setItem('wd_v', '1');
       voted = true;
-      if (btn) { btn.textContent = '✅ Je participe !'; btn.style.background = '#26422b'; }
+      markAllVoted();
       const block = document.getElementById('interest-block');
       if (block) {
         block.style.transform = 'scale(1.06)';
@@ -966,25 +970,11 @@ const waText = encodeURIComponent("Woof Day 2026 — Dimanche 13 sept à Ambéra
       }
       window.showToast?.('🐾 Tu es comptabilisé·e !');
     } catch {}
-  });
-
-  // "Je viens" nav buttons — also increment counter
-  const incrementFromNav = async () => {
-    if (voted) return;
-    try {
-      const res = await fetch('/api/interest', { method: 'POST' });
-      const { count } = await res.json();
-      if (countEl) animCount(countEl, parseInt(countEl.textContent ?? '0', 10), count);
-      localStorage.setItem('wd_v', '1');
-      voted = true;
-      if (btn) { btn.textContent = '✅ Je participe !'; btn.style.background = '#26422b'; }
-      const btnViensMobile = document.getElementById('btn-viens-mobile') as HTMLAnchorElement | null;
-      if (btnViensMobile) { btnViensMobile.textContent = '✅ Je participe !'; }
-    } catch {}
   };
 
-  document.getElementById('btn-viens')?.addEventListener('click', incrementFromNav);
-  document.getElementById('btn-viens-mobile')?.addEventListener('click', incrementFromNav);
+  btn?.addEventListener('click', fireParticipe);
+  btnViens?.addEventListener('click', fireParticipe);
+  btnViensMobile?.addEventListener('click', fireParticipe);
 
   // Agenda dropdown
   const agendaBtn = document.getElementById('agenda-btn');
