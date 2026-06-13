@@ -1,0 +1,168 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout
+  title="À propos du Woof Day — L'événement canin solidaire de Charente"
+  description="Le Woof Day, c'est la grande fête canine de Charente fondée par Méline (Cynofeel). Entrée gratuite, 100% des bénéfices au Refuge de l'Angoumois. Édition 2 le 13 sept. 2026."
+  canonical="https://www.woofday.fr/a-propos"
+  schema={{
+    "@context": "https://schema.org",
+    "@type": "AboutPage",
+    "name": "À propos du Woof Day",
+    "url": "https://www.woofday.fr/a-propos",
+    "mainEntity": {
+      "@type": "Organization",
+      "name": "Woof Day",
+      "foundingDate": "2025",
+      "url": "https://www.woofday.fr",
+      "logo": "https://www.woofday.fr/logos/logo-couleur.svg",
+      "sameAs": ["https://www.instagram.com/woofday_charente"],
+      "founder": {
+        "@type": "Person",
+        "name": "Méline",
+        "jobTitle": "Cynologue comportementaliste",
+        "url": "https://cyno-feel.fr"
+      },
+      "location": {
+        "@type": "Place",
+        "name": "Ambérac",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Ambérac",
+          "postalCode": "16140",
+          "addressRegion": "Charente",
+          "addressCountry": "FR"
+        }
+      }
+    }
+  }}
+>
+
+<!-- NAV -->
+<nav style="
+  position:fixed;top:16px;left:50%;translate:-50% 0;z-index:100;
+  width:min(calc(100% - 32px),1100px);
+  background:rgba(243,241,199,.92);backdrop-filter:blur(12px);
+  border:1.5px solid #e8e5a8;border-radius:9999px;
+  padding:10px 20px;display:flex;align-items:center;justify-content:space-between;
+">
+  <a href="/" style="display:flex;align-items:center;gap:10px;text-decoration:none">
+    <img src="/logos/tete-chien.svg" alt="" style="height:32px;width:32px;object-fit:contain"/>
+    <span style="font-family:var(--f-head);font-weight:700;font-size:18px;color:var(--truffe)">Woof Day</span>
+  </a>
+  <a href="/" style="font-family:var(--f-body);font-size:13px;font-weight:600;color:var(--truffe);text-decoration:none;opacity:.7">← Retour à l'accueil</a>
+</nav>
+
+<!-- HERO -->
+<section style="min-height:60svh;background:var(--vert);color:#fff;display:flex;align-items:center;padding:120px clamp(20px,5vw,40px) 80px;position:relative;overflow:hidden">
+  <div style="position:absolute;right:-5%;bottom:-10%;font-size:clamp(180px,28vw,380px);opacity:.07;line-height:1;pointer-events:none">🐾</div>
+  <div style="max-width:800px;position:relative;z-index:2">
+    <span style="background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);border-radius:9999px;padding:6px 16px;font-family:var(--f-body);font-size:12px;font-weight:700;letter-spacing:.08em;display:inline-block;margin-bottom:20px">L'ÉVÉNEMENT</span>
+    <h1 style="font-family:var(--f-head);font-size:clamp(40px,7vw,80px);font-weight:700;line-height:1.05;margin-bottom:20px">
+      À propos<br/>du Woof Day
+    </h1>
+    <p style="font-family:var(--f-body);font-size:clamp(16px,2.5vw,20px);line-height:1.7;opacity:.85;max-width:60ch">
+      Une fête canine née d'une passion locale, portée par une association, au service d'une vraie cause.
+    </p>
+  </div>
+</section>
+
+<!-- L'HISTOIRE -->
+<section style="background:var(--bg);padding:clamp(64px,10vw,120px) clamp(20px,5vw,40px)">
+  <div style="max-width:1100px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:clamp(40px,6vw,80px);align-items:center">
+    <div>
+      <span style="background:var(--terre);color:#fff;border-radius:9999px;padding:5px 14px;font-family:var(--f-body);font-size:11px;font-weight:700;letter-spacing:.1em;display:inline-block;margin-bottom:20px">ORIGINE</span>
+      <h2 style="font-family:var(--f-head);font-size:clamp(32px,5vw,52px);color:var(--truffe);margin-bottom:20px">Un événement né d'une conviction</h2>
+      <p style="font-family:var(--f-body);font-size:16px;line-height:1.85;color:var(--truffe);opacity:.8;margin-bottom:16px">
+        Le Woof Day est né d'un constat simple : en Charente, il n'existait pas d'événement grand public dédié au chien, à son bien-être et à l'éducation positive. Un rendez-vous accessible à tous — avec ou sans chien — qui permette à la fois de se retrouver, de découvrir des professionnels passionnés, et de soutenir une vraie cause.
+      </p>
+      <p style="font-family:var(--f-body);font-size:16px;line-height:1.85;color:var(--truffe);opacity:.8">
+        La première édition a réuni <strong>près de 800 visiteurs</strong> à Ambérac, malgré une météo capricieuse. La preuve que l'idée répondait à un vrai besoin local.
+      </p>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+      {[
+        { val: '800', label: 'visiteurs Éd. 1', sub: 'malgré la pluie', bg: 'var(--truffe)', color: '#fff' },
+        { val: '30+', label: 'exposants', sub: 'Éd. 1 complète', bg: 'var(--terre)', color: '#fff' },
+        { val: '100%', label: 'bénéfices nets', sub: 'au Refuge', bg: 'var(--vert)', color: '#fff' },
+        { val: 'Éd. 2', label: '13 sept. 2026', sub: 'Ambérac (16)', bg: 'var(--creme)', color: 'var(--truffe)' },
+      ].map((s: any) => (
+        <div style={`background:${s.bg};color:${s.color};border-radius:20px;padding:28px 20px;text-align:center`}>
+          <div style="font-family:var(--f-head);font-size:clamp(32px,5vw,48px);font-weight:700;line-height:1">{s.val}</div>
+          <div style="font-family:var(--f-body);font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;opacity:.85;margin-top:6px">{s.label}</div>
+          <div style="font-family:var(--f-body);font-size:11px;opacity:.6;margin-top:3px">{s.sub}</div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- MÉLINE -->
+<section style="background:var(--creme);padding:clamp(64px,10vw,120px) clamp(20px,5vw,40px)">
+  <div style="max-width:1100px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:clamp(40px,6vw,80px);align-items:center">
+    <div style="border-radius:28px;overflow:hidden;aspect-ratio:3/4;max-width:400px">
+      <img src="/images/meline-ulysse-refuge.webp" alt="Méline avec Ulysse, chien du Refuge de l'Angoumois"
+        style="width:100%;height:100%;object-fit:cover"/>
+    </div>
+    <div>
+      <span style="background:var(--vert);color:#fff;border-radius:9999px;padding:5px 14px;font-family:var(--f-body);font-size:11px;font-weight:700;letter-spacing:.1em;display:inline-block;margin-bottom:20px">LA FONDATRICE</span>
+      <h2 style="font-family:var(--f-head);font-size:clamp(28px,4vw,44px);color:var(--truffe);margin-bottom:16px">Méline,<br/>cynologue en Charente</h2>
+      <p style="font-family:var(--f-body);font-size:15px;line-height:1.85;color:var(--truffe);opacity:.8;margin-bottom:16px">
+        Méline est cynologue comportementaliste basée près d'Angoulême. Fondatrice de <a href="https://cyno-feel.fr" target="_blank" rel="noopener" style="color:var(--terre);font-weight:700;text-decoration:underline;text-underline-offset:3px">Cyno'Feel</a>, elle intervient à domicile pour accompagner les chiens sensibles, adoptés ou débordés, et leurs humains.
+      </p>
+      <p style="font-family:var(--f-body);font-size:15px;line-height:1.85;color:var(--truffe);opacity:.8;margin-bottom:24px">
+        Bénévole au Refuge de l'Angoumois, elle a créé le Woof Day pour tisser des liens entre professionnels du monde canin, passionnés et grande cause locale — dans une ambiance positive, accessible à tous.
+      </p>
+      <div style="display:flex;flex-direction:column;gap:8px">
+        {[
+          'ACACED — Attestation de connaissances (Vox Animae)',
+          'PECCRAM — Prévention des morsures',
+          'Mantrailing — Harmonie Canine',
+          'Réactivité canine — Cynotopia',
+          'Cynologie comportementale — Cynopsy',
+        ].map((c: string) => (
+          <div style="display:flex;align-items:center;gap:10px;font-family:var(--f-body);font-size:13px;color:var(--truffe)">
+            <span style="width:20px;height:20px;background:var(--vert);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:11px;color:#fff;flex-shrink:0">✓</span>
+            {c}
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LA CAUSE -->
+<section style="background:var(--vert);color:#fff;padding:clamp(64px,10vw,120px) clamp(20px,5vw,40px)">
+  <div style="max-width:900px;margin:0 auto;text-align:center">
+    <span style="background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);border-radius:9999px;padding:5px 16px;font-family:var(--f-body);font-size:11px;font-weight:700;letter-spacing:.1em;display:inline-block;margin-bottom:24px">NOTRE ENGAGEMENT</span>
+    <h2 style="font-family:var(--f-head);font-size:clamp(32px,5vw,56px);margin-bottom:20px">100% des bénéfices<br/>au Refuge de l'Angoumois</h2>
+    <p style="font-family:var(--f-body);font-size:17px;line-height:1.8;opacity:.85;max-width:60ch;margin:0 auto 40px">
+      Ce n'est pas une posture. La totalité des bénéfices nets de l'événement — entrées, tombola, buvette — est reversée au Refuge de l'Angoumois (SPA de Mornac, Charente). Des dizaines de chiens y attendent leur famille chaque année.
+    </p>
+    <div style="display:flex;flex-wrap:wrap;gap:16px;justify-content:center">
+      <a href="/" style="background:#fff;color:var(--vert);font-family:var(--f-head);font-size:16px;font-weight:700;padding:14px 28px;border-radius:9999px;text-decoration:none">
+        Voir l'événement →
+      </a>
+      <a href="/exposants" style="background:rgba(255,255,255,.15);color:#fff;border:2px solid rgba(255,255,255,.4);font-family:var(--f-head);font-size:16px;font-weight:600;padding:14px 28px;border-radius:9999px;text-decoration:none">
+        Devenir exposant
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer style="background:var(--truffe);color:#fff;padding:clamp(32px,5vw,48px) clamp(20px,5vw,40px);text-align:center">
+  <div style="display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap">
+    <img src="/logos/tete-chien.svg" alt="" style="height:36px;filter:brightness(0) invert(1);opacity:.8"/>
+    <a href="/" style="font-family:var(--f-body);font-size:13px;color:rgba(255,255,255,.6);text-decoration:none">← Woof Day 2026</a>
+    <span style="opacity:.3">·</span>
+    <a href="/blog" style="font-family:var(--f-body);font-size:13px;color:rgba(255,255,255,.6);text-decoration:none">Blog</a>
+    <span style="opacity:.3">·</span>
+    <a href="/exposants" style="font-family:var(--f-body);font-size:13px;color:rgba(255,255,255,.6);text-decoration:none">Exposants</a>
+    <span style="opacity:.3">·</span>
+    <a href="/sponsor" style="font-family:var(--f-body);font-size:13px;color:rgba(255,255,255,.6);text-decoration:none">Sponsors</a>
+  </div>
+</footer>
+
+</Layout>

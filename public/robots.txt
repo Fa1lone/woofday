@@ -1,5 +1,6 @@
 User-agent: *
 Disallow: /dashboard/
 Disallow: /api/
+Disallow: /woofday-2026.ics
 
-Sitemap: https://woofday.fr/sitemap.xml
+Sitemap: https://www.woofday.fr/sitemap.xml
