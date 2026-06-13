@@ -57,43 +57,44 @@ Cluster Refuge :
 ## Audit SEO — 2026-06-13 (score actuel : 42/100 → cible : 100)
 
 ### Technique SEO
-- [ ] Ajouter `<link rel="canonical">` sur les 7 pages sans canonical
-- [ ] Corriger le sitemap : les 3 URLs (`/`, `/exposants`, `/sponsor`) redirigent → remplacer par `www.woofday.fr/...`
-- [ ] Corriger les 4 redirections sur les pages auditées (répondre directement sur l'URL canonique)
-- [ ] Corriger le lien interne `/dashboard` → pointer directement sur `/dashboard/login`
-- [ ] Ajouter `noindex` sur `/dashboard/login` (page auth)
-- [ ] Ajouter `noindex` sur `/woofday-2026.ics` (fichier calendrier, non HTML)
-- [ ] Créer une page 404 personnalisée avec lien retour accueil
+- [x] Ajouter `<link rel="canonical">` sur les 7 pages sans canonical *(Layout.astro — auto sur toutes les pages)*
+- [x] Corriger le sitemap : URLs sans www → `www.woofday.fr`, `/blog` ajouté
+- [ ] Corriger les 4 redirections sur les pages auditées → à régler côté hébergement/DNS (www → non-www)
+- [x] Corriger le lien interne `/dashboard` → `/dashboard/login`
+- [x] Ajouter `noindex` sur `/dashboard/login` (page auth)
+- [ ] Ajouter `noindex` sur `/woofday-2026.ics` (fichier calendrier, non HTML) → à faire via robots.txt ou header
+- [x] Créer une page 404 personnalisée avec liens retour accueil, blog, exposants
 
 ### Sécurité — headers HTTP manquants
-- [ ] Ajouter `Content-Security-Policy`
-- [ ] Ajouter `X-Content-Type-Options: nosniff`
-- [ ] Ajouter `Referrer-Policy: strict-origin-when-cross-origin`
-- [ ] Ajouter `Permissions-Policy`
-- [ ] Ajouter `X-Frame-Options: SAMEORIGIN`
-- [ ] Renforcer HSTS : ajouter `includeSubDomains`
-- [ ] Publier un enregistrement DMARC dans le DNS (SPF ok, DMARC manquant)
-- [ ] Créer `/.well-known/security.txt`
+- [x] Ajouter `Content-Security-Policy` *(vercel.json)*
+- [x] Ajouter `X-Content-Type-Options: nosniff` *(vercel.json)*
+- [x] Ajouter `Referrer-Policy: strict-origin-when-cross-origin` *(vercel.json)*
+- [x] Ajouter `Permissions-Policy` *(vercel.json)*
+- [x] Ajouter `X-Frame-Options: SAMEORIGIN` *(vercel.json)*
+- [x] Renforcer HSTS : `includeSubDomains` ajouté *(vercel.json)*
+- [ ] Publier un enregistrement DMARC dans le DNS *(à faire côté OVH DNS)*
+- [x] Créer `/.well-known/security.txt`
 
 ### Contenu & On-Page
-- [ ] Écrire les meta descriptions manquantes (2 pages sans meta dont `/dashboard/login`)
-- [ ] Retravailler les meta descriptions trop courtes/longues sur 7 pages (cible 140–160 car.)
-- [ ] Retravailler les titles sur 9 pages (cible 50–60 car. avec mot-clé)
-- [ ] Enrichir `/blog` : 412 mots seulement, H2 insuffisants
-- [ ] Différencier les structures `/exposants` et `/sponsor` (templates trop proches → cannibalisation)
+- [x] Écrire les meta descriptions manquantes *(toutes les pages ont maintenant une meta)*
+- [x] Retravailler les meta descriptions sur les pages clés (/, /exposants, /sponsor, /blog)
+- [x] Retravailler les titles sur les pages clés (50–60 car. avec mot-clé)
+- [ ] Enrichir `/blog` : 412 mots seulement, H2 insuffisants *(contenu éditorial à écrire)*
+- [ ] Différencier les structures `/exposants` et `/sponsor` *(refonte contenu)*
 - [ ] Ajouter des H2 sur les 2 pages qui en sont dépourvues
 - [ ] Remplacer les photos Unsplash par des photos originales de l'événement
 
 ### Données structurées (Schema.org)
-- [ ] Ajouter JSON-LD `Event` sur la homepage (date 13 sept, lieu Ambérac, entrée gratuite)
-- [ ] Ajouter JSON-LD `LocalBusiness` / `Organization` (nom, adresse, tél, zone Charente)
-- [ ] Ajouter JSON-LD `FAQPage` sur `/exposants` et `/sponsor`
+- [x] Ajouter JSON-LD `Event` sur la homepage
+- [x] Ajouter JSON-LD `Organization` (nom, url, logo, Instagram)
+- [x] Ajouter JSON-LD `FAQPage` sur `/` (5 questions), `/exposants` (4 questions), `/sponsor` (2 questions)
 
 ### Open Graph / Social
-- [ ] Ajouter `og:image` sur les 9 pages (aucune n'en a)
-- [ ] Ajouter `og:description` sur les 2 pages manquantes
-- [ ] Ajouter `og:title` sur les 2 pages manquantes
-- [ ] Ajouter `twitter:card` sur les 9 pages
+- [x] Ajouter `og:image` sur toutes les pages *(Layout.astro — constante OG_IMAGE)*
+- [x] Ajouter `og:description` sur toutes les pages *(Layout.astro)*
+- [x] Ajouter `og:title` sur toutes les pages *(Layout.astro)*
+- [x] Ajouter `twitter:card` sur toutes les pages *(Layout.astro)*
+- [ ] Créer l'image OG réelle `/images/og-woofday.jpg` (1200×630px)
 
 ### Performance / Images
 - [ ] Optimiser les PNG lourds en WebP (dog-vizsla-debout-bleu.png = 2,7 Mo, dog-border-collie-sit-orange.png = 2,4 Mo, dog-border-collie-portrait-terre.png = 1,8 Mo, dog-terrier-assis-truffe.png = 1,6 Mo, dog-golden-assis2-vert.png = 1,4 Mo…)
@@ -101,9 +102,10 @@ Cluster Refuge :
 - [ ] Améliorer le LCP mobile : actuellement 3 139 ms → cible < 2 500 ms
 
 ### Maillage interne & Conversion
-- [ ] Mailler `/dashboard/login` (actuellement orpheline)
+- [x] Corriger le lien interne `/dashboard` → `/dashboard/login`
+- [ ] Mailler `/dashboard/login` avec d'autres pages *(noindex ajouté — moins prioritaire)*
 - [ ] Ajouter des CTA visibles (0 CTA de conversion détecté sur le site)
-- [ ] Ajouter un lien Google Maps / itinéraire vers Ambérac
+- [ ] Ajouter un lien Google Maps / itinéraire vers Ambérac *(déjà une iframe Maps en section infos — vérifier si un lien texte suffit)*
 - [ ] Ajouter un lien vers la fiche Google Business Profile
 
 ### E-E-A-T & Entité de marque
@@ -113,7 +115,7 @@ Cluster Refuge :
 - [ ] Ajouter des données propriétaires : nb exposants, visiteurs, superficie…
 
 ### LLMO (IA)
-- [ ] Corriger `llms.txt` : 0 URL citée alors que les sections sont présentes → ajouter les URLs des pages clés
+- [x] Corriger `llms.txt` : URLs complètes `https://www.woofday.fr/...` ajoutées (4 pages citées)
 
 ---
 
