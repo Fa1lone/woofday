@@ -103,7 +103,7 @@ Les chiens qui en bénéficient le plus sont souvent ceux qu'on décrit comme "d
 - Chiens **réactifs en promenade** — le nez au sol les éloigne des triggers visuels
 - Chiens **âgés ou blessés** — faible sollicitation physique, stimulation mentale intense
 
-Pour approfondir comment le mentrailing aide les chiens anxieux, lisez notre article [Chien anxieux : 7 activités pour le calmer](/blog/chien-anxieux-activites).
+Pour approfondir comment le mentrailing aide les chiens anxieux, lisez notre article [Chien anxieux : 7 activités pour le calmer](/blog/chien-anxieux-activites). Et si votre chien est réactif en laisse, [mon-chien-reactif.fr](https://www.mon-chien-reactif.fr) propose des guides détaillés sur les protocoles de désensibilisation.
 
 ---
 

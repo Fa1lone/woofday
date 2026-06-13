@@ -177,6 +177,7 @@ Les activités ci-dessus sont efficaces pour **prévenir et réduire** l'anxiét
 En Charente, [Méline de Cynofeel](https://cyno-feel.fr) est disponible pour des bilans comportementaux, des suivis, et des programmes personnalisés.
 
 👉 Lire : [Trouver un éducateur canin ou comportementaliste en Charente](/blog/educateur-canin-charente)
+👉 Pour aller plus loin sur la réactivité : [mon-chien-reactif.fr](https://www.mon-chien-reactif.fr) — guides pratiques sur la désensibilisation et les protocoles comportementaux
 
 ---
 
