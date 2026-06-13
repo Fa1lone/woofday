@@ -3,12 +3,18 @@ interface Props {
   title?: string;
   description?: string;
   schema?: object | object[];
+  noindex?: boolean;
+  canonical?: string;
 }
 const {
-  title = 'Woof Day — La grande fête canine de Charente',
-  description = 'Dimanche 13 septembre 2026 à Ambérac. Entrée gratuite, 50+ exposants, animations, tombola. Au profit du Refuge de l\'Angoumois.',
+  title = 'Woof Day 2026 — Fête canine gratuite à Ambérac, Charente (13 sept.)',
+  description = 'La grande fête canine de Charente : 13 septembre 2026 à Ambérac. Entrée gratuite, 50+ exposants, animations, tombola. Au profit du Refuge de l\'Angoumois.',
   schema,
+  noindex = false,
+  canonical = Astro.url.href.split('?')[0],
 } = Astro.props;
+
+const OG_IMAGE = 'https://www.woofday.fr/images/og-woofday.svg';
 ---
 
 <!doctype html>
@@ -18,9 +24,18 @@ const {
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{title}</title>
     <meta name="description" content={description} />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
+    <link rel="canonical" href={canonical} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={OG_IMAGE} />
+    <meta property="og:locale" content="fr_FR" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={OG_IMAGE} />
     <link rel="icon" type="image/svg+xml" href="/logos/tete-chien.svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />

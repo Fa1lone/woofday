@@ -13,7 +13,23 @@ const poles = [
 ];
 ---
 
-<Layout title="Devenir Exposant — Woof Day 2026" description="Rejoignez le Woof Day comme exposant le 13 septembre 2026 à Ambérac. Réservez votre stand pour l'édition 2.">
+<Layout
+  title="Devenir exposant au Woof Day 2026 — Stand canin à Ambérac (Charente)"
+  description="Réservez votre stand au Woof Day 2026 : 13 sept. à Ambérac. Audience passionnée, kit média offert, 6 pôles thématiques. Réponse sous 72h. Places limitées."
+  canonical="https://www.woofday.fr/exposants"
+  schema={[
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        { "@type": "Question", "name": "Comment se fait la sélection des exposants ?", "acceptedAnswer": { "@type": "Answer", "text": "Nous privilégions les acteurs locaux et les activités 100% compatibles avec l'éducation positive. Nous veillons également à ne pas avoir trop de doublons sur un même pôle." } },
+        { "@type": "Question", "name": "Pourquoi le barnum est obligatoire ?", "acceptedAnswer": { "@type": "Answer", "text": "Pour l'unité visuelle du village et vous protéger (soleil ou pluie). Si vous n'en avez pas, nous proposons une option location." } },
+        { "@type": "Question", "name": "Quand le tarif de mon emplacement sera-t-il confirmé ?", "acceptedAnswer": { "@type": "Answer", "text": "Sous 72h après votre candidature, nous vous envoyons le devis correspondant à votre profil et format de stand." } },
+        { "@type": "Question", "name": "L'événement est-il vraiment gratuit pour les visiteurs ?", "acceptedAnswer": { "@type": "Answer", "text": "Oui ! C'est un choix fort pour maximiser l'affluence. L'événement vit grâce aux exposants, sponsors et à la buvette/tombola." } }
+      ]
+    }
+  ]}
+>
 
 <!-- NAV -->
 <nav style="
@@ -113,7 +129,7 @@ const poles = [
 
   <!-- Border collie face terre — fond orange, centré bas -->
   <div class="dog-deco" style="position:absolute;bottom:clamp(-230px,-18vw,-150px);right:clamp(-170px,-8vw,-70px);width:fit-content;pointer-events:none;line-height:0;z-index:1">
-    <img src="/images/dog-border-collie-sit-orange.png" alt="" aria-hidden="true"
+    <img src="/images/dog-border-collie-sit-orange.webp" alt="" aria-hidden="true"
       style="width:clamp(230px,29vw,410px);display:block;filter:drop-shadow(0 -12px 40px rgba(0,0,0,.3));" />
   </div>
 
@@ -172,7 +188,7 @@ const poles = [
   <!-- Visuels déco — pattes + chien peeking -->
   <div class="paw-mark-bold" style="right:-5%;bottom:-8%;transform:rotate(18deg)">🐾</div>
   <div class="paw-mark-bold" style="left:-3%;top:10%;transform:rotate(-22deg);opacity:.16">🐾</div>
-  <img src="/images/dog-terrier-face-truffe.png" alt="" aria-hidden="true" style="position:absolute;bottom:-60px;right:-40px;width:clamp(160px,22vw,300px);opacity:.18;pointer-events:none;filter:drop-shadow(0 0 0 transparent);transform:scaleX(-1)" />
+  <img src="/images/dog-terrier-face-truffe.webp" alt="" aria-hidden="true" style="position:absolute;bottom:-60px;right:-40px;width:clamp(160px,22vw,300px);opacity:.18;pointer-events:none;filter:drop-shadow(0 0 0 transparent);transform:scaleX(-1)" />
   <div class="inner">
     <div style="text-align:center;margin-bottom:clamp(28px,4vw,48px)">
       <div data-reveal style="margin-bottom:16px"><span class="chip chip-truffe">Pourquoi venir</span></div>
@@ -201,7 +217,7 @@ const poles = [
   <div class="paw-mark" style="left:-4%;bottom:-5%;transform:rotate(-10deg)">🐾</div>
   <div class="paw-mark" style="right:-3%;top:-8%;transform:rotate(25deg)">🐾</div>
   <!-- Golden peeking depuis la gauche -->
-  <img src="/images/dog-golden-vert.png" alt="" aria-hidden="true" style="position:absolute;left:-80px;bottom:-30px;width:clamp(200px,26vw,360px);opacity:.22;pointer-events:none;transform:scaleX(-1)" />
+  <img src="/images/dog-golden-vert.webp" alt="" aria-hidden="true" style="position:absolute;left:-80px;bottom:-30px;width:clamp(200px,26vw,360px);opacity:.22;pointer-events:none;transform:scaleX(-1)" />
   <div class="inner">
     <div style="text-align:center;margin-bottom:clamp(28px,4vw,48px)">
       <div data-reveal style="margin-bottom:16px"><span class="chip chip-white">Nouveautés</span></div>
@@ -259,7 +275,7 @@ const poles = [
   <div class="paw-mark-bold" style="left:-2%;top:5%;transform:rotate(-18deg)">🐾</div>
   <div class="paw-mark-bold" style="right:-4%;bottom:0%;transform:rotate(12deg);opacity:.2">🐾</div>
   <!-- Dachshund face peeking top right -->
-  <img src="/images/dog-dachshund-face-bleu.png" alt="" aria-hidden="true" style="position:absolute;top:-20px;right:-30px;width:clamp(130px,18vw,220px);opacity:.2;pointer-events:none;transform:rotate(-8deg)" />
+  <img src="/images/dog-dachshund-face-bleu.webp" alt="" aria-hidden="true" style="position:absolute;top:-20px;right:-30px;width:clamp(130px,18vw,220px);opacity:.2;pointer-events:none;transform:rotate(-8deg)" />
   <div class="inner">
     <div style="text-align:center;margin-bottom:clamp(28px,4vw,48px)">
       <div data-reveal style="margin-bottom:16px"><span class="chip chip-vert">Organisation</span></div>
@@ -283,7 +299,7 @@ const poles = [
 <section id="logistique" class="sec" style="background:var(--bg);position:relative;overflow:hidden">
   <div class="paw-mark" style="right:-3%;top:0%;transform:rotate(20deg);opacity:.08">🐾</div>
   <!-- Vizsla peeking bottom left -->
-  <img src="/images/dog-vizsla-debout-bleu.png" alt="" aria-hidden="true" style="position:absolute;bottom:-40px;left:-50px;width:clamp(140px,18vw,240px);opacity:.12;pointer-events:none" />
+  <img src="/images/dog-vizsla-debout-bleu.webp" alt="" aria-hidden="true" style="position:absolute;bottom:-40px;left:-50px;width:clamp(140px,18vw,240px);opacity:.12;pointer-events:none" />
   <div class="inner">
     <div style="text-align:center;margin-bottom:clamp(28px,4vw,48px)">
       <div data-reveal style="margin-bottom:16px"><span class="chip chip-terre">Organisation</span></div>

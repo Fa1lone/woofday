@@ -15,7 +15,7 @@ function formatDate(d: Date) {
   return d.toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
 }
 
-const siteUrl = 'https://woofday.fr';
+const siteUrl = 'https://www.woofday.fr';
 const pageUrl = `${siteUrl}/blog/${post.id}`;
 const isAuthorMeline = post.data.author.toLowerCase().includes('méline') || post.data.author.toLowerCase().includes('meline') || post.data.author.toLowerCase().includes('cynofeel');
 
@@ -65,7 +65,7 @@ if (post.data.faq && post.data.faq.length > 0) {
   });
 }
 ---
-<Layout title={`${post.data.title} — Blog Woof Day`} description={post.data.description} schema={schemas}>
+<Layout title={`${post.data.title} — Blog Woof Day`} description={post.data.description} canonical={pageUrl} schema={schemas}>
   <nav id="nav" style="
     position:fixed;top:16px;left:50%;translate:-50% 0;
     z-index:100;width:min(calc(100% - 32px),1100px);

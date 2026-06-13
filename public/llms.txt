@@ -11,9 +11,10 @@ Informations clés :
 
 ## Pages clés
 
-- / : Accueil de l'événement, présentation, programme, village des exposants et FAQ.
-- /exposants : Page dédiée aux professionnels souhaitant réserver un stand ou une zone d'activité au Woof Day.
-- /sponsor : Page dédiée aux entreprises souhaitant soutenir l'événement et gagner en visibilité auprès de la communauté canine.
+- https://www.woofday.fr/ : Accueil de l'événement, présentation, programme, village des exposants et FAQ.
+- https://www.woofday.fr/blog : Blog et actualités — conseils chiens, mentrailing, vie en Charente.
+- https://www.woofday.fr/exposants : Page dédiée aux professionnels souhaitant réserver un stand ou une zone d'activité au Woof Day.
+- https://www.woofday.fr/sponsor : Page dédiée aux entreprises souhaitant soutenir l'événement et gagner en visibilité auprès de la communauté canine.
 
 ## Village des exposants (Pôles)
 

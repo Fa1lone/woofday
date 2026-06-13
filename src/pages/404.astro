@@ -1,0 +1,29 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout
+  title="Page introuvable — Woof Day 2026"
+  description="La page que vous cherchez n'existe pas. Revenez à l'accueil du Woof Day."
+  noindex={true}
+>
+<div style="min-height:100vh;background:var(--terre);color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:40px 20px;font-family:var(--f-body)">
+  <div style="font-size:clamp(80px,18vw,160px);line-height:1;margin-bottom:16px">🐾</div>
+  <h1 style="font-family:var(--f-head);font-size:clamp(32px,6vw,64px);font-weight:700;margin-bottom:12px">Page introuvable</h1>
+  <p style="font-size:clamp(15px,2.5vw,20px);opacity:.8;max-width:44ch;margin:0 auto 36px;line-height:1.7">
+    Cette page n'existe pas ou a été déplacée.<br />
+    Retournez à l'accueil pour retrouver le Woof Day 2026.
+  </p>
+  <div style="display:flex;flex-wrap:wrap;gap:12px;justify-content:center">
+    <a href="/" style="background:#fff;color:var(--terre);font-family:var(--f-head);font-size:16px;font-weight:700;padding:14px 28px;border-radius:9999px;text-decoration:none">
+      ← Retour à l'accueil
+    </a>
+    <a href="/blog" style="background:rgba(255,255,255,.15);color:#fff;border:2px solid rgba(255,255,255,.4);font-family:var(--f-head);font-size:16px;font-weight:600;padding:14px 28px;border-radius:9999px;text-decoration:none">
+      Le blog
+    </a>
+    <a href="/exposants" style="background:rgba(255,255,255,.15);color:#fff;border:2px solid rgba(255,255,255,.4);font-family:var(--f-head);font-size:16px;font-weight:600;padding:14px 28px;border-radius:9999px;text-decoration:none">
+      Devenir exposant
+    </a>
+  </div>
+</div>
+</Layout>

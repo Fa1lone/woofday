@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <!-- Background terre -->
+  <rect width="1200" height="630" fill="#de6c49"/>
+
+  <!-- Paw watermarks -->
+  <text x="-40" y="200" font-size="320" opacity="0.10" fill="#69322d" font-family="sans-serif">🐾</text>
+  <text x="900" y="620" font-size="280" opacity="0.10" fill="#69322d" font-family="sans-serif">🐾</text>
+
+  <!-- Bottom slant decoration -->
+  <polygon points="0,630 1200,530 1200,630" fill="#69322d" opacity="0.2"/>
+
+  <!-- Main content block -->
+  <g transform="translate(100, 0)">
+    <!-- Badge -->
+    <rect x="0" y="80" width="220" height="40" rx="20" fill="rgba(255,255,255,0.2)"/>
+    <text x="110" y="106" text-anchor="middle" font-family="sans-serif" font-size="15" font-weight="700" fill="white" letter-spacing="1">DIMANCHE 13 SEPT. 2026</text>
+
+    <!-- Title -->
+    <text x="0" y="200" font-family="sans-serif" font-size="96" font-weight="900" fill="white" letter-spacing="-2">WOOF DAY</text>
+    <text x="0" y="270" font-family="sans-serif" font-size="96" font-weight="900" fill="rgba(255,255,255,0.85)" letter-spacing="-2">2026</text>
+
+    <!-- Subtitle -->
+    <text x="0" y="340" font-family="sans-serif" font-size="30" fill="rgba(255,255,255,0.75)">La grande fête canine de Charente</text>
+
+    <!-- Pills row -->
+    <rect x="0" y="375" width="190" height="44" rx="22" fill="rgba(255,255,255,0.15)"/>
+    <text x="95" y="403" text-anchor="middle" font-family="sans-serif" font-size="17" font-weight="600" fill="white">✓ Entrée gratuite</text>
+
+    <rect x="206" y="375" width="160" height="44" rx="22" fill="rgba(255,255,255,0.15)"/>
+    <text x="286" y="403" text-anchor="middle" font-family="sans-serif" font-size="17" font-weight="600" fill="white">🐕 50+ stands</text>
+
+    <rect x="382" y="375" width="220" height="44" rx="22" fill="rgba(255,255,255,0.15)"/>
+    <text x="492" y="403" text-anchor="middle" font-family="sans-serif" font-size="17" font-weight="600" fill="white">📍 Ambérac (16)</text>
+
+    <!-- URL -->
+    <text x="0" y="500" font-family="sans-serif" font-size="22" fill="rgba(255,255,255,0.5)" letter-spacing="1">woofday.fr</text>
+  </g>
+
+  <!-- Right side paw big -->
+  <text x="750" y="480" font-size="380" opacity="0.12" fill="white" font-family="sans-serif">🐾</text>
+</svg>
