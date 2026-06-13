@@ -72,7 +72,7 @@ const waText = encodeURIComponent("Woof Day 2026 — Dimanche 13 sept à Ambéra
     <span style="font-family:var(--f-head);font-weight:700;font-size:18px;color:var(--truffe)">Woof Day</span>
   </a>
   <div class="nav-links" style="display:flex;align-items:center;gap:20px">
-    {[['#pourquoi','Le Woof Day'],['#zones','Programme'],['#exposants','Le Village'],['#infos','Infos pratiques']].map(([h,l]) => (
+    {[['#pourquoi','Le Woof Day'],['#zones','Programme'],['#exposants','Le Village'],['#infos','Infos pratiques'],['/blog','Blog']].map(([h,l]) => (
       <a href={h} style="font-family:var(--f-body);font-size:14px;font-weight:600;color:var(--truffe);text-decoration:none;opacity:.8;transition:opacity .2s" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity='.8'">{l}</a>
     ))}
   </div>
@@ -101,6 +101,7 @@ const waText = encodeURIComponent("Woof Day 2026 — Dimanche 13 sept à Ambéra
   <a href="#exposants-teaser" class="mobile-nav-link">🏪 Le Village</a>
   <a href="#infos" class="mobile-nav-link">📍 Infos pratiques</a>
   <a href="#faq" class="mobile-nav-link">💬 FAQ</a>
+  <a href="/blog" class="mobile-nav-link">✍️ Blog & Actus</a>
   <div class="mobile-nav-sep"></div>
   <a href="/exposants" class="mobile-nav-link" style="font-size:14px;opacity:.8">🏪 Devenir exposant</a>
   <a href="/sponsor" class="mobile-nav-link" style="font-size:14px;opacity:.8">🤝 Devenir sponsor</a>
@@ -611,6 +612,23 @@ const waText = encodeURIComponent("Woof Day 2026 — Dimanche 13 sept à Ambéra
           Vous passez une belle journée.<br/>Et en plus, vous aidez des animaux. 🐾
         </p>
       </div>
+
+      <!-- Fondé par Méline / Cynofeel -->
+      <div data-reveal data-delay="4" style="
+        display:flex;align-items:center;gap:14px;
+        border:1.5px solid rgba(105,50,45,.15);border-radius:var(--r-lg);
+        padding:16px 20px;background:rgba(105,50,45,.04);
+      ">
+        <div style="width:38px;height:38px;background:var(--truffe);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0">🐾</div>
+        <div>
+          <div style="font-family:var(--f-body);font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;opacity:.5;margin-bottom:2px">Une initiative</div>
+          <div style="font-family:var(--f-body);font-size:14px;line-height:1.4">
+            Fondé par <strong>Méline</strong> —
+            <a href="https://cyno-feel.fr" target="_blank" rel="noopener" style="color:var(--terre);font-weight:700;text-decoration:underline;text-underline-offset:3px">Cynofeel</a>,
+            cynologue comportementaliste en Charente
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -817,7 +835,8 @@ const waText = encodeURIComponent("Woof Day 2026 — Dimanche 13 sept à Ambéra
               ['#zones', 'Programme'],
               ['#exposants', 'Exposants & Sponsors'],
               ['#infos', 'Infos Pratiques'],
-              ['#faq', 'FAQ']
+              ['#faq', 'FAQ'],
+              ['/blog', 'Blog & Actus']
             ].map(([href, label]) => (
               <a href={href} style="font-family:var(--f-body);font-size:14px;color:rgba(255,255,255,.6);text-decoration:none;transition:color .2s" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.6)'">{label}</a>
             ))}
@@ -839,7 +858,10 @@ const waText = encodeURIComponent("Woof Day 2026 — Dimanche 13 sept à Ambéra
     </div>
 
     <div style="border-top:1px solid rgba(255,255,255,.1);padding-top:32px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px;font-family:var(--f-body);font-size:13px;opacity:.4">
-      <div>© 2026 Woof Day — 100% des bénéfices nets au Refuge de l'Angoumois</div>
+      <div>
+        © 2026 Woof Day — 100% des bénéfices nets au Refuge de l'Angoumois
+        · Fondé par <a href="https://cyno-feel.fr" target="_blank" rel="noopener" style="color:inherit;text-decoration:underline;text-underline-offset:3px">Méline · Cynofeel</a>
+      </div>
       <div style="display:flex;gap:24px">
         <a href="#" style="color:inherit;text-decoration:none">Confidentialité</a>
         <a href="#" style="color:inherit;text-decoration:none">CGV</a>

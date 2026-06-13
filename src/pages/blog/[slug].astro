@@ -1,0 +1,136 @@
+---
+import { getCollection, render } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+
+const { slug } = Astro.params;
+if (!slug) return Astro.redirect('/blog');
+
+const posts = await getCollection('blog', ({ data }) => !data.draft);
+const post = posts.find(p => p.id === slug || p.slug === slug);
+if (!post) return Astro.redirect('/blog');
+
+const { Content } = await render(post);
+
+function formatDate(d: Date) {
+  return d.toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
+}
+---
+<Layout title={`${post.data.title} — Blog Woof Day`} description={post.data.description}>
+  <nav id="nav" style="
+    position:fixed;top:16px;left:50%;translate:-50% 0;
+    z-index:100;width:min(calc(100% - 32px),1100px);
+    background:rgba(243,241,199,.92);backdrop-filter:blur(12px);
+    border:1.5px solid var(--creme-dark);border-radius:var(--r-pill);
+    padding:10px 20px;display:flex;align-items:center;justify-content:space-between;
+  ">
+    <a href="/" style="display:flex;align-items:center;gap:10px;text-decoration:none">
+      <img src="/logos/tete-chien.svg" alt="" style="height:32px;width:32px;object-fit:contain"/>
+      <span style="font-family:var(--f-head);font-weight:700;font-size:18px;color:var(--truffe)">Woof Day</span>
+    </a>
+    <a href="/blog" style="font-family:var(--f-body);font-size:14px;color:var(--truffe);text-decoration:none;opacity:.7">← Tous les articles</a>
+  </nav>
+
+  <!-- HEADER ARTICLE -->
+  <header style="
+    background:var(--truffe);color:#fff;
+    padding:clamp(120px,18vw,180px) clamp(20px,5vw,40px) clamp(48px,8vw,80px);
+    position:relative;overflow:hidden;
+  ">
+    <div style="position:absolute;inset:0;opacity:.04;font-size:200px;display:flex;align-items:center;justify-content:center;pointer-events:none">🐾</div>
+    <div style="max-width:760px;margin:0 auto;position:relative;z-index:1">
+      <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px">
+        {post.data.tags.map(tag => (
+          <span style="font-family:var(--f-body);font-size:11px;font-weight:600;background:rgba(255,255,255,.15);border-radius:var(--r-pill);padding:4px 14px;text-transform:uppercase;letter-spacing:.07em">{tag}</span>
+        ))}
+      </div>
+      <h1 style="font-family:var(--f-head);font-size:clamp(32px,5.5vw,58px);font-weight:700;line-height:1.1;margin-bottom:24px">{post.data.title}</h1>
+      <p style="font-family:var(--f-body);font-size:17px;line-height:1.65;opacity:.75;max-width:60ch;margin-bottom:28px">{post.data.description}</p>
+      <div style="display:flex;align-items:center;gap:12px">
+        <div style="width:36px;height:36px;background:var(--terre);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px">🐾</div>
+        <div>
+          <div style="font-family:var(--f-body);font-size:14px;font-weight:600">{post.data.author}</div>
+          <div style="font-family:var(--f-body);font-size:12px;opacity:.5">{formatDate(post.data.pubDate)}</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- CONTENU -->
+  <article style="background:var(--bg);padding:clamp(48px,8vw,80px) clamp(20px,5vw,40px)">
+    <div class="prose-woof" style="max-width:760px;margin:0 auto">
+      <Content />
+    </div>
+  </article>
+
+  <!-- RETOUR BLOG -->
+  <section style="background:var(--creme);padding:clamp(40px,6vw,64px) clamp(20px,5vw,40px);text-align:center">
+    <p style="font-family:var(--f-body);font-size:15px;opacity:.7;margin-bottom:16px">Vous avez aimé cet article ?</p>
+    <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap">
+      <a href="/blog" style="
+        font-family:var(--f-body);font-size:14px;font-weight:700;
+        color:var(--truffe);text-decoration:none;
+        background:#fff;border:2px solid var(--creme-dark);
+        border-radius:var(--r-pill);padding:12px 28px;
+        transition:border-color .2s;
+      " onmouseover="this.style.borderColor='var(--truffe)'" onmouseout="this.style.borderColor='var(--creme-dark)'">← Tous les articles</a>
+      <a href="/" style="
+        font-family:var(--f-body);font-size:14px;font-weight:700;
+        color:#fff;text-decoration:none;
+        background:var(--terre);
+        border-radius:var(--r-pill);padding:12px 28px;
+      ">Découvrir le Woof Day 🐾</a>
+    </div>
+  </section>
+
+  <!-- FOOTER MINI -->
+  <footer style="background:var(--truffe);color:#fff;padding:40px clamp(20px,5vw,40px);text-align:center">
+    <p style="font-family:var(--f-body);font-size:13px;opacity:.5">
+      © 2026 Woof Day — Fondé par <a href="https://cyno-feel.fr" target="_blank" rel="noopener" style="color:var(--creme);text-decoration:underline;text-underline-offset:3px">Méline · Cynofeel</a>
+    </p>
+  </footer>
+</Layout>
+
+<style is:global>
+  .prose-woof {
+    font-family: var(--f-body);
+    font-size: 17px;
+    line-height: 1.8;
+    color: var(--truffe);
+  }
+  .prose-woof h2 {
+    font-family: var(--f-head);
+    font-size: clamp(22px, 3vw, 30px);
+    font-weight: 700;
+    margin: 2.2em 0 .7em;
+    color: var(--truffe);
+  }
+  .prose-woof h3 {
+    font-family: var(--f-head);
+    font-size: clamp(18px, 2.5vw, 24px);
+    font-weight: 700;
+    margin: 1.8em 0 .5em;
+    color: var(--vert);
+  }
+  .prose-woof p { margin-bottom: 1.2em; opacity: .85; }
+  .prose-woof a { color: var(--terre); text-decoration: underline; text-underline-offset: 3px; }
+  .prose-woof strong { font-weight: 700; color: var(--truffe); opacity: 1; }
+  .prose-woof blockquote {
+    border-left: 4px solid var(--terre);
+    margin: 1.8em 0;
+    padding: .8em 1.4em;
+    background: var(--creme);
+    border-radius: 0 var(--r-md) var(--r-md) 0;
+    font-style: italic;
+    opacity: .9;
+  }
+  .prose-woof ul, .prose-woof ol {
+    padding-left: 1.4em;
+    margin-bottom: 1.2em;
+  }
+  .prose-woof li { margin-bottom: .4em; opacity: .85; }
+  .prose-woof hr {
+    border: none;
+    border-top: 1.5px solid var(--creme-dark);
+    margin: 2.4em 0;
+  }
+</style>

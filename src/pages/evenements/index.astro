@@ -1,0 +1,162 @@
+---
+// Page non linkée dans la navigation — infrastructure pour les petits événements Woof Day
+// (afterworks, ateliers, conférences, promenades, week-ends)
+// À activer et lier dans le nav quand le calendrier sera prêt.
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+
+const allEvents = (await getCollection('evenements'))
+  .sort((a, b) => a.data.date.getTime() - b.data.date.getTime());
+
+// N'afficher que les événements marqués visible:true en prod
+// Pour l'instant on les affiche tous (aucun n'est visible)
+const visibleEvents = allEvents.filter(e => e.data.visible);
+
+function formatDate(d: Date) {
+  return d.toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+}
+
+const typeLabels: Record<string, { label: string; emoji: string; color: string }> = {
+  'grand-evenement': { label: 'Grand événement', emoji: '🎉', color: 'var(--terre)' },
+  afterwork: { label: 'Afterwork canin', emoji: '🍻', color: 'var(--bleu)' },
+  atelier: { label: 'Atelier', emoji: '🔧', color: 'var(--vert)' },
+  conference: { label: 'Conférence', emoji: '🎙️', color: 'var(--truffe)' },
+  promenade: { label: 'Promenade', emoji: '🐾', color: 'var(--vert)' },
+};
+---
+<Layout
+  title="Événements — Woof Day"
+  description="Tous les événements Woof Day : grand rassemblement annuel, afterworks canins, ateliers, conférences et promenades en Charente."
+>
+  <nav id="nav" style="
+    position:fixed;top:16px;left:50%;translate:-50% 0;
+    z-index:100;width:min(calc(100% - 32px),1100px);
+    background:rgba(243,241,199,.92);backdrop-filter:blur(12px);
+    border:1.5px solid var(--creme-dark);border-radius:var(--r-pill);
+    padding:10px 20px;display:flex;align-items:center;justify-content:space-between;
+  ">
+    <a href="/" style="display:flex;align-items:center;gap:10px;text-decoration:none">
+      <img src="/logos/tete-chien.svg" alt="" style="height:32px;width:32px;object-fit:contain"/>
+      <span style="font-family:var(--f-head);font-weight:700;font-size:18px;color:var(--truffe)">Woof Day</span>
+    </a>
+    <a href="/" style="font-family:var(--f-body);font-size:14px;color:var(--truffe);text-decoration:none;opacity:.7">← Retour à l'accueil</a>
+  </nav>
+
+  <!-- HERO -->
+  <section style="
+    background:var(--vert);color:#fff;
+    padding:clamp(120px,18vw,180px) clamp(20px,5vw,40px) clamp(64px,10vw,100px);
+    text-align:center;position:relative;overflow:hidden;
+  ">
+    <div style="position:absolute;inset:0;opacity:.05;font-size:180px;display:flex;align-items:center;justify-content:center;pointer-events:none">🐾</div>
+    <div style="max-width:680px;margin:0 auto;position:relative;z-index:1">
+      <span style="
+        font-family:var(--f-hand);font-size:14px;
+        background:var(--terre);color:#fff;
+        border-radius:var(--r-pill);padding:6px 18px;display:inline-block;margin-bottom:20px;
+      ">Woof Day · Événements</span>
+      <h1 style="font-family:var(--f-head);font-size:clamp(42px,7vw,72px);font-weight:700;margin-bottom:20px;line-height:1.05">
+        Tous les événements
+      </h1>
+      <p style="font-family:var(--f-body);font-size:18px;line-height:1.7;opacity:.75;max-width:50ch;margin:0 auto">
+        Le grand rassemblement annuel, mais aussi des afterworks, ateliers, conférences et promenades tout au long de l'année en Charente.
+      </p>
+    </div>
+  </section>
+
+  <!-- TYPES D'ÉVÉNEMENTS -->
+  <section style="background:var(--creme);padding:clamp(48px,8vw,80px) clamp(20px,5vw,40px)">
+    <div style="max-width:900px;margin:0 auto">
+      <h2 style="font-family:var(--f-head);font-size:clamp(24px,4vw,36px);text-align:center;margin-bottom:12px;color:var(--truffe)">Nos formats</h2>
+      <p style="font-family:var(--f-body);font-size:15px;text-align:center;opacity:.65;margin-bottom:40px">
+        Le Woof Day ne se résume pas à un seul dimanche par an.
+      </p>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:16px">
+        {Object.entries(typeLabels).map(([, t]) => (
+          <div style={`
+            background:#fff;border-radius:var(--r-lg);padding:24px 16px;
+            text-align:center;border:2px solid var(--creme-dark);
+          `}>
+            <div style="font-size:32px;margin-bottom:10px">{t.emoji}</div>
+            <div style={`font-family:var(--f-body);font-size:13px;font-weight:700;color:${t.color}`}>{t.label}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- LISTE ÉVÉNEMENTS -->
+  <section style="background:var(--bg);padding:clamp(48px,8vw,80px) clamp(20px,5vw,40px)">
+    <div style="max-width:900px;margin:0 auto">
+      {visibleEvents.length === 0 ? (
+        <div style="text-align:center;padding:60px 20px">
+          <div style="font-size:64px;margin-bottom:20px">🐾</div>
+          <h2 style="font-family:var(--f-head);font-size:28px;color:var(--truffe);margin-bottom:12px">Bientôt disponible</h2>
+          <p style="font-family:var(--f-body);font-size:16px;opacity:.65;max-width:40ch;margin:0 auto">
+            Le calendrier des événements sera publié prochainement. Suivez-nous sur Instagram pour être les premiers informés.
+          </p>
+          <a href="https://instagram.com/woofday_charente" target="_blank" rel="noopener" style="
+            display:inline-block;margin-top:24px;
+            font-family:var(--f-body);font-size:14px;font-weight:700;
+            color:#fff;text-decoration:none;
+            background:var(--truffe);border-radius:var(--r-pill);padding:12px 28px;
+          ">Suivre @woofday_charente</a>
+        </div>
+      ) : (
+        <div style="display:grid;gap:24px">
+          {visibleEvents.map(event => {
+            const t = typeLabels[event.data.type];
+            return (
+              <article style="
+                background:#fff;border-radius:var(--r-lg);
+                border:1.5px solid var(--creme-dark);
+                padding:clamp(24px,4vw,36px);
+                display:grid;grid-template-columns:auto 1fr;gap:24px;align-items:start;
+                box-shadow:0 2px 12px rgba(105,50,45,.06);
+              ">
+                <div style={`
+                  width:56px;height:56px;background:${t.color};
+                  border-radius:var(--r-md);display:flex;align-items:center;justify-content:center;
+                  font-size:24px;flex-shrink:0;
+                `}>{t.emoji}</div>
+                <div>
+                  <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:8px">
+                    <span style={`font-family:var(--f-body);font-size:11px;font-weight:700;color:${t.color};text-transform:uppercase;letter-spacing:.07em`}>{t.label}</span>
+                    {event.data.prix && (
+                      <span style="font-family:var(--f-body);font-size:11px;background:var(--creme);border-radius:var(--r-pill);padding:2px 10px;color:var(--truffe)">{event.data.prix}</span>
+                    )}
+                  </div>
+                  <h3 style="font-family:var(--f-head);font-size:clamp(18px,2.5vw,24px);color:var(--truffe);margin-bottom:8px">{event.data.title}</h3>
+                  <p style="font-family:var(--f-body);font-size:14px;opacity:.7;margin-bottom:14px">{event.data.description}</p>
+                  <div style="display:flex;gap:16px;flex-wrap:wrap">
+                    <span style="font-family:var(--f-body);font-size:13px;opacity:.6">📅 {formatDate(event.data.date)}</span>
+                    <span style="font-family:var(--f-body);font-size:13px;opacity:.6">📍 {event.data.lieu}</span>
+                    {event.data.capacite && (
+                      <span style="font-family:var(--f-body);font-size:13px;opacity:.6">👥 {event.data.capacite} places max</span>
+                    )}
+                  </div>
+                  {event.data.inscriptionUrl && (
+                    <a href={event.data.inscriptionUrl} style="
+                      display:inline-block;margin-top:16px;
+                      font-family:var(--f-body);font-size:13px;font-weight:700;
+                      color:#fff;text-decoration:none;
+                      background:var(--terre);border-radius:var(--r-pill);padding:10px 22px;
+                    ">S'inscrire →</a>
+                  )}
+                </div>
+              </article>
+            );
+          })}
+        </div>
+      )}
+    </div>
+  </section>
+
+  <!-- FOOTER MINI -->
+  <footer style="background:var(--truffe);color:#fff;padding:40px clamp(20px,5vw,40px);text-align:center">
+    <p style="font-family:var(--f-body);font-size:13px;opacity:.5;margin-bottom:8px">
+      © 2026 Woof Day — Fondé par <a href="https://cyno-feel.fr" target="_blank" rel="noopener" style="color:var(--creme);text-decoration:underline;text-underline-offset:3px">Méline · Cynofeel</a>
+    </p>
+    <a href="/" style="font-family:var(--f-body);font-size:13px;color:var(--creme);opacity:.6;text-decoration:none">← Retour à l'accueil</a>
+  </footer>
+</Layout>
