@@ -56,9 +56,32 @@ const tagColors: Record<string, string> = {
     </div>
   </section>
 
-  <!-- ARTICLES -->
-  <section style="background:var(--bg);padding:clamp(64px,10vw,100px) clamp(20px,5vw,40px)">
+  <!-- INTRO ÉDITORIALE -->
+  <section style="background:var(--bg);padding:clamp(48px,7vw,80px) clamp(20px,5vw,40px) 0">
     <div style="max-width:960px;margin:0 auto">
+      <h2 style="font-family:var(--f-head);font-size:clamp(22px,3vw,32px);font-weight:700;color:var(--truffe);margin-bottom:24px;text-align:center">Ce qu'on explore ici</h2>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-bottom:12px">
+        {[
+          { icon: '🐾', titre: 'Vie avec son chien', desc: 'Activités, balades et sorties en Charente — mantrailing, stimulation, bien-être.' },
+          { icon: '📅', titre: 'Coulisses du Woof Day', desc: 'Préparation de l'événement, portraits d'exposants, retours des éditions précédentes.' },
+          { icon: '🗞️', titre: 'Le Woof Day dans la presse', desc: 'Revue de presse locale et nationale autour de la fête canine de Charente.' },
+        ].map(t => (
+          <div style="background:#fff;border:1.5px solid var(--creme-dark);border-radius:var(--r-lg);padding:20px 22px;display:flex;gap:14px;align-items:flex-start">
+            <div style="font-size:28px;flex-shrink:0;line-height:1">{t.icon}</div>
+            <div>
+              <div style="font-family:var(--f-head);font-size:16px;font-weight:700;color:var(--truffe);margin-bottom:4px">{t.titre}</div>
+              <p style="font-family:var(--f-body);font-size:13px;line-height:1.6;color:var(--truffe);opacity:.7;margin:0">{t.desc}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ARTICLES -->
+  <section style="background:var(--bg);padding:clamp(40px,6vw,72px) clamp(20px,5vw,40px)">
+    <div style="max-width:960px;margin:0 auto">
+      <h2 style="font-family:var(--f-head);font-size:clamp(20px,2.5vw,28px);font-weight:700;color:var(--truffe);margin-bottom:24px">Tous les articles</h2>
       {posts.length === 0 ? (
         <p style="text-align:center;font-family:var(--f-body);opacity:.5;font-size:16px">Aucun article pour l'instant. Revenez bientôt !</p>
       ) : (
@@ -130,6 +153,25 @@ const tagColors: Record<string, string> = {
           ))}
         </div>
       )}
+    </div>
+  </section>
+
+  <!-- CTA ÉVÉNEMENT -->
+  <section style="background:var(--truffe);padding:clamp(48px,7vw,80px) clamp(20px,5vw,40px)">
+    <div style="max-width:680px;margin:0 auto;text-align:center">
+      <span style="font-family:var(--f-hand);font-size:14px;background:var(--terre);color:#fff;border-radius:var(--r-pill);padding:6px 18px;display:inline-block;margin-bottom:20px">13 septembre 2026</span>
+      <h2 style="font-family:var(--f-head);font-size:clamp(28px,4vw,44px);font-weight:700;color:#fff;margin-bottom:14px;line-height:1.1">Vous venez au Woof Day ?</h2>
+      <p style="font-family:var(--f-body);font-size:16px;line-height:1.7;color:rgba(255,255,255,.75);margin-bottom:28px;max-width:46ch;margin-left:auto;margin-right:auto">
+        Ambérac, Charente — entrée gratuite, 50+ stands, animations, tombola. 100% des bénéfices au Refuge de l'Angoumois.
+      </p>
+      <div style="display:flex;flex-wrap:wrap;gap:12px;justify-content:center">
+        <a href="/" style="font-family:var(--f-body);font-size:15px;font-weight:700;color:var(--truffe);text-decoration:none;background:rgba(255,255,255,.95);border-radius:var(--r-pill);padding:14px 28px">
+          Voir le programme →
+        </a>
+        <a href="/exposants" style="font-family:var(--f-body);font-size:15px;font-weight:700;color:#fff;text-decoration:none;border:2px solid rgba(255,255,255,.4);border-radius:var(--r-pill);padding:14px 28px">
+          Devenir exposant 🏪
+        </a>
+      </div>
     </div>
   </section>
 
