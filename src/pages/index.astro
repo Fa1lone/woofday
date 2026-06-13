@@ -55,7 +55,58 @@ const faqs = [
 const waText = encodeURIComponent("Woof Day 2026 — Dimanche 13 sept à Ambérac ! Entrée gratuite 🐾 woofday.fr");
 ---
 
-<Layout>
+<Layout
+  title="Woof Day 2026 — Fête canine gratuite à Ambérac, Charente (13 sept.)"
+  description="Grande fête canine de Charente le 13 septembre 2026 à Ambérac. Entrée gratuite, 50+ exposants, animations, tombola. 100% des bénéfices au Refuge de l'Angoumois."
+  canonical="https://www.woofday.fr/"
+  schema={[
+    {
+      "@context": "https://schema.org",
+      "@type": "Event",
+      "name": "Woof Day 2026",
+      "description": "La grande fête canine de Charente — Entrée gratuite, 50+ exposants, animations, tombola. 100% des bénéfices reversés au Refuge de l'Angoumois.",
+      "startDate": "2026-09-13T10:00:00+02:00",
+      "endDate": "2026-09-13T18:00:00+02:00",
+      "eventStatus": "https://schema.org/EventScheduled",
+      "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+      "isAccessibleForFree": true,
+      "location": {
+        "@type": "Place",
+        "name": "Ambérac",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Ambérac",
+          "postalCode": "16140",
+          "addressCountry": "FR",
+          "addressRegion": "Charente"
+        }
+      },
+      "organizer": { "@type": "Organization", "name": "Woof Day", "url": "https://www.woofday.fr" },
+      "image": "https://www.woofday.fr/images/og-woofday.jpg",
+      "url": "https://www.woofday.fr/"
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "Woof Day",
+      "url": "https://www.woofday.fr",
+      "logo": "https://www.woofday.fr/logos/logo-couleur.svg",
+      "sameAs": ["https://www.instagram.com/woofday_charente"],
+      "contactPoint": { "@type": "ContactPoint", "contactType": "customer support", "areaServed": "FR" }
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        { "@type": "Question", "name": "Le Woof Day est-il payant ?", "acceptedAnswer": { "@type": "Answer", "text": "Non, l'entrée est totalement gratuite." } },
+        { "@type": "Question", "name": "Puis-je venir avec mon chien ?", "acceptedAnswer": { "@type": "Answer", "text": "Oui, les chiens sont les bienvenus, tenus en laisse." } },
+        { "@type": "Question", "name": "Où a lieu le Woof Day ?", "acceptedAnswer": { "@type": "Answer", "text": "À Ambérac, près d'Angoulême, en Charente (16)." } },
+        { "@type": "Question", "name": "Quand a lieu le Woof Day ?", "acceptedAnswer": { "@type": "Answer", "text": "Le dimanche 13 septembre 2026, de 10h à 18h." } },
+        { "@type": "Question", "name": "Le Woof Day soutient-il une cause ?", "acceptedAnswer": { "@type": "Answer", "text": "Oui. 100% des bénéfices nets reversés au Refuge de l'Angoumois." } }
+      ]
+    }
+  ]}
+>
 <div id="pbar" style="width:0%"></div>
 
 <!-- ═══════════════════════════════════════════════════ NAV ══ -->
@@ -865,7 +916,7 @@ const waText = encodeURIComponent("Woof Day 2026 — Dimanche 13 sept à Ambéra
       <div style="display:flex;gap:24px">
         <a href="#" style="color:inherit;text-decoration:none">Confidentialité</a>
         <a href="#" style="color:inherit;text-decoration:none">CGV</a>
-        <a href="/dashboard" style="color:inherit;text-decoration:none">Admin ↗</a>
+        <a href="/dashboard/login" style="color:inherit;text-decoration:none">Admin ↗</a>
       </div>
     </div>
   </div>
