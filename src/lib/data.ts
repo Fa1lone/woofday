@@ -407,3 +407,95 @@ export async function addContact(data: Omit<Contact, 'id' | 'createdAt'>): Promi
   `;
   return mapContact(rows[0] as Record<string, unknown>);
 }
+
+// ── Ateliers & petits événements ──────────────────────────────────────────────
+
+export type Atelier = {
+  id: string;
+  titre: string;
+  description?: string;
+  type: 'atelier' | 'conference' | 'afterwork' | 'promenade' | 'autre';
+  date?: string;
+  heure?: string;
+  lieu?: string;
+  duree?: string;
+  animateur?: string;
+  capacite?: number;
+  prix?: string;
+  visible: boolean;
+  inscriptionOuverte: boolean;
+  inscriptionUrl?: string;
+  notes?: string;
+  displayOrder: number;
+  createdAt?: string;
+};
+
+function mapAtelier(r: Record<string, unknown>): Atelier {
+  return {
+    id: r.id as string,
+    titre: r.titre as string,
+    description: r.description as string | undefined,
+    type: r.type as Atelier['type'],
+    date: r.date ? (r.date as Date).toISOString().slice(0, 10) : undefined,
+    heure: r.heure as string | undefined,
+    lieu: r.lieu as string | undefined,
+    duree: r.duree as string | undefined,
+    animateur: r.animateur as string | undefined,
+    capacite: r.capacite as number | undefined,
+    prix: r.prix as string | undefined,
+    visible: Boolean(r.visible),
+    inscriptionOuverte: Boolean(r.inscription_ouverte),
+    inscriptionUrl: r.inscription_url as string | undefined,
+    notes: r.notes as string | undefined,
+    displayOrder: (r.display_order as number) ?? 0,
+    createdAt: r.created_at ? (r.created_at as Date).toISOString() : undefined,
+  };
+}
+
+export async function getAteliers(opts?: { onlyVisible?: boolean }): Promise<Atelier[]> {
+  const rows = opts?.onlyVisible
+    ? await sql`SELECT * FROM ateliers WHERE visible = true ORDER BY date ASC, display_order ASC`
+    : await sql`SELECT * FROM ateliers ORDER BY display_order ASC, created_at DESC`;
+  return rows.map(r => mapAtelier(r as Record<string, unknown>));
+}
+
+export async function addAtelier(data: Omit<Atelier, 'id' | 'createdAt'>): Promise<Atelier> {
+  const rows = await sql`
+    INSERT INTO ateliers
+      (titre, description, type, date, heure, lieu, duree, animateur, capacite,
+       prix, visible, inscription_ouverte, inscription_url, notes, display_order)
+    VALUES
+      (${data.titre}, ${data.description ?? null}, ${data.type},
+       ${data.date ?? null}, ${data.heure ?? null}, ${data.lieu ?? null},
+       ${data.duree ?? null}, ${data.animateur ?? null}, ${data.capacite ?? null},
+       ${data.prix ?? null}, ${data.visible}, ${data.inscriptionOuverte},
+       ${data.inscriptionUrl ?? null}, ${data.notes ?? null}, ${data.displayOrder})
+    RETURNING *
+  `;
+  return mapAtelier(rows[0] as Record<string, unknown>);
+}
+
+export async function updateAtelier(id: string, data: Partial<Atelier>): Promise<void> {
+  const mapping: Record<string, string> = {
+    titre: 'titre', description: 'description', type: 'type',
+    date: 'date', heure: 'heure', lieu: 'lieu', duree: 'duree',
+    animateur: 'animateur', capacite: 'capacite', prix: 'prix',
+    visible: 'visible', inscriptionOuverte: 'inscription_ouverte',
+    inscriptionUrl: 'inscription_url', notes: 'notes', displayOrder: 'display_order',
+  };
+  const fields: string[] = [];
+  const values: unknown[] = [];
+  for (const [key, col] of Object.entries(mapping)) {
+    if (key in data && (data as Record<string, unknown>)[key] !== undefined) {
+      fields.push(col);
+      values.push((data as Record<string, unknown>)[key]);
+    }
+  }
+  if (fields.length === 0) return;
+  const setClauses = fields.map((f, i) => `${f} = $${i + 1}`).join(', ');
+  await sql(`UPDATE ateliers SET ${setClauses}, updated_at = NOW() WHERE id = $${fields.length + 1}`, [...values, id]);
+}
+
+export async function deleteAtelier(id: string): Promise<void> {
+  await sql`DELETE FROM ateliers WHERE id = ${id}`;
+}

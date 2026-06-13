@@ -1,0 +1,50 @@
+---
+import DashboardLayout from '../../layouts/DashboardLayout.astro';
+import { AteliersTable } from '../../components/dashboard/AteliersTable';
+import { getAteliers } from '../../lib/data';
+
+const ateliers = await getAteliers();
+const visibles = ateliers.filter(a => a.visible);
+const avecDate = ateliers.filter(a => a.date);
+const typeCount: Record<string, number> = {};
+for (const a of ateliers) { typeCount[a.type] = (typeCount[a.type] ?? 0) + 1; }
+const typeLabels: Record<string, string> = { atelier: '🔧 Ateliers', conference: '🎙️ Conférences', afterwork: '🍻 Afterworks', promenade: '🐾 Promenades', autre: '📌 Autres' };
+---
+
+<DashboardLayout title="Ateliers & Événements" activeTab="ateliers">
+  <!-- Stats -->
+  <div style="background:white;border-radius:20px;padding:24px;border:1.5px solid #e8e5a8;margin-bottom:24px">
+    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px">
+      <div>
+        <h2 style="font-family:'Fredoka',sans-serif;margin:0;font-size:20px">Ateliers & Petits événements</h2>
+        <p style="font-size:13px;opacity:.6;margin:4px 0 0">Non visibles sur le site jusqu'à activation. Afterworks, ateliers, conférences, promenades...</p>
+      </div>
+      <div style="display:flex;gap:20px;flex-wrap:wrap">
+        <div style="text-align:center">
+          <div style="font-family:'Fredoka',sans-serif;font-size:28px;font-weight:700;color:#69322d">{ateliers.length}</div>
+          <div style="font-size:11px;opacity:.6">Total</div>
+        </div>
+        <div style="text-align:center">
+          <div style="font-family:'Fredoka',sans-serif;font-size:28px;font-weight:700;color:#26422b">{visibles.length}</div>
+          <div style="font-size:11px;opacity:.6">Visibles</div>
+        </div>
+        <div style="text-align:center">
+          <div style="font-family:'Fredoka',sans-serif;font-size:28px;font-weight:700;color:#91acda">{avecDate.length}</div>
+          <div style="font-size:11px;opacity:.6">Datés</div>
+        </div>
+      </div>
+    </div>
+
+    {ateliers.length > 0 && (
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:16px;padding-top:16px;border-top:1px solid #e8e5a8">
+        {Object.entries(typeCount).map(([type, count]) => (
+          <span style="font-size:12px;background:#f8f5f0;border:1.5px solid #e8e5a8;border-radius:8px;padding:4px 12px;color:#69322d">
+            {typeLabels[type] ?? type} · {count}
+          </span>
+        ))}
+      </div>
+    )}
+  </div>
+
+  <AteliersTable initialData={ateliers} client:load />
+</DashboardLayout>
