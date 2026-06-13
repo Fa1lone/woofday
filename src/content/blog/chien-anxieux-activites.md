@@ -7,6 +7,15 @@ tags: ["chien anxieux", "mentrailing", "bien-être chien", "stimulation mentale"
 image: "https://images.unsplash.com/photo-1599061171767-823c9fad6bf3?w=1200&q=80&auto=format&fit=crop"
 imageCredit: "Photo par Dominik Kempf sur Unsplash"
 draft: false
+faq:
+  - q: "Mon chien est anxieux depuis sa naissance — peut-on vraiment l'aider ?"
+    a: "Oui. L'anxiété liée au caractère peut être significativement réduite avec les bonnes activités et un suivi comportemental. L'objectif n'est pas un chien parfait mais un chien qui gère mieux les situations anxiogènes."
+  - q: "Le mentrailing est-il adapté à un chien qui panique en forêt ?"
+    a: "Oui, avec une progression adaptée. Méline commence les sessions pour les chiens anxieux dans des environnements peu stimulants (champ ouvert, parc calme) avant de passer à des contextes plus complexes."
+  - q: "Les calmants vétérinaires sont-ils une solution pour un chien anxieux ?"
+    a: "Parfois, en complément d'un travail comportemental. Les anxiolytiques peuvent réduire l'intensité de l'anxiété pour rendre le chien accessible aux apprentissages, mais ne traitent pas la cause. Le travail comportemental reste indispensable."
+  - q: "Combien de temps avant de voir des résultats avec le mentrailing pour un chien anxieux ?"
+    a: "Beaucoup de maîtres constatent des changements dès les 2-3 premières semaines. Un changement profond et durable demande 2 à 6 mois de pratique régulière."
 ---
 
 ## Réponse courte

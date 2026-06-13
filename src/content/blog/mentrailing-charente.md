@@ -7,6 +7,17 @@ tags: ["mentrailing", "Charente", "Cynofeel", "activité canine", "Angoulême"]
 image: "https://images.unsplash.com/photo-1736079863594-f381babdeb72?w=1200&q=80&auto=format&fit=crop"
 imageCredit: "Photo par Siarhei Valchok sur Unsplash"
 draft: false
+faq:
+  - q: "Le mentrailing est-il dangereux pour mon chien ?"
+    a: "Non. C'est une activité naturelle qui respecte la physiologie du chien. Il suit une odeur humaine sans contact avec des animaux sauvages. Méline adapte toujours la difficulté au tempérament de chaque chien."
+  - q: "Combien coûte une initiation au mentrailing en Charente ?"
+    a: "Les tarifs varient selon le format (individuel, groupe, stage). Consultez cyno-feel.fr pour les informations tarifaires à jour."
+  - q: "Mon chien sans formation peut-il faire du mentrailing ?"
+    a: "Oui. Le mentrailing part du comportement naturel du chien (renifler), pas d'obéissance apprise. Un chien sans formation peut commencer une initiation et apprendre progressivement à son rythme."
+  - q: "Quelle est la différence entre mentrailing et pistage classique ?"
+    a: "Le pistage suit les traces physiques au sol. Le mentrailing suit exclusivement l'odeur corporelle individuelle d'une personne dans l'air — plus sélectif et proche du travail des chiens de recherche."
+  - q: "Où se déroulent les sessions de mentrailing Cynofeel en Charente ?"
+    a: "Méline organise ses sessions dans différents environnements naturels de la Charente : forêts, villages, espaces ouverts. Les lieux exacts sont communiqués à l'inscription sur cyno-feel.fr."
 ---
 
 ## Réponse courte

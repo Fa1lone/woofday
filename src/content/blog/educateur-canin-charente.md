@@ -7,6 +7,15 @@ tags: ["éducation canine", "Charente", "Cynofeel", "comportementaliste", "éduc
 image: "https://images.unsplash.com/photo-1542583376-98032b93ca89?w=1200&q=80&auto=format&fit=crop"
 imageCredit: "Photo par Humphrey M sur Unsplash"
 draft: false
+faq:
+  - q: "Un éducateur canin peut-il venir à domicile en Charente ?"
+    a: "Oui. Méline de Cynofeel propose des interventions à domicile sur Angoulême et l'ensemble de la Charente. Le travail à domicile est souvent plus efficace pour les problèmes d'anxiété de séparation ou de comportement territorial."
+  - q: "Combien coûte un comportementaliste canin en Charente ?"
+    a: "Les tarifs varient selon la durée et le format (bilan initial, séances de suivi, stage). Pour les tarifs exacts de Cynofeel, consultez directement cyno-feel.fr."
+  - q: "Comment vérifier les diplômes d'un éducateur canin en France ?"
+    a: "Demandez à voir l'ACACED (attestation légale obligatoire depuis 2012) et tout diplôme complémentaire (BEPA Activités Cynophiles, BTS, certifications CNEAC). Un professionnel sérieux accepte de les présenter sans hésitation."
+  - q: "Mon vétérinaire peut-il m'orienter vers un comportementaliste canin ?"
+    a: "Oui — c'est souvent le meilleur point d'entrée. Votre vétérinaire peut d'abord exclure une cause médicale aux troubles comportementaux, puis vous orienter vers un comportementaliste de confiance en Charente."
 ---
 
 ## Réponse courte

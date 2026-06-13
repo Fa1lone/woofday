@@ -2,10 +2,12 @@
 interface Props {
   title?: string;
   description?: string;
+  schema?: object | object[];
 }
 const {
   title = 'Woof Day — La grande fête canine de Charente',
   description = 'Dimanche 13 septembre 2026 à Ambérac. Entrée gratuite, 50+ exposants, animations, tombola. Au profit du Refuge de l\'Angoumois.',
+  schema,
 } = Astro.props;
 ---
 
@@ -23,6 +25,9 @@ const {
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Kalam:wght@400;700&family=Poppins:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet" />
+    {schema && (
+      <script type="application/ld+json" set:html={JSON.stringify(Array.isArray(schema) ? schema : [schema])} />
+    )}
   </head>
   <body>
     <div id="toast"></div>

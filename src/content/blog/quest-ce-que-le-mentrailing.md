@@ -7,6 +7,15 @@ tags: ["mentrailing", "pistage", "sport canin", "Cynofeel", "activité olfactive
 image: "https://images.unsplash.com/photo-1762339107552-0d41631ea501?w=1200&q=80&auto=format&fit=crop"
 imageCredit: "Photo par Tanya Barrow sur Unsplash"
 draft: false
+faq:
+  - q: "Peut-on faire du mentrailing avec un chien de race quelconque ?"
+    a: "Oui. Tous les chiens ont un odorat suffisamment développé pour le mentrailing. Ce qui compte, c'est la motivation de l'animal, pas sa morphologie. Un Chihuahua peut exceller en mentrailing."
+  - q: "À quel âge peut-on commencer le mentrailing ?"
+    a: "À partir de 6 mois pour une initiation légère. Les premières pistes sont courtes (100 mètres). Le travail olfactif ne sollicite pas les articulations, donc un chien âgé ou convalescent peut aussi pratiquer."
+  - q: "Mon chien tire en laisse — peut-il faire du mentrailing ?"
+    a: "Oui, et le mentrailing peut même aider. Quand le chien travaille, il est focalisé sur la piste et tire différemment — de manière purposive. Certains maîtres constatent une amélioration du comportement en laisse après quelques sessions."
+  - q: "Le mentrailing remplace-t-il les promenades ?"
+    a: "Non, il les complète. Le mentrailing fournit une stimulation mentale que la promenade ordinaire n'apporte pas. Un programme idéal allie les deux : promenades pour la dépense physique, mentrailing pour la stimulation cognitive."
 ---
 
 ## Réponse courte

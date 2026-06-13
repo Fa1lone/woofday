@@ -7,6 +7,15 @@ tags: ["activité chien", "Charente", "sortie chien", "Angoulême", "mentrailing
 image: "https://images.unsplash.com/photo-1623860752905-acc4fb6cc27c?w=1200&q=80&auto=format&fit=crop"
 imageCredit: "Photo par Ben Collins sur Unsplash"
 draft: false
+faq:
+  - q: "Où peut-on se promener avec son chien librement en Charente ?"
+    a: "Les forêts domaniales (Braconne, forêt des Ecures) autorisent les chiens sur les chemins forestiers. Les bords de Charente sont accessibles dans la plupart des communes. En ville, le chien doit rester en laisse sur la voie publique."
+  - q: "Y a-t-il des parcs dog-friendly à Angoulême ?"
+    a: "Les grands espaces verts d'Angoulême autorisent les chiens en laisse. Le skate park de la Charmille dispose d'un espace pelouse fréquenté par les promeneurs et leurs chiens. Vérifiez la signalétique locale."
+  - q: "Que faire avec un chien qui ne supporte pas les autres chiens en Charente ?"
+    a: "Le mentrailing est l'activité idéale : les sessions se font en petit groupe de 4 chiens maximum avec des espaces suffisants. La concentration du chien sur la piste réduit considérablement sa réactivité envers les congénères."
+  - q: "Le Woof Day est-il adapté aux chiens réactifs ?"
+    a: "Oui, avec précautions. L'équipe recommande d'arriver tôt (moins de monde), de tenir le chien en laisse courte, et d'identifier des zones de repos calmes. Méline de Cynofeel sera présente pour conseiller les maîtres de chiens réactifs."
 ---
 
 ## Réponse courte
