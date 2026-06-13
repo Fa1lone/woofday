@@ -4,7 +4,8 @@ description: "Vous cherchez quoi faire avec votre chien en Charente ? Mentrailin
 pubDate: 2026-06-16
 author: "Équipe Woof Day"
 tags: ["activité chien", "Charente", "sortie chien", "Angoulême", "mentrailing", "Woof Day"]
-image: "dog running field charente countryside"
+image: "https://images.unsplash.com/photo-1623860752905-acc4fb6cc27c?w=1200&q=80&auto=format&fit=crop"
+imageCredit: "Photo par Ben Collins sur Unsplash"
 draft: false
 ---
 

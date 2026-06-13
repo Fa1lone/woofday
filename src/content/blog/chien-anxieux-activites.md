@@ -4,7 +4,8 @@ description: "Votre chien est anxieux, stressé ou hyperactif ? Découvrez 7 act
 pubDate: 2026-06-16
 author: "Méline — Cynofeel"
 tags: ["chien anxieux", "mentrailing", "bien-être chien", "stimulation mentale", "Cynofeel"]
-image: "calm dog nature owner relaxed"
+image: "https://images.unsplash.com/photo-1599061171767-823c9fad6bf3?w=1200&q=80&auto=format&fit=crop"
+imageCredit: "Photo par Dominik Kempf sur Unsplash"
 draft: false
 ---
 

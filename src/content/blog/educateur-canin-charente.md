@@ -4,7 +4,8 @@ description: "Comment choisir un bon éducateur canin ou comportementaliste en C
 pubDate: 2026-06-16
 author: "Méline — Cynofeel"
 tags: ["éducation canine", "Charente", "Cynofeel", "comportementaliste", "éducateur canin"]
-image: "dog trainer outdoor positive reinforcement"
+image: "https://images.unsplash.com/photo-1542583376-98032b93ca89?w=1200&q=80&auto=format&fit=crop"
+imageCredit: "Photo par Humphrey M sur Unsplash"
 draft: false
 ---
 

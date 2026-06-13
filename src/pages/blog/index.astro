@@ -57,49 +57,73 @@ const tagColors: Record<string, string> = {
 
   <!-- ARTICLES -->
   <section style="background:var(--bg);padding:clamp(64px,10vw,100px) clamp(20px,5vw,40px)">
-    <div style="max-width:900px;margin:0 auto">
+    <div style="max-width:960px;margin:0 auto">
       {posts.length === 0 ? (
         <p style="text-align:center;font-family:var(--f-body);opacity:.5;font-size:16px">Aucun article pour l'instant. Revenez bientôt !</p>
       ) : (
-        <div style="display:grid;gap:clamp(24px,4vw,40px)">
+        <div style="display:grid;gap:clamp(20px,3vw,32px)">
           {posts.map((post, i) => (
-            <article style={`
+            <article style="
               background:#fff;border-radius:var(--r-lg);
               border:1.5px solid var(--creme-dark);
-              padding:clamp(28px,4vw,40px);
-              display:grid;grid-template-columns:${i === 0 ? '1fr' : '1fr'};
-              transition:box-shadow .2s,transform .2s;
-              box-shadow:0 2px 12px rgba(105,50,45,.06);
-            `}
-              onmouseover="this.style.boxShadow='0 8px 32px rgba(105,50,45,.12)';this.style.transform='translateY(-2px)'"
-              onmouseout="this.style.boxShadow='0 2px 12px rgba(105,50,45,.06)';this.style.transform=''"
+              overflow:hidden;
+              display:grid;
+              grid-template-columns: 280px 1fr;
+              transition:box-shadow .25s,transform .25s;
+              box-shadow:0 2px 14px rgba(105,50,45,.06);
+            "
+              onmouseover="this.style.boxShadow='0 10px 36px rgba(105,50,45,.13)';this.style.transform='translateY(-3px)'"
+              onmouseout="this.style.boxShadow='0 2px 14px rgba(105,50,45,.06)';this.style.transform=''"
             >
-              <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px">
-                {post.data.tags.map(tag => (
-                  <span style={`
-                    font-family:var(--f-body);font-size:11px;font-weight:600;
-                    background:${tagColors[tag] ?? 'var(--bleu)'};color:#fff;
-                    border-radius:var(--r-pill);padding:3px 12px;text-transform:uppercase;letter-spacing:.06em;
-                  `}>{tag}</span>
-                ))}
-              </div>
-              <h2 style="font-family:var(--f-head);font-size:clamp(22px,3vw,30px);margin-bottom:12px;line-height:1.2;color:var(--truffe)">
-                <a href={`/blog/${post.id}`} style="text-decoration:none;color:inherit">{post.data.title}</a>
-              </h2>
-              <p style="font-family:var(--f-body);font-size:15px;line-height:1.7;opacity:.7;margin-bottom:20px;max-width:70ch">{post.data.description}</p>
-              <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px">
-                <div style="display:flex;align-items:center;gap:12px">
-                  <div style="width:32px;height:32px;background:var(--terre);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px">🐾</div>
-                  <div>
-                    <div style="font-family:var(--f-body);font-size:13px;font-weight:600;color:var(--truffe)">{post.data.author}</div>
-                    <div style="font-family:var(--f-body);font-size:12px;opacity:.5">{formatDate(post.data.pubDate)}</div>
+              <!-- Image -->
+              <a href={`/blog/${post.id}`} style="display:block;overflow:hidden;aspect-ratio:4/3;background:var(--creme)">
+                {post.data.image ? (
+                  <img
+                    src={`${post.data.image.replace('w=1200','w=560')}`}
+                    alt={post.data.title}
+                    loading={i < 2 ? 'eager' : 'lazy'}
+                    style="width:100%;height:100%;object-fit:cover;transition:transform .4s ease"
+                    onmouseover="this.style.transform='scale(1.04)'"
+                    onmouseout="this.style.transform='scale(1)'"
+                  />
+                ) : (
+                  <div style="width:100%;height:100%;min-height:200px;display:flex;align-items:center;justify-content:center;font-size:64px;background:var(--creme)">🐾</div>
+                )}
+              </a>
+
+              <!-- Contenu -->
+              <div style="padding:clamp(20px,3vw,32px);display:flex;flex-direction:column;justify-content:space-between;gap:14px">
+                <div>
+                  <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px">
+                    {post.data.tags.slice(0,3).map(tag => (
+                      <span style={`
+                        font-family:var(--f-body);font-size:10px;font-weight:700;
+                        background:${tagColors[tag] ?? 'var(--bleu)'};color:#fff;
+                        border-radius:var(--r-pill);padding:3px 10px;
+                        text-transform:uppercase;letter-spacing:.07em;
+                      `}>{tag}</span>
+                    ))}
                   </div>
+                  <h2 style="font-family:var(--f-head);font-size:clamp(18px,2.2vw,24px);margin-bottom:10px;line-height:1.2;color:var(--truffe)">
+                    <a href={`/blog/${post.id}`} style="text-decoration:none;color:inherit">{post.data.title}</a>
+                  </h2>
+                  <p style="font-family:var(--f-body);font-size:14px;line-height:1.7;opacity:.65;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden">{post.data.description}</p>
                 </div>
-                <a href={`/blog/${post.id}`} style="
-                  font-family:var(--f-body);font-size:13px;font-weight:700;
-                  color:var(--terre);text-decoration:none;
-                  display:flex;align-items:center;gap:6px;
-                ">Lire l'article <span>→</span></a>
+                <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px">
+                  <div style="display:flex;align-items:center;gap:9px">
+                    <div style="width:28px;height:28px;background:var(--terre);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0">🐾</div>
+                    <div>
+                      <div style="font-family:var(--f-body);font-size:12px;font-weight:600;color:var(--truffe)">{post.data.author}</div>
+                      <div style="font-family:var(--f-body);font-size:11px;opacity:.45">{formatDate(post.data.pubDate)}</div>
+                    </div>
+                  </div>
+                  <a href={`/blog/${post.id}`} style="
+                    font-family:var(--f-body);font-size:12px;font-weight:700;
+                    color:#fff;text-decoration:none;
+                    background:var(--terre);border-radius:var(--r-pill);
+                    padding:7px 16px;white-space:nowrap;
+                  ">Lire →</a>
+                </div>
               </div>
             </article>
           ))}
@@ -107,6 +131,17 @@ const tagColors: Record<string, string> = {
       )}
     </div>
   </section>
+
+  <style is:global>
+    @media (max-width: 640px) {
+      article[style*="grid-template-columns: 280px"] {
+        grid-template-columns: 1fr !important;
+      }
+      article[style*="grid-template-columns: 280px"] a[style*="aspect-ratio"] {
+        aspect-ratio: 16/9 !important;
+      }
+    }
+  </style>
 
   <!-- FOOTER MINI -->
   <footer style="background:var(--truffe);color:#fff;padding:40px clamp(20px,5vw,40px);text-align:center">

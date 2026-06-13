@@ -4,6 +4,8 @@ description: "Derrière le Woof Day se cache une histoire simple : une cynologue
 pubDate: 2026-06-10
 author: Méline — Cynofeel
 tags: ["origines", "Cynofeel", "Méline", "Refuge de l'Angoumois"]
+image: "https://images.unsplash.com/photo-1726245219415-3a28ada27252?w=1200&q=80&auto=format&fit=crop"
+imageCredit: "Photo par Haydon sur Unsplash"
 ---
 
 ## Une idée née sur le terrain

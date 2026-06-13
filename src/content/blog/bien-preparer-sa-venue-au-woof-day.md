@@ -4,6 +4,8 @@ description: "Parking, accès avec chien, restauration, programme des animations
 pubDate: 2026-06-13
 author: Équipe Woof Day
 tags: ["pratique", "visite", "chien", "Ambérac", "programme"]
+image: "https://images.unsplash.com/photo-1770793426126-5b97fbc872f5?w=1200&q=80&auto=format&fit=crop"
+imageCredit: "Photo par Alvan Nee sur Unsplash"
 ---
 
 ## 1. Votre chien est le bienvenu — en laisse

@@ -4,7 +4,8 @@ description: "Le mentrailing est une activité olfactive où votre chien suit la
 pubDate: 2026-06-16
 author: "Méline — Cynofeel"
 tags: ["mentrailing", "pistage", "sport canin", "Cynofeel", "activité olfactive"]
-image: "dog sniffing ground trail nature"
+image: "https://images.unsplash.com/photo-1762339107552-0d41631ea501?w=1200&q=80&auto=format&fit=crop"
+imageCredit: "Photo par Tanya Barrow sur Unsplash"
 draft: false
 ---
 

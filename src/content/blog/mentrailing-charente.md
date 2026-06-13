@@ -4,7 +4,8 @@ description: "Vous cherchez où pratiquer le mentrailing en Charente ? Découvre
 pubDate: 2026-06-16
 author: "Méline — Cynofeel"
 tags: ["mentrailing", "Charente", "Cynofeel", "activité canine", "Angoulême"]
-image: "dog nose tracking field"
+image: "https://images.unsplash.com/photo-1736079863594-f381babdeb72?w=1200&q=80&auto=format&fit=crop"
+imageCredit: "Photo par Siarhei Valchok sur Unsplash"
 draft: false
 ---
 
