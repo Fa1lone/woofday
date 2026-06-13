@@ -79,9 +79,9 @@ Cluster Refuge :
 - [x] Écrire les meta descriptions manquantes *(toutes les pages ont maintenant une meta)*
 - [x] Retravailler les meta descriptions sur les pages clés (/, /exposants, /sponsor, /blog)
 - [x] Retravailler les titles sur les pages clés (50–60 car. avec mot-clé)
-- [ ] Enrichir `/blog` : 412 mots seulement, H2 insuffisants *(contenu éditorial à écrire)*
-- [ ] Différencier les structures `/exposants` et `/sponsor` *(refonte contenu)*
-- [ ] Ajouter des H2 sur les 2 pages qui en sont dépourvues
+- [x] Enrichir `/blog` : section "Ce qu'on explore ici" + H2 "Tous les articles" + CTA événement *(blog/index.astro)*
+- [x] Différencier les structures `/exposants` et `/sponsor` : bandeau comparatif H2 croisé sur chaque page
+- [x] Ajouter des H2 sur les 2 pages qui en sont dépourvues *(blog + section articles)*
 - [ ] Remplacer les photos Unsplash par des photos originales de l'événement
 
 ### Données structurées (Schema.org)
@@ -104,8 +104,8 @@ Cluster Refuge :
 ### Maillage interne & Conversion
 - [x] Corriger le lien interne `/dashboard` → `/dashboard/login`
 - [ ] Mailler `/dashboard/login` avec d'autres pages *(noindex ajouté — moins prioritaire)*
-- [ ] Ajouter des CTA visibles (0 CTA de conversion détecté sur le site)
-- [ ] Ajouter un lien Google Maps / itinéraire vers Ambérac *(déjà une iframe Maps en section infos — vérifier si un lien texte suffit)*
+- [x] Ajouter des CTA visibles *(blog : CTA "Voir le programme" + "Devenir exposant" en bas de page)*
+- [x] Ajouter un lien Google Maps / itinéraire vers Ambérac *(lien texte "Obtenir l'itinéraire →" sur la carte)*
 - [ ] Ajouter un lien vers la fiche Google Business Profile
 
 ### E-E-A-T & Entité de marque
